@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, Generic, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from ..asset import Asset
 from ..enums import Locale
@@ -42,8 +42,6 @@ __all__ = (
     'Buddy',
     'BuddyLevel',
 )
-
-BuddyT = TypeVar('BuddyT', bound='Buddy')
 
 
 class Buddy(BaseModel):
@@ -109,8 +107,8 @@ class Buddy(BaseModel):
         return self
 
 
-class BuddyLevel(BaseModel, Generic[BuddyT]):
-    def __init__(self, *, state: CacheState, data: BuddyLevelPayload, parent: BuddyT) -> None:
+class BuddyLevel(BaseModel):
+    def __init__(self, *, state: CacheState, data: BuddyLevelPayload, parent: Buddy) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._data: BuddyLevelPayload = data
@@ -118,7 +116,7 @@ class BuddyLevel(BaseModel, Generic[BuddyT]):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
-        self.parent: BuddyT = parent
+        self.parent: Buddy = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
     def __str__(self) -> str:
