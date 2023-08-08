@@ -109,7 +109,6 @@ class CacheState:
         # -
         self._agents: Dict[str, Agent] = {}
         self._buddies: Dict[str, Buddy] = {}
-        self._buddy_levels: Dict[str, BuddyLevel] = {}
         self._bundles: Dict[str, Bundle] = {}
         self._ceremonies: Dict[str, Ceremony] = {}
         self._competitive_tiers: Dict[str, CompetitiveTier] = {}
@@ -128,13 +127,9 @@ class CacheState:
         self._seasons: Dict[str, Season] = {}
         self._competitive_seasons: Dict[str, CompetitiveSeason] = {}
         self._sprays: Dict[str, Spray] = {}
-        self._spray_levels: Dict[str, SprayLevel] = {}
         self._themes: Dict[str, Theme] = {}
         self._version: Version = MISSING
         self._weapons: Dict[str, Weapon] = {}
-        self._skins: Dict[str, Skin] = {}
-        self._skin_chromas: Dict[str, SkinChroma] = {}
-        self._skin_levels: Dict[str, SkinLevel] = {}
 
     async def init(self) -> None:
         tasks = [
@@ -242,19 +237,24 @@ class CacheState:
 
     @property
     def buddy_levels(self) -> List[BuddyLevel]:
-        return list(self._buddy_levels.values())
+        levels = []
+        for buddy in self.buddies:
+            levels.extend(buddy.levels)
+        return levels
 
     def get_buddy(self, uuid: Optional[str], /) -> Optional[Buddy]:
         return self._buddies.get(uuid)  # type: ignore
 
     def get_buddy_level(self, uuid: Optional[str], /) -> Optional[BuddyLevel]:
-        return self._buddy_levels.get(uuid)  # type: ignore
+        for buddy in self.buddies:
+            for level in buddy.levels:
+                if level.uuid == uuid:
+                    return level
+        return None
 
     def store_buddy(self, data: buddies.Buddy) -> Buddy:
         buddy_id = data['uuid']
         self._buddies[buddy_id] = buddy = Buddy(state=self, data=data)
-        for level in buddy.levels:
-            self._buddy_levels[level.uuid] = level
         return buddy
 
     def _add_buddies(self, data: buddies.Buddies) -> None:
@@ -475,7 +475,8 @@ class CacheState:
     def store_game_mode_equippable(self, data: gamemodes.GameModeEquippable) -> GameModeEquippable:
         game_mode_equippable_id = data['uuid']
         self._game_mode_equippables[game_mode_equippable_id] = game_mode_equippable = GameModeEquippable(
-            state=self, data=data
+            state=self,
+            data=data,
         )
         return game_mode_equippable
 
@@ -720,16 +721,20 @@ class CacheState:
 
     @property
     def spray_levels(self) -> List[SprayLevel]:
-        return list(self._spray_levels.values())
+        levels = []
+        for spray in self.sprays:
+            levels.extend(spray.levels)
+        return levels
 
     def get_spray_level(self, uuid: Optional[str], /) -> Optional[SprayLevel]:
-        return self._spray_levels.get(uuid)  # type: ignore
+        for level in self.spray_levels:
+            if level.uuid == uuid:
+                return level
+        return
 
     def store_spray(self, data: sprays.Spray) -> Spray:
         spray_id = data['uuid']
         self._sprays[spray_id] = spray = Spray(state=self, data=data)
-        for level in spray.levels:
-            self._spray_levels[level.uuid] = level
         return spray
 
     def _add_sprays(self, data: sprays.Sprays) -> None:
@@ -795,34 +800,46 @@ class CacheState:
 
     @property
     def skins(self) -> List[Skin]:
-        return list(self._skins.values())
+        skins = []
+        for weapon in self.weapons:
+            skins.extend(weapon.skins)
+        return skins
 
     def get_skin(self, uuid: Optional[str], /) -> Optional[Skin]:
-        return self._skins.get(uuid)  # type: ignore
+        for skin in self.skins:
+            if skin.uuid == uuid:
+                return skin
+        return None
 
     @property
     def skin_chromas(self) -> List[SkinChroma]:
-        return list(self._skin_chromas.values())
+        chromas = []
+        for skin in self.skins:
+            chromas.extend(skin.chromas)
+        return chromas
 
     def get_skin_chroma(self, uuid: Optional[str], /) -> Optional[SkinChroma]:
-        return self._skin_chromas.get(uuid)  # type: ignore
+        for chroma in self.skin_chromas:
+            if chroma.uuid == uuid:
+                return chroma
+        return None
 
     @property
     def skin_levels(self) -> List[SkinLevel]:
-        return list(self._skin_levels.values())
+        levels = []
+        for skin in self.skins:
+            levels.extend(skin.levels)
+        return levels
 
     def get_skin_level(self, uuid: Optional[str], /) -> Optional[SkinLevel]:
-        return self._skin_levels.get(uuid)  # type: ignore
+        for level in self.skin_levels:
+            if level.uuid == uuid:
+                return level
+        return None
 
     def store_weapon(self, data: weapons.Weapon) -> Weapon:
         weapon_id = data['uuid']
         self._weapons[weapon_id] = weapon = Weapon(state=self, data=data)
-        for skin in weapon.skins:
-            self._skins[skin.uuid] = skin
-            for chroma in skin.chromas:
-                self._skin_chromas[chroma.uuid] = chroma
-            for level in skin.levels:
-                self._skin_levels[level.uuid] = level
         return weapon
 
     def _add_weapons(self, data: weapons.Weapons) -> None:
