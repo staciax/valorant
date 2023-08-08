@@ -470,7 +470,6 @@ class Client:
 
     async def fetch_skin(self, uuid: str, /) -> Optional[Skin]:
         await self.cache.fetch_weapons()
-        a = await self.fetch_skin(uuid)
         return self.get_skin(uuid)
 
     @property
