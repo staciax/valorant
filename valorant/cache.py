@@ -246,10 +246,9 @@ class CacheState:
         return self._buddies.get(uuid)  # type: ignore
 
     def get_buddy_level(self, uuid: Optional[str], /) -> Optional[BuddyLevel]:
-        for buddy in self.buddies:
-            for level in buddy.levels:
-                if level.uuid == uuid:
-                    return level
+        for level in self.buddy_levels:
+            if level.uuid == uuid:
+                return level
         return None
 
     def store_buddy(self, data: buddies.Buddy) -> Buddy:
