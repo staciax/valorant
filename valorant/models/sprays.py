@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, Generic, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
 from ..asset import Asset
@@ -43,8 +43,6 @@ __all__ = (
     'Spray',
     'SprayLevel',
 )
-
-SprayT = TypeVar('SprayT', bound='Spray')
 
 
 class Spray(BaseModel):
@@ -150,8 +148,8 @@ class Spray(BaseModel):
         return self
 
 
-class SprayLevel(BaseModel, Generic[SprayT]):
-    def __init__(self, state: CacheState, data: SprayLevelPayload, parent: SprayT) -> None:
+class SprayLevel(BaseModel):
+    def __init__(self, state: CacheState, data: SprayLevelPayload, parent: Spray) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._data: SprayLevelPayload = data
@@ -159,7 +157,7 @@ class SprayLevel(BaseModel, Generic[SprayT]):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
-        self.parent: SprayT = parent
+        self.parent: Spray = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
     def __str__(self) -> str:
