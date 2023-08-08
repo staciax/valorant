@@ -230,7 +230,6 @@ class Weapon(BaseModel):
     @property
     def category(self) -> str:
         """:class: `str` Returns the weapon's category."""
-        #  self._category.removeprefix("EEquippableCategory::")
         return utils.removeprefix(self._category, "EEquippableCategory::")
 
     @property
@@ -276,12 +275,6 @@ class Weapon(BaseModel):
         self._display_name_localized = weapon._display_name_localized
         self._is_random = weapon._is_random
         return self
-
-    # @classmethod
-    # def _from_uuid(cls, client: Client, uuid: str) -> Optional[Self]:
-    #     """Returns the weapon with the given UUID."""
-    #     data = client._assets.get_weapon(uuid)
-    #     return cls(client=client, data=data) if data else None
 
 
 class Skin(BaseModel):
