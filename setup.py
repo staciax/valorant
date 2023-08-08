@@ -28,7 +28,7 @@ packages = [
 
 setup(
     name='valorant.py',
-    author='xStacia',
+    author='STACiA',
     url='https://github.com/staciax/valorant',
     project_urls={
         "Issue tracker": "https://github.com/staciax/valorant/issues",
