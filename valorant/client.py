@@ -69,7 +69,14 @@ __all__ = (
 
 
 class Client:
-    def __init__(self, locale: Locale = Locale.american_english) -> None:
+    def __init__(
+        self,
+        locale: Locale = Locale.american_english
+        # *,
+        # enable_cache: bool = True,
+    ) -> None:
+        self.locale: Locale = locale
+        # self.enable_cache: bool = enable_cache
         self.http: HTTPClient = HTTPClient()
         self.cache: CacheState = CacheState(locale=locale, http=self.http)
         self._ready: asyncio.Event = MISSING

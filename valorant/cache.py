@@ -101,11 +101,9 @@ _log = logging.getLogger(__name__)
 
 
 class CacheState:
-    def __init__(self, *, locale: Locale, http: HTTPClient, to_file: bool = False) -> None:
+    def __init__(self, *, locale: Locale, http: HTTPClient) -> None:
         self.locale = locale
         self.http = http
-        self.cache: bool = True
-        self._to_file: bool = to_file
         # -
         self._agents: Dict[str, Agent] = {}
         self._buddies: Dict[str, Buddy] = {}
@@ -157,24 +155,6 @@ class CacheState:
             self.http.get_weapons,
             self.http.get_version,
         ]
-        # if self._to_file:
-
-        #     # read from file
-        #     for func in tasks:
-        #         funcname = func.__name__.split('_')[1:]
-        #         filename = '_'.join(funcname) + '.json'
-        #         # add_to_cache = getattr(self, f'add_{funcname}')
-        #         # if os.path.exists(filename):
-        #         #     with open(filename, 'r') as f:
-        #         #         data = json.load(f)
-        #         #         continue
-        #         # else:
-        #         #     data = await func()
-        #         #     self._add_to_file(data, filename)
-        #         # add_to_cache = getattr(self, f'add_{funcname}')
-        # else:
-        # results = await self._fetch_data_from_api(tasks)
-
         results = await asyncio.gather(*(task() for task in tasks))
         for func, result in zip(tasks, results):
             assert result is not None
@@ -182,20 +162,6 @@ class CacheState:
             funcname = '_'.join(funcname)
             parse_func = getattr(self, f'_add_{funcname}')
             parse_func(result)
-
-    # async def _fetch_data_from_api(self, tasks: List[Callable[..., Coroutine[Any, Any, Any]]]) -> List[Any]:
-    #     results = await asyncio.gather(*[task() for task in tasks])
-    #     return results
-    # for func, result in zip(tasks, results):
-    #     assert result is not None
-    #     funcname = func.__name__.split('_')[1:]
-    #     funcname = '_'.join(funcname)
-    #     parse_func = getattr(self, f'add_{funcname}')
-    #     parse_func(result)
-
-    # def _add_to_file(self, data: Any, filename: str) -> None:
-    #     with open(filename, 'w') as f:
-    #         json.dump(data, f, indent=4)
 
     def clear(self) -> None:
         for key in self.__dict__.keys():
