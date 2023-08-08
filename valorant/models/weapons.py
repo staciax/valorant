@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Generic, List, Optional, TypeVar, Union  # overload
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
 from ..asset import Asset
@@ -61,9 +61,6 @@ __all__ = (
     'Weapon',
     'WeaponStats',
 )
-
-WeaponT = TypeVar('WeaponT', bound='Weapon', covariant=True)
-SkinT = TypeVar('SkinT', bound='Skin[Any]')
 
 
 class AdsStats:
@@ -287,8 +284,8 @@ class Weapon(BaseModel):
     #     return cls(client=client, data=data) if data else None
 
 
-class Skin(BaseModel, Generic[WeaponT]):
-    def __init__(self, *, state: CacheState, data: SkinPayload, parent: WeaponT) -> None:
+class Skin(BaseModel):
+    def __init__(self, *, state: CacheState, data: SkinPayload, parent: Weapon) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._data: SkinPayload = data
@@ -305,7 +302,7 @@ class Skin(BaseModel, Generic[WeaponT]):
             SkinLevel(state=self._state, data=level, parent=self, level_number=index)
             for index, level in enumerate(data['levels'])
         ]
-        self.parent: WeaponT = parent
+        self.parent: Weapon = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._is_random: bool = 'random' in self.asset_path.lower()
 
@@ -404,8 +401,8 @@ class Skin(BaseModel, Generic[WeaponT]):
         return next((skin_level for skin_level in self.levels if skin_level.level_number == level), None)
 
 
-class SkinChroma(BaseModel, Generic[SkinT]):
-    def __init__(self, *, state: CacheState, data: SkinChromaPayload, parent: SkinT) -> None:
+class SkinChroma(BaseModel):
+    def __init__(self, *, state: CacheState, data: SkinChromaPayload, parent: Skin) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._data: SkinChromaPayload = data
@@ -415,7 +412,7 @@ class SkinChroma(BaseModel, Generic[SkinT]):
         self._swatch: Optional[str] = data['swatch']
         self._streamed_video: Optional[str] = data['streamedVideo']
         self.asset_path: str = data['assetPath']
-        self.parent: SkinT = parent
+        self.parent: Skin = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._is_random: bool = 'random' in self.asset_path.lower()
 
@@ -530,8 +527,8 @@ class SkinChroma(BaseModel, Generic[SkinT]):
         return self
 
 
-class SkinLevel(BaseModel, Generic[SkinT]):
-    def __init__(self, *, state: CacheState, data: SkinLevelPayload, parent: SkinT, level_number: int) -> None:
+class SkinLevel(BaseModel):
+    def __init__(self, *, state: CacheState, data: SkinLevelPayload, parent: Skin, level_number: int) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._data: SkinLevelPayload = data
@@ -542,7 +539,7 @@ class SkinLevel(BaseModel, Generic[SkinT]):
         self.asset_path: str = data['assetPath']
         self._level_number: int = level_number
         self._is_level_one: bool = level_number == 0
-        self.parent: SkinT = parent
+        self.parent: Skin = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._is_random: bool = 'random' in self.asset_path.lower()
 

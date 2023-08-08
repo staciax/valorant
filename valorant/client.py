@@ -461,7 +461,7 @@ class Client:
     def get_skin(self, uuid: str, /) -> Optional[Skin]:
         return self.cache.get_skin(uuid)
 
-    async def fetch_skin(self, uuid: str, /) -> Optional[Skin[Weapon]]:
+    async def fetch_skin(self, uuid: str, /) -> Optional[Skin]:
         await self.cache.fetch_weapons()
         a = await self.fetch_skin(uuid)
         return self.get_skin(uuid)
@@ -470,20 +470,20 @@ class Client:
     def skin_chromas(self) -> List[SkinChroma]:
         return self.cache.skin_chromas
 
-    def get_skin_chroma(self, uuid: str, /) -> Optional[SkinChroma[Skin]]:
+    def get_skin_chroma(self, uuid: str, /) -> Optional[SkinChroma]:
         return self.cache.get_skin_chroma(uuid)
 
-    async def fetch_skin_chroma(self, uuid: str, /) -> Optional[SkinChroma[Skin]]:
+    async def fetch_skin_chroma(self, uuid: str, /) -> Optional[SkinChroma]:
         await self.cache.fetch_weapons()
         return self.get_skin_chroma(uuid)
 
     @property
-    def skin_levels(self) -> List[SkinLevel[Skin]]:
+    def skin_levels(self) -> List[SkinLevel]:
         return self.cache.skin_levels
 
-    def get_skin_level(self, uuid: str, /) -> Optional[SkinLevel[Skin]]:
+    def get_skin_level(self, uuid: str, /) -> Optional[SkinLevel]:
         return self.cache.get_skin_level(uuid)
 
-    async def fetch_skin_level(self, uuid: str, /) -> Optional[SkinLevel[Skin]]:
+    async def fetch_skin_level(self, uuid: str, /) -> Optional[SkinLevel]:
         await self.cache.fetch_weapons()
         return self.get_skin_level(uuid)
