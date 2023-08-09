@@ -29,6 +29,6 @@ class VersionInfo(NamedTuple):
     release: Literal["alpha", "beta", "final"]
 
 
-version_info: VersionInfo = VersionInfo(major=1, minor=0, micro=2, release='alpha')
+version_info: VersionInfo = VersionInfo(major=1, minor=0, micro=2, release='final')
 
 del NamedTuple, Literal, VersionInfo
