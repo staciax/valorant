@@ -81,7 +81,7 @@ class Season(BaseModel):
 
     @property
     def id(self) -> str:
-        return self._uuid
+        return self.uuid
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
