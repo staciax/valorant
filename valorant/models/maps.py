@@ -38,8 +38,8 @@ if TYPE_CHECKING:
 # fmt: off
 __all__ = (
     'Map',
-    'MapCallout',
-    'MapLocation',
+    'Callout',
+    'Location',
 )
 # fmt: on
 
@@ -153,7 +153,3 @@ class Map(BaseModel):
         if self._splash is None:
             return None
         return Asset._from_url(state=self._state, url=self._splash)
-
-
-MapLocation = Location
-MapCallout = Callout
