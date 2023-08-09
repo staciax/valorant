@@ -211,7 +211,6 @@ class Weapon(BaseModel):
         self.skins: List[Skin] = [Skin(state=self._state, data=skin, parent=self) for skin in data['skins']]
         self._is_melee: bool = True if self.uuid == MELEE_WEAPON_ID else False
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._is_random: bool = 'random' in self.asset_path.lower()
 
     def __str__(self) -> str:
         return self.display_name.locale
@@ -251,11 +250,6 @@ class Weapon(BaseModel):
         """:class: `Optional[WeaponStats]` alias for :attr: `weapon_stats`"""
         return self.weapon_stats
 
-    # helpers
-
-    def is_random(self) -> bool:
-        return self._is_random
-
     @classmethod
     def _copy(cls, weapon: Self) -> Self:
         self = cls.__new__(cls)  # bypass __init__
@@ -273,8 +267,12 @@ class Weapon(BaseModel):
         self.skins = weapon.skins
         self._is_melee = weapon._is_melee
         self._display_name_localized = weapon._display_name_localized
-        self._is_random = weapon._is_random
         return self
+
+    # helpers
+
+    def is_random(self) -> bool:
+        return 'random' in self.asset_path.lower()
 
 
 class Skin(BaseModel):
@@ -297,7 +295,6 @@ class Skin(BaseModel):
         ]
         self.parent: Weapon = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._is_random: bool = 'random' in self.asset_path.lower()
 
     def __str__(self) -> str:
         return self.display_name.locale
@@ -357,7 +354,7 @@ class Skin(BaseModel):
         return self.parent.is_melee()
 
     def is_random(self) -> bool:
-        return self._is_random
+        return 'random' in self.asset_path.lower()
 
     @classmethod
     def _copy(cls, skin: Self) -> Self:
@@ -375,8 +372,9 @@ class Skin(BaseModel):
         self.levels = skin.levels.copy()
         self.parent = skin.parent
         self._display_name_localized = skin._display_name_localized
-        self._is_random = skin._is_random
         return self
+
+    # helpers
 
     def get_skin_level(self, level: int) -> Optional[SkinLevel]:
         """get the skin's level with the given level.
@@ -407,7 +405,6 @@ class SkinChroma(BaseModel):
         self.asset_path: str = data['assetPath']
         self.parent: Skin = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._is_random: bool = 'random' in self.asset_path.lower()
 
     def __str__(self) -> str:
         return self.display_name.locale
@@ -480,7 +477,24 @@ class SkinChroma(BaseModel):
         """:class: `Asset` alias for streamed_video."""
         return self.streamed_video
 
-    # helper properties
+    @classmethod
+    def _copy(cls, skin_chroma: Self) -> Self:
+        """Copies the given skin_chroma with the given parent."""
+        self = cls.__new__(cls)  # bypass __init__
+        self._uuid = skin_chroma._uuid
+        self._state = skin_chroma._state
+        self._data = skin_chroma._data.copy()
+        self._display_name = skin_chroma._display_name
+        self._display_icon = skin_chroma._display_icon
+        self._full_render = skin_chroma._full_render
+        self._swatch = skin_chroma._swatch
+        self._streamed_video = skin_chroma._streamed_video
+        self.asset_path = skin_chroma.asset_path
+        self.parent = skin_chroma.parent
+        self._display_name_localized = skin_chroma._display_name_localized
+        return self
+
+    # helpers
 
     @property
     def theme(self) -> Optional[Theme]:
@@ -501,23 +515,8 @@ class SkinChroma(BaseModel):
         """:class: `bool` Returns whether the bundle is a melee."""
         return self.parent.is_melee()
 
-    @classmethod
-    def _copy(cls, skin_chroma: Self) -> Self:
-        """Copies the given skin_chroma with the given parent."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = skin_chroma._uuid
-        self._state = skin_chroma._state
-        self._data = skin_chroma._data.copy()
-        self._display_name = skin_chroma._display_name
-        self._display_icon = skin_chroma._display_icon
-        self._full_render = skin_chroma._full_render
-        self._swatch = skin_chroma._swatch
-        self._streamed_video = skin_chroma._streamed_video
-        self.asset_path = skin_chroma.asset_path
-        self.parent = skin_chroma.parent
-        self._display_name_localized = skin_chroma._display_name_localized
-        self._is_random = skin_chroma._is_random
-        return self
+    def is_random(self) -> bool:
+        return 'random' in self.asset_path.lower()
 
 
 class SkinLevel(BaseModel):
@@ -534,7 +533,6 @@ class SkinLevel(BaseModel):
         self._is_level_one: bool = level_number == 0
         self.parent: Skin = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._is_random: bool = 'random' in self.asset_path.lower()
 
     def __str__(self) -> str:
         return str(self.display_name)
@@ -595,7 +593,25 @@ class SkinLevel(BaseModel):
         """:class: `bool` Returns whether the skin is level one."""
         return self._is_level_one
 
-    # helper properties
+    @classmethod
+    def _copy(cls, skin_level: Self) -> Self:
+        """Copies the given skin_level with the given parent."""
+        self = cls.__new__(cls)  # bypass __init__
+        self._uuid = skin_level._uuid
+        self._state = skin_level._state
+        self._data = skin_level._data.copy()
+        self._display_name = skin_level._display_name
+        self._level = skin_level._level
+        self._display_icon = skin_level._display_icon
+        self._streamed_video = skin_level._streamed_video
+        self.asset_path = skin_level.asset_path
+        self._level_number = skin_level._level_number
+        self._is_level_one = skin_level._is_level_one
+        self.parent = skin_level.parent._copy(skin_level.parent)
+        self._display_name_localized = skin_level._display_name_localized
+        return self
+
+    # helpers
 
     @property
     def level_number(self) -> int:
@@ -623,23 +639,4 @@ class SkinLevel(BaseModel):
 
     def is_random(self) -> bool:
         """:class: `bool` Returns whether the skin is random."""
-        return self._is_random
-
-    @classmethod
-    def _copy(cls, skin_level: Self) -> Self:
-        """Copies the given skin_level with the given parent."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = skin_level._uuid
-        self._state = skin_level._state
-        self._data = skin_level._data.copy()
-        self._display_name = skin_level._display_name
-        self._level = skin_level._level
-        self._display_icon = skin_level._display_icon
-        self._streamed_video = skin_level._streamed_video
-        self.asset_path = skin_level.asset_path
-        self._level_number = skin_level._level_number
-        self._is_level_one = skin_level._is_level_one
-        self.parent = skin_level.parent._copy(skin_level.parent)
-        self._display_name_localized = skin_level._display_name_localized
-        self._is_random = skin_level._is_random
-        return self
+        return 'random' in self.asset_path.lower()
