@@ -53,6 +53,7 @@ class BaseModel(abc.ABC):
 
     @property
     def uuid(self) -> str:
+        # TODO: str to UUID
         return self._uuid
 
     def __repr__(self) -> str:
@@ -107,13 +108,18 @@ class ShopData:
         return self.cost
 
     def __eq__(self, other: object) -> bool:
-        return isinstance(other, ShopData) and self._image == other._image and self.cost == other.cost
+        return isinstance(other, ShopData) and self.item == other.item and self.cost == other.cost
 
     def __ne__(self, other: object) -> bool:
         return not self.__eq__(other)
 
     def category_text_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._category_text_localized.from_locale(locale)
+
+    @property
+    def item(self) -> Union[Weapon, Gear]:
+        """:class: `Weapon` or :class: `Gear` Returns the item."""
+        return self._item
 
     @property
     def category_text(self) -> Localization:
