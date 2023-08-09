@@ -70,15 +70,6 @@ class Role(BaseModel):
     def __str__(self) -> str:
         return self.display_name.locale
 
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, Role) and other.uuid == self.uuid
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
-
-    def __hash__(self) -> int:
-        return hash(self.uuid)
-
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
 
