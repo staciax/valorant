@@ -60,7 +60,7 @@ class PlayerTitle(BaseModel):
         return self.text.locale
 
     def __repr__(self) -> str:
-        return f"<PlayerTitle display_name={self.display_name!r} text={self.text!r}>"
+        return f'<PlayerTitle display_name={self.display_name!r} text={self.text!r}>'
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)

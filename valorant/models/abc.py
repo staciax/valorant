@@ -74,7 +74,7 @@ class GridPosition:
         self.column: float = data['column']
 
     def __repr__(self) -> str:
-        return f"<GridPosition row={self.row} column={self.column}>"
+        return f'<GridPosition row={self.row} column={self.column}>'
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, GridPosition) and self.row == other.row and self.column == other.column
@@ -101,7 +101,7 @@ class ShopData:
         self._category_text_localized: Localization = Localization(self._category_text, locale=self._state.locale)
 
     def __repr__(self) -> str:
-        return f"<ShopData category_text={self.category_text} cost={self.cost}>"
+        return f'<ShopData category_text={self.category_text} cost={self.cost}>'
 
     def __int__(self) -> int:
         return self.cost

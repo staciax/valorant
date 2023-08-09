@@ -67,7 +67,7 @@ class Spray(BaseModel):
         return self.display_name.locale
 
     def __repr__(self) -> str:
-        return f"<Spray display_name={self.display_name!r}>"
+        return f'<Spray display_name={self.display_name!r}>'
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
