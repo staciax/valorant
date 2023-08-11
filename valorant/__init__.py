@@ -10,7 +10,7 @@ __title__ = 'valorant'
 __author__ = 'STACiA'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2023-present STACiA'
-__version__ = '1.0.3a'
+__version__ = '1.0.3'
 
 from typing import Literal, NamedTuple
 
@@ -29,6 +29,6 @@ class VersionInfo(NamedTuple):
     release: Literal["alpha", "beta", "final"]
 
 
-version_info: VersionInfo = VersionInfo(major=1, minor=0, micro=3, release='alpha')
+version_info: VersionInfo = VersionInfo(major=1, minor=0, micro=3, release='final')
 
 del NamedTuple, Literal, VersionInfo
