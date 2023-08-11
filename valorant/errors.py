@@ -73,7 +73,7 @@ class HTTPException(ValorantError):
 
         fmt = '{0.status} {0.reason}'
         if len(self.text):
-            fmt += ': {2}'
+            fmt += ': {1}'
 
         super().__init__(fmt.format(self.response, self.text))
 
