@@ -774,7 +774,7 @@ class CacheState:
 
     def get_skin(self, uuid: Optional[str], /) -> Optional[Skin]:
         for skin in self.skins:
-            if skin.uuid == uuid:
+            if skin._uuid == uuid:
                 return skin
         return None
 
@@ -787,7 +787,7 @@ class CacheState:
 
     def get_skin_chroma(self, uuid: Optional[str], /) -> Optional[SkinChroma]:
         for chroma in self.skin_chromas:
-            if chroma.uuid == uuid:
+            if chroma._uuid == uuid:
                 return chroma
         return None
 
