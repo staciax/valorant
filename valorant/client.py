@@ -457,10 +457,6 @@ class Client:
         await self.cache.fetch_weapons()
         return self.get_weapon(uuid)
 
-    async def _fetch_weapon(self) -> None:
-        data = await self.http.get_weapons()
-        self.cache._add_weapons(data)
-
     @property
     def skins(self) -> List[Skin]:
         return self.cache.skins
