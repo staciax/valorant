@@ -162,12 +162,14 @@ class CacheState:
             funcname = '_'.join(funcname)
             parse_func = getattr(self, f'_add_{funcname}')
             parse_func(result)
+        _log.info('cache initialized')
 
     def clear(self) -> None:
         for key in self.__dict__.keys():
             if key.startswith('_') and isinstance(self.__dict__[key], dict):
                 self.__dict__[key].clear()
         self._version = MISSING
+        _log.info('cache cleared')
 
     # agents
 
