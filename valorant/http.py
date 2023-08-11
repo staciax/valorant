@@ -71,6 +71,11 @@ _log = logging.getLogger(__name__)
 # http-client inspired by https://github.com/Rapptz/discord.py/blob/master/discord/http.pyS
 
 
+async def to_json(response: aiohttp.ClientResponse) -> Union[Dict[str, Any], str]:
+    text = await response.text(encoding='utf-8')
+    return utils._from_json(text)
+
+
 class Route:
     BASE: ClassVar[str] = 'https://valorant-api.com/v1'
 
@@ -114,7 +119,7 @@ class HTTPClient:
             try:
                 async with self.__session.request(method, url, **kwargs) as response:
                     _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
-                    data = await utils.json_or_text(response)
+                    data = await to_json(response)
                     if 300 > response.status >= 200:
                         _log.debug('%s %s has received %s', method, url, data)
                         return data

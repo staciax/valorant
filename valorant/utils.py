@@ -28,10 +28,7 @@ from __future__ import annotations
 
 import datetime
 import json
-from typing import TYPE_CHECKING, Any, Dict, Union
-
-if TYPE_CHECKING:
-    from aiohttp import ClientResponse
+from typing import Any
 
 try:
     import orjson  # type: ignore
@@ -41,37 +38,9 @@ else:
     HAS_ORJSON = True
 
 if HAS_ORJSON:
-
-    def _to_json(obj: Any) -> str:
-        return orjson.dumps(obj).decode('utf-8')
-
     _from_json = orjson.loads  # type: ignore
 else:
-
-    def _to_json(obj: Any) -> str:
-        return json.dumps(obj, separators=(',', ':'), ensure_ascii=True)
-
     _from_json = json.loads
-
-
-async def json_or_text(response: ClientResponse) -> Union[Dict[str, Any], str]:
-    text = await response.text(encoding='utf-8')
-
-    try:
-        if 'application/json' in response.headers['content-type']:
-            return _from_json(text)
-    except KeyError:
-        pass
-
-    # try to parse it as json anyway
-    # some endpoints return plain text but it's actually json
-    if isinstance(text, str):
-        try:
-            return _from_json(text)
-        except json.JSONDecodeError:
-            pass
-
-    return text
 
 
 class _MissingSentinel:
