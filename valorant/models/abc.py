@@ -25,6 +25,7 @@ DEALINGS IN THE SOFTWARE.
 from __future__ import annotations
 
 import abc
+import uuid
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from ..asset import Asset
@@ -52,9 +53,8 @@ class BaseModel(abc.ABC):
         self._uuid = uuid
 
     @property
-    def uuid(self) -> str:
-        # TODO: str to UUID
-        return self._uuid
+    def uuid(self) -> uuid.UUID:
+        return uuid.UUID(self._uuid)
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__} uuid={self.uuid!r}>'

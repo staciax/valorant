@@ -34,6 +34,7 @@ from .abc import BaseModel
 
 if TYPE_CHECKING:
     import datetime
+    from uuid import UUID
 
     from ..cache import CacheState
     from ..types.seasons import (
@@ -80,7 +81,7 @@ class Season(BaseModel):
         return not self.__eq__(other)
 
     @property
-    def id(self) -> str:
+    def id(self) -> UUID:
         return self.uuid
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:

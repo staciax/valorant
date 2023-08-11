@@ -33,6 +33,8 @@ from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
+    from uuid import UUID
+
     from ..cache import CacheState
     from ..types.contracts import (
         Chapter as ChapterPayload,
@@ -72,19 +74,19 @@ class Reward(BaseModel):
 
     def get_item(self) -> Optional[Union[Agent, SkinLevel, BuddyLevel, Currency, PlayerCard, PlayerTitle, Spray]]:
         if self.type is RewardType.skin_level:
-            return self._state.get_skin_level(self.uuid)
+            return self._state.get_skin_level(str(self.uuid))
         elif self.type is RewardType.buddy_level:
-            return self._state.get_buddy_level(self.uuid)
+            return self._state.get_buddy_level(str(self.uuid))
         elif self.type is RewardType.player_card:
-            return self._state.get_player_card(self.uuid)
+            return self._state.get_player_card(str(self.uuid))
         elif self.type is RewardType.player_title:
-            return self._state.get_player_title(self.uuid)
+            return self._state.get_player_title(str(self.uuid))
         elif self.type is RewardType.spray:
-            return self._state.get_spray(self.uuid)
+            return self._state.get_spray(str(self.uuid))
         elif self.type is RewardType.agent:
-            return self._state.get_agent(self.uuid)
+            return self._state.get_agent(str(self.uuid))
         elif self.type is RewardType.currency:
-            return self._state.get_currency(self.uuid)
+            return self._state.get_currency(str(self.uuid))
         _log.warning(f'Unknown reward type: {self.type}')
         return None
 
@@ -199,8 +201,8 @@ class Contract(BaseModel):
         return self._display_name_localized.from_locale(locale)
 
     @property
-    def id(self) -> str:
-        """:class: `str` Returns the contract id."""
+    def id(self) -> UUID:
+        """:class: `UUID` Returns the contract id."""
         return self.uuid
 
     @property

@@ -213,7 +213,7 @@ class CacheState:
 
     def get_buddy_level(self, uuid: Optional[str], /) -> Optional[BuddyLevel]:
         for level in self.buddy_levels:
-            if level.uuid == uuid:
+            if level._uuid == uuid:
                 return level
         return None
 
@@ -693,7 +693,7 @@ class CacheState:
 
     def get_spray_level(self, uuid: Optional[str], /) -> Optional[SprayLevel]:
         for level in self.spray_levels:
-            if level.uuid == uuid:
+            if level._uuid == uuid:
                 return level
         return
 
@@ -798,7 +798,7 @@ class CacheState:
 
     def get_skin_level(self, uuid: Optional[str], /) -> Optional[SkinLevel]:
         for level in self.skin_levels:
-            if level.uuid == uuid:
+            if level._uuid == uuid:
                 return level
         return None
 
