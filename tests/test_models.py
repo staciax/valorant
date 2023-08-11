@@ -17,7 +17,7 @@ class TestValorantAPI(BaseTest):
         assert len(self.client.agents) > 0
         for agent in self.client.agents:
             # fagent = await self.client.fetch_agent(agent.uuid)
-            fagent = self.client.get_agent(agent.uuid)
+            fagent = self.client.get_agent(str(agent.uuid))
             assert fagent is not None
             assert fagent == agent
 
@@ -68,7 +68,7 @@ class TestValorantAPI(BaseTest):
         for buddy in self.client.buddies:
             assert buddy is not None
             # fbuddy = await self.client.fetch_buddy(buddy.uuid)
-            fbuddy = self.client.get_buddy(buddy.uuid)
+            fbuddy = self.client.get_buddy(str(buddy.uuid))
             assert fbuddy is not None
             assert fbuddy == buddy
             assert buddy is not None
@@ -94,7 +94,7 @@ class TestValorantAPI(BaseTest):
         assert len(self.client.bundles) > 0
         for bundle in self.client.bundles:
             # fbundle = await self.client.fetch_bundle(bundle.uuid)
-            fbundle = self.client.get_bundle(bundle.uuid)
+            fbundle = self.client.get_bundle(str(bundle.uuid))
             assert fbundle is not None
             assert fbundle == bundle
 
