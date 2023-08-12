@@ -194,10 +194,8 @@ class HTTPClient:
         params = {'isPlayableCharacter': str(is_playable_character), 'language': language}
         return self.request(Route('GET', '/agents'), params=params)
 
-    def get_agent(
-        self, uuid: str, *, language: Optional[str] = 'all', is_playable_character: bool = True
-    ) -> Response[agents.AgentUUID]:
-        params = {'isPlayableCharacter': str(is_playable_character), 'language': language}
+    def get_agent(self, uuid: str, *, language: Optional[str] = 'all') -> Response[agents.AgentUUID]:
+        params = {'language': language}
         return self.request(Route('GET', '/agents/{uuid}', uuid=uuid), params=params)
 
     # -
