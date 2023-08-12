@@ -130,7 +130,7 @@ class CacheState:
         self._weapons: Dict[str, Weapon] = {}
 
     async def init(self) -> None:
-        tasks = [
+        tasks = (
             self.http.get_agents,
             self.http.get_buddies,
             self.http.get_bundles,
@@ -154,7 +154,7 @@ class CacheState:
             self.http.get_themes,
             self.http.get_weapons,
             self.http.get_version,
-        ]
+        )
         results = await asyncio.gather(*(task() for task in tasks))
         for func, result in zip(tasks, results):
             assert result is not None
