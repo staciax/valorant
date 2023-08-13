@@ -169,7 +169,6 @@ class Weapon(BaseModel):
     def __init__(self, *, state: CacheState, data: WeaponPayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: WeaponPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.category: str = data['category']
         self._default_skin_uuid: str = data['defaultSkinUuid']
@@ -229,7 +228,6 @@ class Skin(BaseModel):
     def __init__(self, *, state: CacheState, data: SkinPayload, parent: Weapon) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: SkinPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._theme_uuid: str = data['themeUuid']
         self._content_tier_uuid: Optional[str] = data['contentTierUuid']
@@ -328,7 +326,6 @@ class SkinChroma(BaseModel):
     def __init__(self, *, state: CacheState, data: SkinChromaPayload, parent: Skin) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: SkinChromaPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']
         self._full_render: str = data['fullRender']
@@ -438,7 +435,6 @@ class SkinLevel(BaseModel):
     def __init__(self, *, state: CacheState, data: SkinLevelPayload, parent: Skin, level_number: int) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: SkinLevelPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.level_item: Optional[str] = data['levelItem']
         self._display_icon: Optional[str] = data['displayIcon']

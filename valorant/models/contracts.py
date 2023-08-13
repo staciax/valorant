@@ -176,7 +176,6 @@ class Contract(BaseModel):
     def __init__(self, state: CacheState, data: ContractPayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: ContractPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']
         self.ship_it: bool = data['shipIt']

@@ -55,7 +55,6 @@ class Mission(BaseModel):
     def __init__(self, state: CacheState, data: MissionPayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: MissionPayload = data
         self._display_name: Optional[Union[str, Dict[str, str]]] = data['displayName']
         self._title: Optional[Union[str, Dict[str, str]]] = data['title']
         self.type: MissionType = MissionType.none

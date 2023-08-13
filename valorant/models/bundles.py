@@ -53,7 +53,6 @@ class Bundle(BaseModel):
     def __init__(self, *, state: CacheState, data: BundlePayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: BundlePayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_name_sub_text: Optional[Union[str, Dict[str, str]]] = data['displayNameSubText']
         self._description: Union[str, Dict[str, str]] = data['description']

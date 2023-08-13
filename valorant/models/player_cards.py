@@ -47,7 +47,6 @@ class PlayerCard(BaseModel):
     def __init__(self, *, state: CacheState, data: PlayerCardPayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: PlayerCardPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._is_hidden_if_not_owned: bool = data.get('isHiddenIfNotOwned', False)
         self._theme_uuid: Optional[str] = data['themeUuid']

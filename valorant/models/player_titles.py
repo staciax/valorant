@@ -46,7 +46,6 @@ class PlayerTitle(BaseModel):
     def __init__(self, *, state: CacheState, data: PlayerTitlePayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: PlayerTitlePayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._title_text: Union[str, Dict[str, str]] = data['titleText']
         self._is_hidden_if_not_owned: bool = data.get('isHiddenIfNotOwned', False)

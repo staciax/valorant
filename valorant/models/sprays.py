@@ -46,7 +46,6 @@ class Spray(BaseModel):
     def __init__(self, *, state: CacheState, data: SprayPayload) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: SprayPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.category: Optional[str] = data['category']
         self._theme_uuid: Optional[str] = data['themeUuid']
@@ -122,7 +121,6 @@ class SprayLevel(BaseModel):
     def __init__(self, state: CacheState, data: SprayLevelPayload, parent: Spray) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: SprayLevelPayload = data
         self.spray_level: int = data['sprayLevel']
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']

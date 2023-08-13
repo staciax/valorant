@@ -71,7 +71,6 @@ class Buddy(BaseModel):
     @property
     def theme(self) -> Optional[Theme]:
         """:class: `Theme` Returns the buddy's theme."""
-        # Avoid circular import
         return self._state.get_theme(self._theme_uuid)
 
     @property
@@ -94,7 +93,6 @@ class BuddyLevel(BaseModel):
     def __init__(self, *, state: CacheState, data: BuddyLevelPayload, parent: Buddy) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
-        self._data: BuddyLevelPayload = data
         self.charm_level: int = data['charmLevel']
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_icon: Optional[str] = data['displayIcon']
