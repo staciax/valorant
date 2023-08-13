@@ -32,8 +32,6 @@ from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from ..cache import CacheState
     from ..types.sprays import Spray as SprayPayload, SprayLevel as SprayLevelPayload
     from .themes import Theme
@@ -119,26 +117,6 @@ class Spray(BaseModel):
         """:class: `bool` Returns a boolean representing whether the skin is a null spray."""
         return self._is_null_spray
 
-    @classmethod
-    def _copy(cls, spray: Self) -> Self:
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = spray._uuid
-        self._state = spray._state
-        self._data = spray._data.copy()
-        self._display_name = spray._display_name
-        self.category = spray.category
-        self._theme_uuid = spray._theme_uuid
-        self._is_null_spray = spray._is_null_spray
-        self._display_icon = spray._display_icon
-        self._full_icon = spray._full_icon
-        self._full_transparent_icon = spray._full_transparent_icon
-        self._animation_png = spray._animation_png
-        self._animation_gif = spray._animation_gif
-        self.asset_path = spray.asset_path
-        self.levels = spray.levels.copy()
-        self._display_name_localized = spray._display_name_localized
-        return self
-
 
 class SprayLevel(BaseModel):
     def __init__(self, state: CacheState, data: SprayLevelPayload, parent: Spray) -> None:
@@ -175,17 +153,3 @@ class SprayLevel(BaseModel):
     def display_icon(self) -> Optional[Asset]:
         """:class: `str` Returns the spray's display icon."""
         return Asset._from_url(state=self._state, url=self._display_icon) if self._display_icon else None
-
-    @classmethod
-    def _copy(cls, spray_level: Self) -> Self:
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = spray_level._uuid
-        self._state = spray_level._state
-        self._data = spray_level._data.copy()
-        self.spray_level = spray_level.spray_level
-        self._display_name = spray_level._display_name
-        self._display_icon = spray_level._display_icon
-        self.asset_path = spray_level.asset_path
-        self.parent = spray_level.parent._copy(spray_level.parent)
-        self._display_name_localized = spray_level._display_name_localized
-        return self

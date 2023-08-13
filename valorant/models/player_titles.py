@@ -31,8 +31,6 @@ from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from ..cache import CacheState
     from ..types.player_titles import PlayerTitle as PlayerTitlePayload
 
@@ -81,17 +79,3 @@ class PlayerTitle(BaseModel):
     def is_hidden_if_not_owned(self) -> bool:
         """:class: `bool` Returns whether the player title is hidden if not owned."""
         return self._is_hidden_if_not_owned
-
-    @classmethod
-    def _copy(cls, player_title: Self) -> Self:
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = player_title._uuid
-        self._state = player_title._state
-        self._data = player_title._data
-        self._display_name = player_title._display_name
-        self._title_text = player_title._title_text
-        self._is_hidden_if_not_owned = player_title._is_hidden_if_not_owned
-        self.asset_path = player_title.asset_path
-        self._display_name_localized = player_title._display_name_localized
-        self._title_text_localized = player_title._title_text_localized
-        return self

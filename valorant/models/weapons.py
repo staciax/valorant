@@ -33,8 +33,6 @@ from ..localization import Localization
 from .abc import BaseModel, ShopData
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from ..cache import CacheState
     from ..types.weapons import (
         AdsStats as AdsStatsPayload,
@@ -221,25 +219,6 @@ class Weapon(BaseModel):
         """:class: `Optional[WeaponStats]` alias for :attr: `weapon_stats`"""
         return self.weapon_stats
 
-    @classmethod
-    def _copy(cls, weapon: Self) -> Self:
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = weapon._uuid
-        self._state = weapon._state
-        self._data = weapon._data.copy()
-        self._display_name = weapon._display_name
-        self.category = weapon.category
-        self._default_skin_uuid = weapon._default_skin_uuid
-        self._display_icon = weapon._display_icon
-        self._kill_stream_icon = weapon._kill_stream_icon
-        self.asset_path = weapon.asset_path
-        self.weapon_stats = weapon.weapon_stats
-        self.shop_data = weapon.shop_data
-        self.skins = weapon.skins
-        self._is_melee = weapon._is_melee
-        self._display_name_localized = weapon._display_name_localized
-        return self
-
     # helpers
 
     def is_random(self) -> bool:
@@ -326,24 +305,6 @@ class Skin(BaseModel):
 
     def is_random(self) -> bool:
         return 'random' in self.asset_path.lower()
-
-    @classmethod
-    def _copy(cls, skin: Self) -> Self:
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = skin._uuid
-        self._state = skin._state
-        self._data = skin._data.copy()
-        self._display_name = skin._display_name
-        self._theme_uuid = skin._theme_uuid
-        self._content_tier_uuid = skin._content_tier_uuid
-        self._display_icon = skin._display_icon
-        self._wallpaper = skin._wallpaper
-        self.asset_path = skin.asset_path
-        self.chromas = skin.chromas.copy()
-        self.levels = skin.levels.copy()
-        self.parent = skin.parent
-        self._display_name_localized = skin._display_name_localized
-        return self
 
     # helpers
 
@@ -448,23 +409,6 @@ class SkinChroma(BaseModel):
         """:class: `Asset` alias for streamed_video."""
         return self.streamed_video
 
-    @classmethod
-    def _copy(cls, skin_chroma: Self) -> Self:
-        """Copies the given skin_chroma with the given parent."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = skin_chroma._uuid
-        self._state = skin_chroma._state
-        self._data = skin_chroma._data.copy()
-        self._display_name = skin_chroma._display_name
-        self._display_icon = skin_chroma._display_icon
-        self._full_render = skin_chroma._full_render
-        self._swatch = skin_chroma._swatch
-        self._streamed_video = skin_chroma._streamed_video
-        self.asset_path = skin_chroma.asset_path
-        self.parent = skin_chroma.parent
-        self._display_name_localized = skin_chroma._display_name_localized
-        return self
-
     # helpers
 
     @property
@@ -556,24 +500,6 @@ class SkinLevel(BaseModel):
     def is_level_one(self) -> bool:
         """:class: `bool` Returns whether the skin is level one."""
         return self._is_level_one
-
-    @classmethod
-    def _copy(cls, skin_level: Self) -> Self:
-        """Copies the given skin_level with the given parent."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = skin_level._uuid
-        self._state = skin_level._state
-        self._data = skin_level._data.copy()
-        self._display_name = skin_level._display_name
-        self.level_item = skin_level.level_item
-        self._display_icon = skin_level._display_icon
-        self._streamed_video = skin_level._streamed_video
-        self.asset_path = skin_level.asset_path
-        self._level_number = skin_level._level_number
-        self._is_level_one = skin_level._is_level_one
-        self.parent = skin_level.parent._copy(skin_level.parent)
-        self._display_name_localized = skin_level._display_name_localized
-        return self
 
     # helpers
 

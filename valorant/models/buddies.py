@@ -32,8 +32,6 @@ from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
-
     from ..cache import CacheState
     from ..types.buddies import Buddy as BuddyPayload, BuddyLevel as BuddyLevelPayload
     from .themes import Theme
@@ -91,21 +89,6 @@ class Buddy(BaseModel):
         """Returns the buddy level for the given level number."""
         return next((b for b in self.levels if b.charm_level == level), None)
 
-    @classmethod
-    def _copy(cls, buddy: Self) -> Self:
-        """Creates a copy of the given buddy."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = buddy._uuid
-        self._state = buddy._state
-        self._display_name = buddy._display_name
-        self._is_hidden_if_not_owned = buddy._is_hidden_if_not_owned
-        self._theme_uuid = buddy._theme_uuid
-        self._display_icon = buddy._display_icon
-        self.asset_path = buddy.asset_path
-        self.levels = buddy.levels.copy()
-        self._name_localized = buddy._name_localized
-        return self
-
 
 class BuddyLevel(BaseModel):
     def __init__(self, *, state: CacheState, data: BuddyLevelPayload, parent: Buddy) -> None:
@@ -142,18 +125,3 @@ class BuddyLevel(BaseModel):
     def display_icon(self) -> Asset:
         """:class: `str` Returns the buddy's display icon."""
         return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @classmethod
-    def _copy(cls, buddy_level: Self) -> Self:
-        """Creates a copy of the given buddy level."""
-        self = cls.__new__(cls)  # bypass __init__
-        self._uuid = buddy_level._uuid
-        self._state = buddy_level._state
-        self._data = buddy_level._data.copy()
-        self.charm_level = buddy_level.charm_level
-        self._display_name = buddy_level._display_name
-        self._display_icon = buddy_level._display_icon
-        self.asset_path = buddy_level.asset_path
-        self.parent = buddy_level.parent._copy(buddy_level.parent)
-        self._display_name_localized = buddy_level._display_name_localized
-        return self
