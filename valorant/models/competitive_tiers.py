@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from .. import utils
 from ..asset import Asset
 from ..enums import Locale
 from ..localization import Localization
@@ -49,7 +48,7 @@ class Tier:
         self._state: CacheState = state
         self.tier: int = data['tier']
         self._name: Union[str, Dict[str, str]] = data['tierName']
-        self._division: Optional[str] = data['division']
+        self.division: Optional[str] = data['division']
         self._division_name: Union[str, Dict[str, str]] = data['divisionName']
         self.color: str = data['color']
         self.background_color: str = data['backgroundColor']
@@ -102,11 +101,6 @@ class Tier:
     def display_name(self) -> Localization:
         """:class: `Localization` alias for :attr:`name`"""
         return self.name
-
-    @property
-    def division(self) -> Optional[str]:
-        """:class: `str` Returns the tier's division."""
-        return utils.removeprefix(self._division, 'ECompetitiveDivision::') if self._division else None
 
     @property
     def division_name(self) -> Localization:

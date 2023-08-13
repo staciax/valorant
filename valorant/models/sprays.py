@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from .. import utils
 from ..asset import Asset
 from ..enums import Locale
 from ..localization import Localization
@@ -51,7 +50,7 @@ class Spray(BaseModel):
         self._state: CacheState = state
         self._data: SprayPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._category: Optional[str] = data['category']
+        self.category: Optional[str] = data['category']
         self._theme_uuid: Optional[str] = data['themeUuid']
         self._is_null_spray: bool = data['isNullSpray']
         self._display_icon: str = data['displayIcon']
@@ -76,13 +75,6 @@ class Spray(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the skin's name."""
         return self._display_name_localized
-
-    @property
-    def category(self) -> Optional[str]:
-        """:class: `str` Returns the skin's category."""
-        if self._category is None:
-            return None
-        return utils.removeprefix(self._category, 'EAresSprayCategory::')
 
     @property
     def theme(self) -> Optional[Theme]:
@@ -134,7 +126,7 @@ class Spray(BaseModel):
         self._state = spray._state
         self._data = spray._data.copy()
         self._display_name = spray._display_name
-        self._category = spray._category
+        self.category = spray.category
         self._theme_uuid = spray._theme_uuid
         self._is_null_spray = spray._is_null_spray
         self._display_icon = spray._display_icon

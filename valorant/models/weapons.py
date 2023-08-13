@@ -130,10 +130,10 @@ class WeaponStats:
         self.reload_time_seconds: float = data['reloadTimeSeconds']
         self.first_bullet_accuracy: float = data['firstBulletAccuracy']
         self.shotgun_pellet_count: int = data['shotgunPelletCount']
-        self._wall_penetration: Optional[str] = data['wallPenetration']
-        self._feature: Optional[str] = data['feature']
-        self._fire_mode: Optional[str] = data['fireMode']
-        self._alt_fire_type: Optional[str] = data['altFireType']
+        self.wall_penetration: Optional[str] = data['wallPenetration']
+        self.feature: Optional[str] = data['feature']
+        self.fire_mode: Optional[str] = data['fireMode']
+        self.alt_fire_type: Optional[str] = data['altFireType']
         self.ads_stats: Optional[AdsStats] = None
         if data['adsStats'] is not None:
             self.ads_stats = AdsStats(data['adsStats'])
@@ -166,30 +166,6 @@ class WeaponStats:
         joined = ' '.join('%s=%r' % t for t in attrs)
         return f'<{self.__class__.__name__} {joined}>'
 
-    @property
-    def fire_mode(self) -> Optional[str]:
-        if self._fire_mode is not None:
-            return utils.removeprefix(self._fire_mode, 'EWeaponFireModeDisplayType::')
-        return None
-
-    @property
-    def wall_penetration(self) -> Optional[str]:
-        if self._wall_penetration is not None:
-            return utils.removeprefix(self._wall_penetration, 'EWallPenetrationDisplayType::')
-        return None
-
-    @property
-    def feature(self) -> Optional[str]:
-        if self._feature is not None:
-            return utils.removeprefix(self._feature, 'WeaponStatsFeature::')
-        return None
-
-    @property
-    def alt_fire_type(self) -> Optional[str]:
-        if self._alt_fire_type is not None:
-            return utils.removeprefix(self._alt_fire_type, 'EWeaponAltFireDisplayType::')
-        return None
-
 
 class Weapon(BaseModel):
     def __init__(self, *, state: CacheState, data: WeaponPayload) -> None:
@@ -197,7 +173,7 @@ class Weapon(BaseModel):
         self._state: CacheState = state
         self._data: WeaponPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._category: str = data['category']
+        self.category: str = data['category']
         self._default_skin_uuid: str = data['defaultSkinUuid']
         self._display_icon: str = data['displayIcon']
         self._kill_stream_icon: str = data['killStreamIcon']
@@ -227,11 +203,6 @@ class Weapon(BaseModel):
         return self._display_name_localized
 
     @property
-    def category(self) -> str:
-        """:class: `str` Returns the weapon's category."""
-        return utils.removeprefix(self._category, "EEquippableCategory::")
-
-    @property
     def display_icon(self) -> Asset:
         """:class: `Asset` Returns the weapon's icon."""
         return Asset._from_url(self._state, self._display_icon)
@@ -257,7 +228,7 @@ class Weapon(BaseModel):
         self._state = weapon._state
         self._data = weapon._data.copy()
         self._display_name = weapon._display_name
-        self._category = weapon._category
+        self.category = weapon.category
         self._default_skin_uuid = weapon._default_skin_uuid
         self._display_icon = weapon._display_icon
         self._kill_stream_icon = weapon._kill_stream_icon
@@ -525,7 +496,7 @@ class SkinLevel(BaseModel):
         self._state: CacheState = state
         self._data: SkinLevelPayload = data
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._level: Optional[str] = data['levelItem']
+        self.level_item: Optional[str] = data['levelItem']
         self._display_icon: Optional[str] = data['displayIcon']
         self._streamed_video: Optional[str] = data['streamedVideo']
         self.asset_path: str = data['assetPath']
@@ -549,14 +520,7 @@ class SkinLevel(BaseModel):
         return self._display_name_localized
 
     @property
-    def level_item(self) -> str:
-        """:class: `str` Returns the skin's level."""
-        if self._level is None:
-            return 'Normal'
-        return utils.removeprefix(self._level, 'EEquippableSkinLevelItem::')
-
-    @property
-    def level(self) -> str:
+    def level(self) -> Optional[str]:
         """:class: `str` alias for level_item."""
         return self.level_item
 
@@ -601,7 +565,7 @@ class SkinLevel(BaseModel):
         self._state = skin_level._state
         self._data = skin_level._data.copy()
         self._display_name = skin_level._display_name
-        self._level = skin_level._level
+        self.level_item = skin_level.level_item
         self._display_icon = skin_level._display_icon
         self._streamed_video = skin_level._streamed_video
         self.asset_path = skin_level.asset_path

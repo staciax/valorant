@@ -162,7 +162,7 @@ else:
 
 __all__ = (
     'MELEE_WEAPON_ID',
-    'AbilityType',
+    'AbilitySlot',
     'Locale',
     'MissionType',
     'RelationType',
@@ -173,7 +173,7 @@ __all__ = (
 MELEE_WEAPON_ID: str = '2f59173c-4bed-b6c3-2191-dea9b58be9c7'
 
 
-class AbilityType(Enum):
+class AbilitySlot(Enum):
     passive = 'Passive'
     grenade = 'Grenade'
     ability_1 = 'Ability1'
@@ -205,6 +205,7 @@ class RewardType(Enum):
 
 
 class MissionType(Enum):
+    none = 'None'
     weekly = 'Weekly'
     daily = 'Daily'
     tutorial = 'Tutorial'

@@ -58,7 +58,9 @@ class Mission(BaseModel):
         self._data: MissionPayload = data
         self._display_name: Optional[Union[str, Dict[str, str]]] = data['displayName']
         self._title: Optional[Union[str, Dict[str, str]]] = data['title']
-        self._type: Optional[str] = data['type']
+        self.type: MissionType = MissionType.none
+        if data['type'] is not None:
+            self.type = try_enum(MissionType, data['type'].split('::')[1])
         self.xp_grant: int = data['xpGrant']
         self.progress_to_complete: int = data['progressToComplete']
         self._activation_date_iso: str = data['activationDate']
@@ -100,13 +102,6 @@ class Mission(BaseModel):
     def title(self) -> Localization:
         """:class: `str` Returns the mission's title."""
         return self._title_localized
-
-    @property
-    def type(self) -> Optional[MissionType]:
-        """Optional[:class: `MissionType`] Returns the mission's type."""
-        if self._type == '' or self._type is None:
-            return None
-        return try_enum(MissionType, utils.removeprefix(self._type, 'EAresMissionType::'))
 
     @property
     def activation_date(self) -> Optional[datetime.datetime]:

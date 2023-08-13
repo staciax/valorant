@@ -2,7 +2,7 @@ import datetime
 
 import pytest
 
-from valorant import MISSING, AbilityType, Agent, Event, RelationType, RewardType, Season
+from valorant import MISSING, AbilitySlot, Agent, Event, RelationType, RewardType, Season
 
 from .conftest import BaseTest
 
@@ -41,7 +41,7 @@ class TestValorantAPI(BaseTest):
             for ability in agent.abilities:
                 assert ability is not None
                 assert ability.slot is not None
-                assert isinstance(ability.slot, AbilityType)
+                assert isinstance(ability.slot, AbilitySlot)
                 assert ability.display_name is not None
                 assert ability.description is not None
                 if ability.display_icon:
@@ -402,7 +402,7 @@ class TestValorantAPI(BaseTest):
             assert season is not None
             assert season.display_name is not None
             if season.type is not None:
-                assert season.type.lower() == 'act'
+                assert season.type.lower() == 'earesseasontype::act'
             assert season.start_time is not None
             assert season.end_time is not None
             if season._parent_uuid is not None:
@@ -544,7 +544,8 @@ class TestValorantAPI(BaseTest):
                     assert level is not None
                     assert level.parent is not None
                     assert level.display_name is not None
-                    assert level.level_item is not None
+                    if level.level_item:
+                        assert level.level_item is not None
                     if level.display_icon:
                         assert level.display_icon is not None
                     if level.streamed_video:

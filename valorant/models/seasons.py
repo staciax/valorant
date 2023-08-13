@@ -58,7 +58,7 @@ class Season(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._type: Optional[str] = data['type']
+        self.type: Optional[str] = data['type']
         self._start_time_iso: Union[str, datetime.datetime] = data['startTime']
         self._end_time_iso: Union[str, datetime.datetime] = data['endTime']
         self._parent_uuid: Optional[str] = data['parentUuid']
@@ -90,13 +90,6 @@ class Season(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the season's name."""
         return self._display_name_localized
-
-    @property
-    def type(self) -> Optional[str]:
-        """:class: `str` Returns the season's type."""
-        if self._type is None:
-            return None
-        return utils.removeprefix(self._type, 'EAresSeasonType::')
 
     @property
     def start_time(self) -> datetime.datetime:

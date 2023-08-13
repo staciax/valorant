@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from .. import utils
 from ..asset import Asset
 from ..enums import Locale
 from ..localization import Localization
@@ -151,7 +150,7 @@ class GameModeEquippable(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._category: Optional[str] = data['category']
+        self.category: Optional[str] = data['category']
         self._display_icon: str = data['displayIcon']
         self._kill_stream_icon: str = data['killStreamIcon']
         self.asset_path: str = data['assetPath']
@@ -170,11 +169,6 @@ class GameModeEquippable(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the game mode's name."""
         return self._display_name_localized
-
-    @property
-    def category(self) -> Optional[str]:
-        """:class: `str` Returns the game mode's category."""
-        return utils.removeprefix(self._category, 'EEquippableCategory::') if self._category else None
 
     @property
     def display_icon(self) -> Asset:

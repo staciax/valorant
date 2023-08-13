@@ -27,7 +27,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
 from ..asset import Asset
-from ..enums import AbilityType, Locale, try_enum
+from ..enums import AbilitySlot, Locale, try_enum
 from ..localization import Localization
 from .abc import BaseModel
 
@@ -96,7 +96,7 @@ class Ability:
     def __init__(self, state: CacheState, data: AbilityPayload, agent: Agent) -> None:
         self._state = state
         self.agent: Agent = agent
-        self.slot: AbilityType = try_enum(AbilityType, data['slot'])
+        self.slot: AbilitySlot = try_enum(AbilitySlot, data['slot'])
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
         self._display_icon: Optional[str] = data['displayIcon']
@@ -386,7 +386,8 @@ class Agent(BaseModel):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
         self.developer_name: str = data['developerName']
-        self.character_tags: Optional[List[Union[str, Dict[str, str]]]] = data['characterTags']
+        if data['characterTags'] is not None:
+            self.character_tags = [Localization(tag, locale=self._state.locale) for tag in data['characterTags']]
         self._display_icon: str = data['displayIcon']
         self._display_icon_small: str = data['displayIconSmall']
         self._bust_portrait: str = data['bustPortrait']
@@ -401,8 +402,9 @@ class Agent(BaseModel):
         self._is_available_for_test: bool = data['isAvailableForTest']
         self._is_base_content: bool = data['isBaseContent']
         self._roles: Role = Role(state=self._state, data=data['role'])
-        self._abilities: Dict[str, Ability] = {
-            ability['slot'].lower(): Ability(state=self._state, data=ability, agent=self) for ability in data['abilities']
+        self._abilities: Dict[AbilitySlot, Ability] = {
+            try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability, agent=self)
+            for ability in data['abilities']
         }
         self._voice_line: Union[VoiceLinePayload, Dict[str, Optional[VoiceLinePayload]]] = data['voiceLine']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
@@ -485,9 +487,9 @@ class Agent(BaseModel):
         """:class: `AgentVoiceLineLocalization` Returns the agent's voice line."""
         return VoiceLineLocalization(self._voice_line)
 
-    def get_ability(self, ability_type: AbilityType) -> Optional[Ability]:
+    def get_ability(self, slot: AbilitySlot) -> Optional[Ability]:
         """:class: `AgentAbility` Returns the agent's ability from the slot."""
-        return self._abilities.get(ability_type.value.lower())
+        return self._abilities.get(slot)
 
     def is_full_portrait_right_facing(self) -> bool:
         """:class: `bool` Returns whether the agent's full portrait is right facing."""
