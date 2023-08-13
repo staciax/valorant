@@ -401,7 +401,7 @@ class Agent(BaseModel):
         self._is_playable_character: bool = data['isPlayableCharacter']
         self._is_available_for_test: bool = data['isAvailableForTest']
         self._is_base_content: bool = data['isBaseContent']
-        self._roles: Role = Role(state=self._state, data=data['role'])
+        self.role: Role = Role(state=self._state, data=data['role'])
         self._abilities: Dict[AbilitySlot, Ability] = {
             try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability, agent=self)
             for ability in data['abilities']
@@ -468,11 +468,6 @@ class Agent(BaseModel):
         return Asset._from_url(state=self._state, url=self._background)
 
     @property
-    def role(self) -> Role:
-        """:class: `AgentRole` Returns the agent's role."""
-        return self._roles
-
-    @property
     def abilities(self) -> List[Ability]:
         """:class: `List[AgentAbility]` Returns the agent's abilities."""
         return list(self._abilities.values())
@@ -486,10 +481,6 @@ class Agent(BaseModel):
     def voice_line_localization(self) -> VoiceLineLocalization:
         """:class: `AgentVoiceLineLocalization` Returns the agent's voice line."""
         return VoiceLineLocalization(self._voice_line)
-
-    def get_ability(self, slot: AbilitySlot) -> Optional[Ability]:
-        """:class: `AgentAbility` Returns the agent's ability from the slot."""
-        return self._abilities.get(slot)
 
     def is_full_portrait_right_facing(self) -> bool:
         """:class: `bool` Returns whether the agent's full portrait is right facing."""
@@ -506,3 +497,9 @@ class Agent(BaseModel):
     def is_base_content(self) -> bool:
         """:class: `bool` Returns whether the agent is base content."""
         return self._is_base_content
+
+    # helpers
+
+    def get_ability(self, slot: AbilitySlot) -> Optional[Ability]:
+        """:class: `AgentAbility` Returns the agent's ability from the slot."""
+        return self._abilities.get(slot)
