@@ -51,7 +51,6 @@ class Currency(BaseModel):
         self._display_icon: Optional[str] = data['displayIcon']
         self._large_icon: Optional[str] = data['largeIcon']
         self.asset_path: str = data['assetPath']
-        # self._value: int = 0
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._display_name_singular_localized: Localization = Localization(
             self._display_name_singular, locale=self._state.locale
@@ -62,27 +61,6 @@ class Currency(BaseModel):
 
     def __repr__(self) -> str:
         return f'<Currency display_name={self.display_name!r}>'
-
-    # def __int__(self) -> int:
-    #     return self.value
-
-    # def __lt__(self, other: object) -> bool:
-    #     return isinstance(other, Currency) and self.value < other.value
-
-    # def __le__(self, other: object) -> bool:
-    #     return isinstance(other, Currency) and self.value <= other.value
-
-    # def __eq__(self, other: object) -> bool:
-    #     return isinstance(other, Currency) and self.value == other.value
-
-    # def __ne__(self, other: object) -> bool:
-    #     return not self.__eq__(other)
-
-    # def __gt__(self, other: object) -> bool:
-    #     return isinstance(other, Currency) and self.value > other.value
-
-    # def __ge__(self, other: object) -> bool:
-    #     return isinstance(other, Currency) and self.value >= other.value
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
