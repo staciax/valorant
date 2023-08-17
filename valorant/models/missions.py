@@ -59,7 +59,7 @@ class Mission(BaseModel):
         self._title: Optional[Union[str, Dict[str, str]]] = data['title']
         self.type: MissionType = MissionType.none
         if data['type'] is not None:
-            self.type = try_enum(MissionType, data['type'].split('::')[1])
+            self.type = try_enum(MissionType, data['type'])
         self.xp_grant: int = data['xpGrant']
         self.progress_to_complete: int = data['progressToComplete']
         self._activation_date_iso: str = data['activationDate']

@@ -206,17 +206,13 @@ class RewardType(Enum):
 
 class MissionType(Enum):
     none = 'None'
-    weekly = 'Weekly'
-    daily = 'Daily'
-    tutorial = 'Tutorial'
-    npe = 'NPE'
+    weekly = 'EAresMissionType::Weekly'
+    daily = 'EAresMissionType::Daily'
+    tutorial = 'EAresMissionType::Tutorial'
+    npe = 'EAresMissionType::NPE'
 
     def __str__(self) -> str:
         return str(self.value)
-
-    @property
-    def full(self) -> str:
-        return f'AresMissionType::{self.value}'
 
 
 class Locale(Enum):
