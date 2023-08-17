@@ -230,7 +230,7 @@ class Skin(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.theme_uuid: str = data['themeUuid']
-        self._content_tier_uuid: Optional[str] = data['contentTierUuid']
+        self.content_tier_uuid: Optional[str] = data['contentTierUuid']
         self._display_icon: str = data['displayIcon']
         self._wallpaper: Optional[str] = data['wallpaper']
         self.asset_path: str = data['assetPath']
@@ -266,9 +266,9 @@ class Skin(BaseModel):
     @property
     def content_tier(self) -> Optional[ContentTier]:
         """:class: `ContentTier` Returns the skin's rarity."""
-        if self._content_tier_uuid is None:
+        if self.content_tier_uuid is None:
             return None
-        return self._state.get_content_tier(self._content_tier_uuid)
+        return self._state.get_content_tier(self.content_tier_uuid)
 
     @property
     def rarity(self) -> Optional[ContentTier]:
