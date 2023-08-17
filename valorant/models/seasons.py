@@ -60,7 +60,7 @@ class Season(BaseModel):
         self.type: Optional[str] = data['type']
         self._start_time_iso: Union[str, datetime.datetime] = data['startTime']
         self._end_time_iso: Union[str, datetime.datetime] = data['endTime']
-        self._parent_uuid: Optional[str] = data['parentUuid']
+        self.parent_uuid: Optional[str] = data['parentUuid']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
@@ -103,7 +103,7 @@ class Season(BaseModel):
     @property
     def parent(self) -> Optional[Season]:
         """:class: `Season` Returns the season's parent."""
-        return self._state.get_season(self._parent_uuid)
+        return self._state.get_season(self.parent_uuid)
 
 
 class Border(BaseModel):
