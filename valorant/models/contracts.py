@@ -87,7 +87,7 @@ class Reward(BaseModel):
             return self._state.get_agent(str(self.uuid))
         elif self.type is RewardType.currency:
             return self._state.get_currency(str(self.uuid))
-        _log.warning(f'Unknown reward type: {self.type}')
+        _log.warning(f'Unknown reward type={self.type!r} uuid={self.uuid!r}')
         return None
 
     def is_highlighted(self) -> bool:
