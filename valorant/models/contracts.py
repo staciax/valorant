@@ -63,14 +63,13 @@ _log = logging.getLogger(__name__)
 
 
 class Reward(BaseModel):
-    def __init__(self, state: CacheState, data: RewardPayload, chapter: Chapter, free_reward: bool = False) -> None:
+    def __init__(self, state: CacheState, data: RewardPayload, free_reward: bool = False) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self.type: RewardType = try_enum(RewardType, data['type'])
         self.amount: int = data['amount']
         self._is_highlighted: bool = data['isHighlighted']
         self._is_free: bool = free_reward
-        self.chapter: Chapter = chapter
 
     def get_item(self) -> Optional[Union[Agent, SkinLevel, BuddyLevel, Currency, PlayerCard, PlayerTitle, Spray]]:
         if self.type is RewardType.skin_level:
@@ -98,15 +97,14 @@ class Reward(BaseModel):
 
 
 class Level:
-    def __init__(self, state: CacheState, data: LevelPayload, chapter: Chapter) -> None:
+    def __init__(self, state: CacheState, data: LevelPayload) -> None:
         self._state: CacheState = state
-        self.reward: Reward = Reward(self._state, data['reward'], chapter)
+        self.reward: Reward = Reward(self._state, data['reward'])
         self.xp: int = data['xp']
         self.vp_cost: int = data['vpCost']
         self._is_purchasable_with_vp: bool = data['isPurchasableWithVP']
         self.dough_cost: int = data['doughCost']
         self._is_purchasable_with_dough: bool = data['isPurchasableWithDough']
-        self.chapter: Chapter = chapter
 
     def is_purchasable_with_vp(self) -> bool:
         return self._is_purchasable_with_vp
@@ -119,10 +117,10 @@ class Chapter:
     def __init__(self, state: CacheState, data: ChapterPayload, index: int) -> None:
         self._state: CacheState = state
         self._is_epilogue: bool = data['isEpilogue']
-        self.levels: List[Level] = [Level(self._state, level, self) for level in data['levels']]
+        self.levels: List[Level] = [Level(self._state, level) for level in data['levels']]
         self.free_rewards: Optional[List[Reward]] = None
         if data['freeRewards'] is not None:
-            self.free_rewards = [Reward(self._state, reward, self, free_reward=True) for reward in data['freeRewards']]
+            self.free_rewards = [Reward(self._state, reward, free_reward=True) for reward in data['freeRewards']]
         self.index: int = index
 
     def is_epilogue(self) -> bool:
