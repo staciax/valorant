@@ -92,9 +92,8 @@ class Role(BaseModel):
 
 
 class Ability:
-    def __init__(self, state: CacheState, data: AbilityPayload, agent: Agent) -> None:
+    def __init__(self, state: CacheState, data: AbilityPayload) -> None:
         self._state = state
-        self.agent: Agent = agent
         self.slot: AbilitySlot = try_enum(AbilitySlot, data['slot'])
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
@@ -402,8 +401,7 @@ class Agent(BaseModel):
         self._is_base_content: bool = data['isBaseContent']
         self.role: Role = Role(state=self._state, data=data['role'])
         self._abilities: Dict[AbilitySlot, Ability] = {
-            try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability, agent=self)
-            for ability in data['abilities']
+            try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability) for ability in data['abilities']
         }
         self._voice_line: Union[VoiceLinePayload, Dict[str, Optional[VoiceLinePayload]]] = data['voiceLine']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
