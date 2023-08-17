@@ -56,7 +56,7 @@ class Spray(BaseModel):
         self._animation_png: Optional[str] = data['animationPng']
         self._animation_gif: Optional[str] = data['animationGif']
         self.asset_path: str = data['assetPath']
-        self.levels: List[SprayLevel] = [SprayLevel(state=self._state, data=level, parent=self) for level in data['levels']]
+        self.levels: List[Level] = [Level(state=self._state, data=level, parent=self) for level in data['levels']]
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
     def __str__(self) -> str:
@@ -117,7 +117,7 @@ class Spray(BaseModel):
         return self._is_null_spray
 
 
-class SprayLevel(BaseModel):
+class Level(BaseModel):
     def __init__(self, state: CacheState, data: SprayLevelPayload, parent: Spray) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
@@ -151,3 +151,6 @@ class SprayLevel(BaseModel):
     def display_icon(self) -> Optional[Asset]:
         """:class: `str` Returns the spray's display icon."""
         return Asset._from_url(state=self._state, url=self._display_icon) if self._display_icon else None
+
+
+SprayLevel = Level

@@ -51,7 +51,7 @@ class Buddy(BaseModel):
         self.theme_uuid: Optional[str] = data['themeUuid']
         self._display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
-        self.levels: List[BuddyLevel] = [BuddyLevel(state=self._state, data=level, parent=self) for level in data['levels']]
+        self.levels: List[Level] = [Level(state=self._state, data=level, parent=self) for level in data['levels']]
         self._name_localized = Localization(self._display_name, locale=self._state.locale)
 
     def __str__(self) -> str:
@@ -84,12 +84,12 @@ class Buddy(BaseModel):
 
     # helper methods
 
-    def get_buddy_level(self, level: int = 1) -> Optional[BuddyLevel]:
+    def get_buddy_level(self, level: int = 1) -> Optional[Level]:
         """Returns the buddy level for the given level number."""
         return next((b for b in self.levels if b.charm_level == level), None)
 
 
-class BuddyLevel(BaseModel):
+class Level(BaseModel):
     def __init__(self, *, state: CacheState, data: BuddyLevelPayload, parent: Buddy) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
@@ -123,3 +123,6 @@ class BuddyLevel(BaseModel):
     def display_icon(self) -> Asset:
         """:class: `str` Returns the buddy's display icon."""
         return Asset._from_url(state=self._state, url=self._display_icon)
+
+
+BuddyLevel = Level

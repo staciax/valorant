@@ -234,11 +234,9 @@ class Skin(BaseModel):
         self._display_icon: str = data['displayIcon']
         self._wallpaper: Optional[str] = data['wallpaper']
         self.asset_path: str = data['assetPath']
-        self.chromas: List[SkinChroma] = [
-            SkinChroma(state=self._state, data=chroma, parent=self) for chroma in data['chromas']
-        ]
-        self.levels: List[SkinLevel] = [
-            SkinLevel(state=self._state, data=level, parent=self, level_number=index)
+        self.chromas: List[Chroma] = [Chroma(state=self._state, data=chroma, parent=self) for chroma in data['chromas']]
+        self.levels: List[Level] = [
+            Level(state=self._state, data=level, parent=self, level_number=index)
             for index, level in enumerate(data['levels'])
         ]
         self.parent: Weapon = parent
@@ -306,7 +304,7 @@ class Skin(BaseModel):
 
     # helpers
 
-    def get_skin_level(self, level: int) -> Optional[SkinLevel]:
+    def get_skin_level(self, level: int) -> Optional[Level]:
         """get the skin's level with the given level.
 
         Parameters
@@ -322,7 +320,7 @@ class Skin(BaseModel):
         return next((skin_level for skin_level in self.levels if skin_level.level_number == level), None)
 
 
-class SkinChroma(BaseModel):
+class Chroma(BaseModel):
     def __init__(self, *, state: CacheState, data: SkinChromaPayload, parent: Skin) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
@@ -431,7 +429,7 @@ class SkinChroma(BaseModel):
         return 'random' in self.asset_path.lower()
 
 
-class SkinLevel(BaseModel):
+class Level(BaseModel):
     def __init__(self, *, state: CacheState, data: SkinLevelPayload, parent: Skin, level_number: int) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
@@ -526,3 +524,7 @@ class SkinLevel(BaseModel):
     def is_random(self) -> bool:
         """:class: `bool` Returns whether the skin is random."""
         return 'random' in self.asset_path.lower()
+
+
+SkinChroma = Chroma
+SkinLevel = Level

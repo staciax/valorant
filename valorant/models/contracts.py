@@ -53,11 +53,14 @@ if TYPE_CHECKING:
     from .sprays import Spray
     from .weapons import SkinLevel
 
-# fmt: off
 __all__ = (
+    'Chapter',
+    'ChapterLevel',
+    'Content',
     'Contract',
+    'Level',
+    'Reward',
 )
-# fmt: on
 
 _log = logging.getLogger(__name__)
 
@@ -213,3 +216,6 @@ class Contract(BaseModel):
         if self._display_icon is None:
             return None
         return Asset._from_url(self._state, self._display_icon)
+
+
+ChapterLevel = Level
