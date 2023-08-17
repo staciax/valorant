@@ -180,7 +180,7 @@ class Contract(BaseModel):
         self._display_icon: Optional[str] = data['displayIcon']
         self.ship_it: bool = data['shipIt']
         self.free_reward_schedule_uuid: str = data['freeRewardScheduleUuid']
-        self._content: Content = Content(self._state, data['content'])
+        self.content: Content = Content(self._state, data['content'])
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
@@ -215,8 +215,3 @@ class Contract(BaseModel):
         if self._display_icon is None:
             return None
         return Asset._from_url(self._state, self._display_icon)
-
-    @property
-    def content(self) -> Content:
-        """:class: `Content` Returns the contract's content."""
-        return self._content
