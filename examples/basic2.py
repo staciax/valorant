@@ -17,7 +17,7 @@ async def main():
             print(agent.display_icon_small)
             print(agent.full_portrait_v2)
 
-            grenade = agent.get_ability(valorant.AbilityType.grenade)
+            grenade = agent.get_ability(valorant.AbilitySlot.grenade)
             if grenade is not None:
                 print(grenade.display_name)
 
