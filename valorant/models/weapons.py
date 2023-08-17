@@ -229,7 +229,7 @@ class Skin(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._theme_uuid: str = data['themeUuid']
+        self.theme_uuid: str = data['themeUuid']
         self._content_tier_uuid: Optional[str] = data['contentTierUuid']
         self._display_icon: str = data['displayIcon']
         self._wallpaper: Optional[str] = data['wallpaper']
@@ -261,7 +261,7 @@ class Skin(BaseModel):
     @property
     def theme(self) -> Optional[Theme]:
         """:class: `Theme` Returns the skin's theme uuid."""
-        return self._state.get_theme(self._theme_uuid)
+        return self._state.get_theme(self.theme_uuid)
 
     @property
     def content_tier(self) -> Optional[ContentTier]:

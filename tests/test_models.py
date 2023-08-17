@@ -74,7 +74,7 @@ class TestValorantAPI(BaseTest):
             assert buddy is not None
             assert buddy.display_name is not None
             assert isinstance(buddy.is_hidden_if_not_owned(), bool)
-            if buddy._theme_uuid is not None:
+            if buddy.theme_uuid is not None:
                 assert buddy.theme is not None
             assert buddy.display_icon is not None
             assert buddy.asset_path is not None
@@ -382,7 +382,7 @@ class TestValorantAPI(BaseTest):
             assert card.small_art is not None
             assert card.wide_art is not None
             assert card.large_art is not None
-            if card._theme_uuid is not None:
+            if card.theme_uuid is not None:
                 assert card.theme is not None
 
     @pytest.mark.asyncio
@@ -439,7 +439,7 @@ class TestValorantAPI(BaseTest):
             assert spray.display_name is not None
             if spray.category:
                 assert spray.category is not None
-            if spray._theme_uuid is not None:
+            if spray.theme_uuid is not None:
                 assert spray.theme is not None
             assert isinstance(spray.is_null_spray(), bool)
             assert spray.display_icon is not None
@@ -519,7 +519,7 @@ class TestValorantAPI(BaseTest):
                 # TODO: test all attributes of shop data
             for skin in weapon.skins:
                 assert skin is not None
-                if skin._theme_uuid is not None:
+                if skin.theme_uuid is not None:
                     assert skin.theme is not None
                 for chroma in skin.chromas:
                     assert chroma is not None

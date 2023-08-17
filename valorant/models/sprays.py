@@ -48,7 +48,7 @@ class Spray(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.category: Optional[str] = data['category']
-        self._theme_uuid: Optional[str] = data['themeUuid']
+        self.theme_uuid: Optional[str] = data['themeUuid']
         self._is_null_spray: bool = data['isNullSpray']
         self._display_icon: str = data['displayIcon']
         self._full_icon: Optional[str] = data['fullIcon']
@@ -75,9 +75,9 @@ class Spray(BaseModel):
 
     @property
     def theme(self) -> Optional[Theme]:
-        if self._theme_uuid is None:
+        if self.theme_uuid is None:
             return None
-        return self._state.get_theme(self._theme_uuid)
+        return self._state.get_theme(self.theme_uuid)
 
     @property
     def display_icon(self) -> Optional[Asset]:

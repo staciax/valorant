@@ -49,7 +49,7 @@ class PlayerCard(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._is_hidden_if_not_owned: bool = data.get('isHiddenIfNotOwned', False)
-        self._theme_uuid: Optional[str] = data['themeUuid']
+        self.theme_uuid: Optional[str] = data['themeUuid']
         self._display_icon: Optional[str] = data['displayIcon']
         self._small_art: Optional[str] = data['smallArt']
         self._wide_art: Optional[str] = data['wideArt']
@@ -103,7 +103,7 @@ class PlayerCard(BaseModel):
     @property
     def theme(self) -> Optional[Theme]:
         """:class: `Theme` Returns the player card's theme."""
-        return self._state.get_theme(self._theme_uuid)
+        return self._state.get_theme(self.theme_uuid)
 
     def is_hidden_if_not_owned(self) -> bool:
         """:class: `bool` Returns whether the player card is hidden if not owned."""

@@ -48,7 +48,7 @@ class Buddy(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._is_hidden_if_not_owned: bool = data['isHiddenIfNotOwned']
-        self._theme_uuid: Optional[str] = data['themeUuid']
+        self.theme_uuid: Optional[str] = data['themeUuid']
         self._display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
         self.levels: List[BuddyLevel] = [BuddyLevel(state=self._state, data=level, parent=self) for level in data['levels']]
@@ -71,7 +71,7 @@ class Buddy(BaseModel):
     @property
     def theme(self) -> Optional[Theme]:
         """:class: `Theme` Returns the buddy's theme."""
-        return self._state.get_theme(self._theme_uuid)
+        return self._state.get_theme(self.theme_uuid)
 
     @property
     def display_icon(self) -> Asset:
