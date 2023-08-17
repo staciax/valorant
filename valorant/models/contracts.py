@@ -63,7 +63,7 @@ _log = logging.getLogger(__name__)
 
 
 class Reward(BaseModel):
-    def __init__(self, state: CacheState, data: RewardPayload, free_reward: bool = False) -> None:
+    def __init__(self, state: CacheState, data: RewardPayload, *, free_reward: bool = False) -> None:
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self.type: RewardType = try_enum(RewardType, data['type'])
