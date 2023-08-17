@@ -48,7 +48,32 @@ class Objective(BaseModel):
         super().__init__(data['objectiveUuid'])
         self.value: int = data['value']
 
-    # TODO: add magic methods
+    def __repr__(self) -> str:
+        return f'<Objective value={self.value!r}>'
+
+    def __str__(self) -> str:
+        return str(self.value)
+
+    def __int__(self) -> int:
+        return self.value
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, Objective) and self.value == other.value
+
+    def __ne__(self, other: object) -> bool:
+        return not self.__eq__(other)
+
+    def __lt__(self, other: object) -> bool:
+        return isinstance(other, Objective) and self.value < other.value
+
+    def __le__(self, other: object) -> bool:
+        return isinstance(other, Objective) and self.value <= other.value
+
+    def __gt__(self, other: object) -> bool:
+        return isinstance(other, Objective) and self.value > other.value
+
+    def __ge__(self, other: object) -> bool:
+        return isinstance(other, Objective) and self.value >= other.value
 
 
 class Mission(BaseModel):
