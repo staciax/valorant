@@ -35,12 +35,11 @@ if TYPE_CHECKING:
     from ..cache import CacheState
     from ..types.competitive_tiers import CompetitiveTier as CompetitiveTierPayload, Tier as TierPayload
 
-# fmt: off
+
 __all__ = (
     'CompetitiveTier',
     'Tier',
 )
-# fmt: on
 
 
 class Tier:

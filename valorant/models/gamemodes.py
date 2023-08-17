@@ -41,14 +41,13 @@ if TYPE_CHECKING:
     )
     from .weapons import Weapon
 
-# fmt: off
+
 __all__ = (
     'GameFeatureOverride',
     'GameMode',
     'GameModeEquippable',
     'GameRuleBoolOverride',
 )
-# fmt: on
 
 
 class GameFeatureOverride:

@@ -44,13 +44,12 @@ if TYPE_CHECKING:
     )
     from .competitive_tiers import CompetitiveTier
 
-# fmt: off
+
 __all__ = (
     'Border',
     'CompetitiveSeason',
     'Season',
 )
-# fmt: on
 
 
 class Season(BaseModel):

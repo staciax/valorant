@@ -35,13 +35,12 @@ if TYPE_CHECKING:
     from ..cache import CacheState
     from ..types.maps import Callout as CalloutPayload, Location as LocationPayload, Map as MapPayload
 
-# fmt: off
+
 __all__ = (
     'Map',
     'Callout',
     'Location',
 )
-# fmt: on
 
 
 class Location:

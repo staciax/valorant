@@ -41,7 +41,7 @@ if TYPE_CHECKING:
         VoiceLine as VoiceLinePayload,
     )
 
-# fmt: off
+
 __all__ = (
     'Ability',
     'Agent',
@@ -50,7 +50,6 @@ __all__ = (
     'VoiceLine',
     'VoiceLineLocalization',
 )
-# fmt: on
 
 
 class Role(BaseModel):
