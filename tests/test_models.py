@@ -2,7 +2,8 @@ import datetime
 
 import pytest
 
-from valorant import MISSING, AbilitySlot, Agent, Event, RelationType, RewardType, Season
+from valorant import AbilitySlot, Agent, Event, RelationType, RewardType, Season
+from valorant.utils import MISSING
 
 from .conftest import BaseTest
 
@@ -405,7 +406,7 @@ class TestValorantAPI(BaseTest):
                 assert season.type.lower() == 'earesseasontype::act'
             assert season.start_time is not None
             assert season.end_time is not None
-            if season._parent_uuid is not None:
+            if season.parent_uuid is not None:
                 assert season.parent is not None
             assert season.asset_path is not None
 
