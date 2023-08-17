@@ -35,6 +35,12 @@ import yarl
 from . import utils
 from .file import File
 
+# fmt: off
+__all__ = (
+    'Asset',
+)
+# fmt: on
+
 if TYPE_CHECKING:
     from typing_extensions import Self
 
