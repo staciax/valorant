@@ -48,20 +48,20 @@ class TestValorantAPI(BaseTest):
                 if ability.display_icon:
                     assert ability.display_icon is not None
 
-            assert agent.voice_line_localization is not None
-            voice_line = agent.voice_line
-            if voice_line is not None:
-                assert agent.voice_line_localization.voice_locale == voice_line
-                for voice in agent.voice_line_localization.all():
-                    assert voice is not None
-                    assert voice.min_duration is not None
-                    assert voice.max_duration is not None
-                    assert voice.media_list is not None
-                    for media in voice.media_list:
-                        assert media is not None
-                        assert media.id is not None
-                        assert media.wwise is not None
-                        assert media.wave is not None
+            if agent.voice_line_localization is not None:
+                voice_line = agent.voice_line
+                if voice_line is not None:
+                    assert agent.voice_line_localization.voice_locale == voice_line
+                    for voice in agent.voice_line_localization.all():
+                        assert voice is not None
+                        assert voice.min_duration is not None
+                        assert voice.max_duration is not None
+                        assert voice.media_list is not None
+                        for media in voice.media_list:
+                            assert media is not None
+                            assert media.id is not None
+                            assert media.wwise is not None
+                            assert media.wave is not None
 
     @pytest.mark.asyncio
     async def test_buddies(self) -> None:

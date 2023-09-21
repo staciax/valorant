@@ -74,7 +74,7 @@ class Agent(Object):
     isBaseContent: bool
     role: Role
     abilities: List[Ability]
-    voiceLine: Union[VoiceLine, Dict[str, Optional[VoiceLine]]]
+    voiceLine: Optional[Union[VoiceLine, Dict[str, Optional[VoiceLine]]]]
 
 
 Agents = Response[List[Agent]]

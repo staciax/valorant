@@ -403,7 +403,7 @@ class Agent(BaseModel):
         self._abilities: Dict[AbilitySlot, Ability] = {
             try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability) for ability in data['abilities']
         }
-        self._voice_line: Union[VoiceLinePayload, Dict[str, Optional[VoiceLinePayload]]] = data['voiceLine']
+        self._voice_line: Optional[Union[VoiceLinePayload, Dict[str, Optional[VoiceLinePayload]]]] = data['voiceLine']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._description_localized: Localization = Localization(self._description, locale=self._state.locale)
 
@@ -472,11 +472,15 @@ class Agent(BaseModel):
     @property
     def voice_line(self) -> Optional[VoiceLine]:
         """:class: `AgentVoiceLineLocalization` Returns the agent's voice line."""
+        if self.voice_line_localization is None:
+            return None
         return self.voice_line_localization.voice_locale
 
     @property
-    def voice_line_localization(self) -> VoiceLineLocalization:
+    def voice_line_localization(self) -> Optional[VoiceLineLocalization]:
         """:class: `AgentVoiceLineLocalization` Returns the agent's voice line."""
+        if self._voice_line is None:
+            return None
         return VoiceLineLocalization(self._voice_line)
 
     def is_full_portrait_right_facing(self) -> bool:
