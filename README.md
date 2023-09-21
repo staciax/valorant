@@ -57,8 +57,8 @@ asyncio.run(main())
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Project inspired by
-- [discord.py](https://github.com/Rapptz/discord.py) the Discord API wrapper for Python. 
+<!-- ## Project inspired by
+- [discord.py](https://github.com/Rapptz/discord.py) the Discord API wrapper for Python.  -->
 
 <!-- ## Support
 - [Discord Server](https://discord.com/invite/) -->
