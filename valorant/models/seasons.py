@@ -28,7 +28,6 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
@@ -37,6 +36,7 @@ if TYPE_CHECKING:
     from uuid import UUID
 
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.seasons import (
         Border as BorderPayload,
         CompetitiveSeason as CompetitiveSeasonPayload,

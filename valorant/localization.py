@@ -69,7 +69,7 @@ class Localization:
         self.zh_TW: str = self.untranslated.get('zh-TW', default)
 
     def __str__(self) -> str:
-        """Returns the default locale."""
+        """Return the default locale."""
         return self.locale
 
     def __repr__(self) -> str:

@@ -27,12 +27,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.maps import Callout as CalloutPayload, Location as LocationPayload, Map as MapPayload
 
 
@@ -65,7 +65,9 @@ class Callout:
         self._super_region_name: Union[str, Dict[str, str]] = data['superRegionName']
         self.location: Location = Location(data['location'])
         self._region_name_localized: Localization = Localization(self._region_name, locale=self._state.locale)
-        self._super_region_name_localized: Localization = Localization(self._super_region_name, locale=self._state.locale)
+        self._super_region_name_localized: Localization = Localization(
+            self._super_region_name, locale=self._state.locale
+        )
 
     def __str__(self) -> str:
         return self.region_name.locale

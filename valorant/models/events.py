@@ -27,7 +27,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from .. import utils
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
@@ -35,6 +34,7 @@ if TYPE_CHECKING:
     import datetime
 
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.events import Event as EventPayload
 
 # fmt: off
@@ -54,7 +54,9 @@ class Event(BaseModel):
         self._end_time_iso: str = data['endTime']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._short_display_name_localized: Localization = Localization(self._short_display_name, locale=self._state.locale)
+        self._short_display_name_localized: Localization = Localization(
+            self._short_display_name, locale=self._state.locale
+        )
 
     def __str__(self) -> str:
         return self.display_name.locale

@@ -31,7 +31,7 @@ setup(
     author='STACiA',
     url='https://github.com/staciax/valorant',
     project_urls={
-        "Issue tracker": "https://github.com/staciax/valorant/issues",
+        'Issue tracker': 'https://github.com/staciax/valorant/issues',
     },
     version=version,
     packages=packages,
@@ -53,5 +53,6 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
 )

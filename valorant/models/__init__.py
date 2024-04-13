@@ -8,6 +8,7 @@ Typings for the Valorant API
 :license: MIT, see LICENSE for more details.
 
 """
+
 from . import abc as abc
 from .agents import *
 from .buddies import *

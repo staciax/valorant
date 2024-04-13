@@ -87,7 +87,7 @@ class AltShotgunStats:
         self.burst_rate: float = data['burstRate']
 
     def __repr__(self) -> str:
-        return f"<AltShotgunStats shotgun_pellet_count={self.shotgun_pellet_count} burst_rate={self.burst_rate}>"
+        return f'<AltShotgunStats shotgun_pellet_count={self.shotgun_pellet_count} burst_rate={self.burst_rate}>'
 
 
 class AirBurstStats:
@@ -96,7 +96,7 @@ class AirBurstStats:
         self.burst_distance: float = data['burstDistance']
 
     def __repr__(self) -> str:
-        return f"<AirBurstStats shotgun_pellet_count={self.shotgun_pellet_count} burst_distance={self.burst_distance}>"
+        return f'<AirBurstStats shotgun_pellet_count={self.shotgun_pellet_count} burst_distance={self.burst_distance}>'
 
 
 class DamageRange:
@@ -189,7 +189,7 @@ class Weapon(BaseModel):
         return self.display_name.locale
 
     def __repr__(self) -> str:
-        return f"<Weapon display_name={self.display_name!r}>"
+        return f'<Weapon display_name={self.display_name!r}>'
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
@@ -246,7 +246,7 @@ class Skin(BaseModel):
         return self.display_name.locale
 
     def __repr__(self) -> str:
-        return f"<Skin display_name={self.display_name!r}>"
+        return f'<Skin display_name={self.display_name!r}>'
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale)
@@ -447,7 +447,7 @@ class Level(BaseModel):
         return str(self.display_name)
 
     def __repr__(self) -> str:
-        return f"<SkinLevel display_name={self.display_name!r} level={self.level!r}>"
+        return f'<SkinLevel display_name={self.display_name!r} level={self.level!r}>'
 
     def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
         return self._display_name_localized.from_locale(locale=locale)

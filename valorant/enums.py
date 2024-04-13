@@ -122,8 +122,8 @@ class EnumMeta(type):
     def __call__(cls, value: str) -> Any:
         try:
             return cls._enum_value_map_[value]
-        except (KeyError, TypeError):
-            raise ValueError(f"{value!r} is not a valid {cls.__name__}")
+        except (KeyError, TypeError) as e:
+            raise ValueError(f'{value!r} is not a valid {cls.__name__}') from e
 
     def __getitem__(cls, key: str) -> Any:
         return cls._enum_member_map_[key]

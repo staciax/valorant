@@ -27,12 +27,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.bundles import Bundle as BundlePayload
     from .buddies import Buddy
     from .player_cards import PlayerCard
@@ -68,8 +68,12 @@ class Bundle(BaseModel):
             self._display_name_sub_text, locale=self._state.locale
         )
         self._description_localized: Localization = Localization(self._description, locale=self._state.locale)
-        self._extra_description_localized: Localization = Localization(self._extra_description, locale=self._state.locale)
-        self._promo_description_localized: Localization = Localization(self._promo_description, locale=self._state.locale)
+        self._extra_description_localized: Localization = Localization(
+            self._extra_description, locale=self._state.locale
+        )
+        self._promo_description_localized: Localization = Localization(
+            self._promo_description, locale=self._state.locale
+        )
         self._items: List[BundleItem] = []
 
     def __str__(self) -> str:

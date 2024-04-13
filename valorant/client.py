@@ -31,33 +31,34 @@ from typing import TYPE_CHECKING, List, Optional, Type
 from .cache import CacheState
 from .enums import Locale
 from .http import HTTPClient
-from .models.agents import Agent
-from .models.buddies import Buddy, BuddyLevel
-from .models.bundles import Bundle
-from .models.ceremonies import Ceremony
-from .models.competitive_tiers import CompetitiveTier
-from .models.content_tiers import ContentTier
-from .models.contracts import Contract
-from .models.currencies import Currency
-from .models.events import Event
-from .models.gamemodes import GameMode, GameModeEquippable
-from .models.gear import Gear
-from .models.level_borders import LevelBorder
-from .models.maps import Map
-from .models.missions import Mission
-from .models.player_cards import PlayerCard
-from .models.player_titles import PlayerTitle
-from .models.seasons import CompetitiveSeason, Season
-from .models.sprays import Spray, SprayLevel
-from .models.themes import Theme
-from .models.version import Version
-from .models.weapons import Skin, SkinChroma, SkinLevel, Weapon
 from .utils import MISSING
 
 if TYPE_CHECKING:
     from types import TracebackType
 
     from typing_extensions import Self
+
+    from .models.agents import Agent
+    from .models.buddies import Buddy, BuddyLevel
+    from .models.bundles import Bundle
+    from .models.ceremonies import Ceremony
+    from .models.competitive_tiers import CompetitiveTier
+    from .models.content_tiers import ContentTier
+    from .models.contracts import Contract
+    from .models.currencies import Currency
+    from .models.events import Event
+    from .models.gamemodes import GameMode, GameModeEquippable
+    from .models.gear import Gear
+    from .models.level_borders import LevelBorder
+    from .models.maps import Map
+    from .models.missions import Mission
+    from .models.player_cards import PlayerCard
+    from .models.player_titles import PlayerTitle
+    from .models.seasons import CompetitiveSeason, Season
+    from .models.sprays import Spray, SprayLevel
+    from .models.themes import Theme
+    from .models.version import Version
+    from .models.weapons import Skin, SkinChroma, SkinLevel, Weapon
 
 _log = logging.getLogger(__name__)
 
@@ -71,7 +72,7 @@ __all__ = (
 class Client:
     def __init__(
         self,
-        locale: Locale = Locale.american_english
+        locale: Locale = Locale.american_english,
         # *,
         # enable_cache: bool = True,
     ) -> None:

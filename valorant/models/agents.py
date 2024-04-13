@@ -229,7 +229,7 @@ class VoiceLineLocalization:
             ('zh_CN', self.zh_CN),
             ('zh_TW', self.zh_TW),
         ]
-        joined = ' '.join('%s=%r' % t for t in attrs)
+        joined = ' '.join('%s=%r' % t for t in attrs)  # noqa: UP031
         return f'<{self.__class__.__name__} {joined}>'
 
     def __eq__(self, other: object) -> bool:
@@ -269,7 +269,7 @@ class VoiceLineLocalization:
 
     def all(self) -> List[VoiceLine]:
         """:class:`List[VoiceLine]`: Returns all locales as a list."""
-        return list([v for v in self._dict().values() if v is not None])
+        return [v for v in self._dict().values() if v is not None]
 
     @property
     def voice_locale(self) -> Optional[VoiceLine]:
@@ -401,7 +401,8 @@ class Agent(BaseModel):
         self._is_base_content: bool = data['isBaseContent']
         self.role: Role = Role(state=self._state, data=data['role'])
         self._abilities: Dict[AbilitySlot, Ability] = {
-            try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability) for ability in data['abilities']
+            try_enum(AbilitySlot, ability['slot']): Ability(state=self._state, data=ability)
+            for ability in data['abilities']
         }
         self._voice_line: Optional[Union[VoiceLinePayload, Dict[str, Optional[VoiceLinePayload]]]] = data['voiceLine']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)

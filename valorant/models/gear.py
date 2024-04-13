@@ -27,12 +27,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel, ShopData
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.gear import Gear_ as GearPayload
 
 # fmt: off

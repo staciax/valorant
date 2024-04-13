@@ -190,7 +190,9 @@ class HTTPClient:
 
     # valorant-api.com
 
-    def get_agents(self, *, language: Optional[str] = 'all', is_playable_character: bool = True) -> Response[agents.Agents]:
+    def get_agents(
+        self, *, language: Optional[str] = 'all', is_playable_character: bool = True
+    ) -> Response[agents.Agents]:
         params = {'isPlayableCharacter': str(is_playable_character), 'language': language}
         return self.request(Route('GET', '/agents'), params=params)
 
@@ -243,7 +245,9 @@ class HTTPClient:
     def get_content_tiers(self, *, language: Optional[str] = 'all') -> Response[content_tiers.ContentTiers]:
         return self.request(Route('GET', '/contenttiers'), params={'language': language})
 
-    def get_content_tier(self, uuid: str, *, language: Optional[str] = 'all') -> Response[content_tiers.ContentTierUUID]:
+    def get_content_tier(
+        self, uuid: str, *, language: Optional[str] = 'all'
+    ) -> Response[content_tiers.ContentTierUUID]:
         return self.request(Route('GET', '/contenttiers/{uuid}', uuid=uuid), params={'language': language})
 
     # -
@@ -334,7 +338,9 @@ class HTTPClient:
     def get_player_titles(self, *, language: Optional[str] = 'all') -> Response[player_titles.PlayerTitles]:
         return self.request(Route('GET', '/playertitles'), params={'language': language})
 
-    def get_player_title(self, uuid: str, *, language: Optional[str] = 'all') -> Response[player_titles.PlayerTitleUUID]:
+    def get_player_title(
+        self, uuid: str, *, language: Optional[str] = 'all'
+    ) -> Response[player_titles.PlayerTitleUUID]:
         return self.request(Route('GET', '/playertitles/{uuid}', uuid=uuid), params={'language': language})
 
     # -

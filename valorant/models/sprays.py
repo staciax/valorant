@@ -27,12 +27,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.sprays import Spray as SprayPayload, SprayLevel as SprayLevelPayload
     from .themes import Theme
 

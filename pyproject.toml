@@ -2,32 +2,87 @@
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.black]
-line-length = 125
-skip-string-normalization = true
-
-[tool.isort]
-profile = "black"
-combine_as_imports = true
-combine_star = true
-line_length = 125
+[project]
+name = "valorant"
+description = "A modern, easy to use, feature-rich, and async ready API wrapper for Valorant API written in Python."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [{ name = "STACiA", email = "stacia.dev@gmail.com" }]
+classifiers = [
+    'License :: OSI Approved :: MIT License',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+]
+dependencies = ["aiohttp>=3.8.5,<4"]
+version = "1.0.8a"
 
 [tool.pyright]
-include = [
-    "valorant",
-    "valorant/models",
-    "valorant/types"
-]
-exclude = [
-    "**/__pycache__",
-    "build",
-    "dist"
-]
-reportUnnecessaryTypeIgnoreComment = "warning"
-reportUnusedImport = "error"
+include = ["valorant", "valorant/models", "valorant/types"]
+exclude = ["**/__pycache__", "build", "dist"]
 pythonVersion = "3.8"
 typeCheckingMode = "basic"
+reportUnnecessaryTypeIgnoreComment = "warning"
+reportMissingParameterType = "error"
+reportMissingTypeArgument = "error"
+reportUnusedVariable = "warning"
+
+[tool.ruff]
+line-length = 120
+target-version = "py38"
+exclude = [".git", ".ruff_cache", ".venv"]
+
+[tool.ruff.lint]
+preview = true
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade,
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "TCH", # flake8-type-checking
+    "LOG", # flake8-logging
+    # "D",   # pydocstyle
+]
+ignore = [
+    "E501", # line-too-long
+    "D100", # undocumented-public-module
+    "D101", # undocumented-public-class
+    "D102", # undocumented-public-method
+    "D103", # undocumented-public-function
+    "D104", # undocumented-public-package
+    "D105", # undocumented-magic-method
+]
+
+[tool.ruff.lint.per-file-ignores]
+"valorant/models/maps.py" = ["UP031"]
+"valorant/models/seasons.py" = ["UP031"]
+"valorant/models/weapons.py" = ["UP031"]
+"valorant/models/version.py" = ["UP031"]
+
+[tool.ruff.format]
+quote-style = "single"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
 
 [tool.pytest.ini_options]
 asyncio_mode = "strict"
 addopts = "-v -rs -l --tb=short --strict -p no:warnings"
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true

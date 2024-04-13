@@ -24,7 +24,6 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-import datetime
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
@@ -33,6 +32,8 @@ from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
+    import datetime
+
     from ..cache import CacheState
     from ..types.missions import Mission as MissionPayload, Objective as ObjectivePayload
 

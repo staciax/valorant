@@ -26,12 +26,12 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..enums import Locale
 from ..localization import Localization
 from .abc import BaseModel
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.player_titles import PlayerTitle as PlayerTitlePayload
 
 

@@ -29,11 +29,11 @@ import uuid
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from ..asset import Asset
-from ..enums import Locale
 from ..localization import Localization
 
 if TYPE_CHECKING:
     from ..cache import CacheState
+    from ..enums import Locale
     from ..types.object import GridPosition as GridPositionPayload, ShopData as ShopDataPayload
     from .gear import Gear
     from .weapons import Weapon

@@ -23,21 +23,20 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
-
 from typing import TYPE_CHECKING
 
 from ..asset import Asset
 from .abc import BaseModel
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..types.level_borders import LevelBorder as LevelBorderPayload
 
 # fmt: off
 __all__ = (
     'LevelBorder',
 )
 # fmt: on
+
+if TYPE_CHECKING:
+    from ..cache import CacheState
+    from ..types.level_borders import LevelBorder as LevelBorderPayload
 
 
 class LevelBorder(BaseModel):

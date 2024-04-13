@@ -22,12 +22,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-
 # source : https://github.com/Rapptz/discord.py/blob/master/discord/asset.py
 from __future__ import annotations
 
 import io
-import os
 from typing import TYPE_CHECKING, Any, Optional, Tuple, Union
 
 import yarl
@@ -42,6 +40,8 @@ __all__ = (
 # fmt: on
 
 if TYPE_CHECKING:
+    import os
+
     from typing_extensions import Self
 
     from .cache import CacheState
@@ -141,7 +141,6 @@ class AssetMixin:
 
 
 class Asset(AssetMixin):
-
     """Represents a CDN asset on Valorant.
     .. container:: operations
         .. describe:: str(x)
