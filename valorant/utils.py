@@ -35,7 +35,7 @@ try:
 except ImportError:
     HAS_ORJSON = False
 else:
-    HAS_ORJSON = True
+    HAS_ORJSON = True  # pragma: no cover
 
 if HAS_ORJSON:
     _from_json = orjson.loads  # type: ignore
