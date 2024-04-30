@@ -115,10 +115,10 @@ class HTTPClient:
         data: Optional[Union[Dict[str, Any], str]] = None
 
         async with self.__session.request(method, url, **kwargs) as response:
-            _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
+            _log.debug('%s %s has returned %s', method, url, response.status)
             data = await to_json(response)
             if 300 > response.status >= 200:
-                _log.debug('%s %s has received %s', method, url, data)
+                # _log.debug('%s %s has received %s', method, url, data)
                 return data
 
             if response.status == 400:
