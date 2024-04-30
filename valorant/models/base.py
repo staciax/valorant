@@ -24,7 +24,6 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-import abc
 import uuid
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
@@ -46,8 +45,7 @@ __all__ = (
 )
 
 
-class BaseModel(abc.ABC):
-    __slots__ = ('_uuid',)
+class BaseModel:
 
     def __init__(self, uuid: str) -> None:
         self._uuid = uuid

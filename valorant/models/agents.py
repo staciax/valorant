@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 from ..asset import Asset
 from ..enums import AbilitySlot, Locale, try_enum
 from ..localization import Localization
-from .abc import BaseModel
+from .base import BaseModel
 
 if TYPE_CHECKING:
     from ..cache import CacheState

@@ -1,4 +1,4 @@
-from __future__ import annotations
+
 
 """
 The MIT License (MIT)
@@ -23,10 +23,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 from ..asset import Asset
-from .abc import BaseModel
+from .base import BaseModel
 
 # fmt: off
 __all__ = (

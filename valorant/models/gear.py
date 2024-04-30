@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from ..asset import Asset
 from ..localization import Localization
-from .abc import BaseModel, ShopData
+from .base import BaseModel, ShopData
 
 if TYPE_CHECKING:
     from ..cache import CacheState

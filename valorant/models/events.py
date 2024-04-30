@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from .. import utils
 from ..localization import Localization
-from .abc import BaseModel
+from .base import BaseModel
 
 if TYPE_CHECKING:
     import datetime

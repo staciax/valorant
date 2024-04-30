@@ -30,7 +30,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Union
 from ..asset import Asset
 from ..enums import Locale, RelationType, RewardType, try_enum
 from ..localization import Localization
-from .abc import BaseModel
+from .base import BaseModel
 
 if TYPE_CHECKING:
     from uuid import UUID
