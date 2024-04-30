@@ -25,7 +25,6 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-import asyncio
 import logging
 import sys
 from typing import TYPE_CHECKING, Any, ClassVar, Coroutine, Dict, Optional, TypeVar, Union
@@ -115,48 +114,24 @@ class HTTPClient:
         response: Optional[aiohttp.ClientResponse] = None
         data: Optional[Union[Dict[str, Any], str]] = None
 
-        for tries in range(5):
-            try:
-                async with self.__session.request(method, url, **kwargs) as response:
-                    _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
-                    data = await to_json(response)
-                    if 300 > response.status >= 200:
-                        _log.debug('%s %s has received %s', method, url, data)
-                        return data
+        async with self.__session.request(method, url, **kwargs) as response:
+            _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
+            data = await to_json(response)
+            if 300 > response.status >= 200:
+                _log.debug('%s %s has received %s', method, url, data)
+                return data
 
-                    if response.status == 400:
-                        raise BadRequest(response, data)
+            if response.status == 400:
+                raise BadRequest(response, data)
 
-                    # we are being rate limited
-                    if response.status == 429:
-                        if not response.headers.get('Via') or isinstance(data, str):
-                            # Banned by Cloudflare more than likely.
-                            raise HTTPException(response, data)
-                        raise RateLimited(response, data)
-                    elif response.status == 403:
-                        raise Forbidden(response, data)
-                    elif response.status == 404:
-                        raise NotFound(response, data)
-                    elif response.status >= 500:
-                        raise InternalServerError(response, data)
-                    else:
-                        raise HTTPException(response, data)
-
-            except OSError as e:
-                # Connection reset by peer
-                if tries < 4 and e.errno in (54, 10054):
-                    await asyncio.sleep(1 + tries * 2)
-                    continue
-                raise
-
-        if response is not None:
-            # We've run out of retries, raise.
-            if response.status >= 500:
+            if response.status == 429:
+                raise RateLimited(response, data)
+            elif response.status == 404:
+                raise NotFound(response, data)
+            elif response.status >= 500:
                 raise InternalServerError(response, data)
-
-            raise HTTPException(response, data)
-
-        raise RuntimeError('Unreachable code in HTTP handling')
+            else:
+                raise HTTPException(response, data)
 
     async def close(self) -> None:
         if self.__session is not MISSING:
@@ -174,17 +149,6 @@ class HTTPClient:
                 raise Forbidden(resp, 'cannot retrieve asset')
             elif resp.status == 404:
                 raise NotFound(resp, 'asset not found')
-            else:
-                raise HTTPException(resp, 'failed to get asset')
-
-    async def text_from_url(self, url: str) -> str:
-        async with self.__session.get(url) as resp:
-            if resp.status == 200:
-                return await resp.text()
-            elif resp.status == 404:
-                raise NotFound(resp, 'asset not found')
-            elif resp.status == 403:
-                raise Forbidden(resp, 'cannot retrieve asset')
             else:
                 raise HTTPException(resp, 'failed to get asset')
 

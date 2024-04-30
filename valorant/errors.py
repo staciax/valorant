@@ -65,7 +65,7 @@ class HTTPException(ValorantError):
         self.status: int = response.status
         self.text: str
         if isinstance(message, dict):
-            self.text = message.get('message') or message.get('error', '')
+            self.text = message.get('error', '')
         else:
             self.text = message or ''
 
