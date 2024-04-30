@@ -7,7 +7,7 @@ name = "valorant.py"
 description = "A modern, easy to use, feature-rich, and async ready API wrapper for Valorant API written in Python."
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.8"
-license = { file = "LICENSE" }
+license = "MIT"
 authors = [{ name = "STACiA", email = "stacia.dev@gmail.com" }]
 classifiers = [
     'License :: OSI Approved :: MIT License',
