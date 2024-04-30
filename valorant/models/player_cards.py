@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -50,12 +49,11 @@ class PlayerCard(BaseModel):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._is_hidden_if_not_owned: bool = data.get('isHiddenIfNotOwned', False)
         self.theme_uuid: Optional[str] = data['themeUuid']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._small_art: Optional[str] = data['smallArt']
-        self._wide_art: Optional[str] = data['wideArt']
-        self._large_art: Optional[str] = data['largeArt']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.small_art: Optional[str] = data['smallArt']
+        self.wide_art: Optional[str] = data['wideArt']
+        self.large_art: Optional[str] = data['largeArt']
         self.asset_path: str = data['assetPath']
-
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
     def __str__(self) -> str:
@@ -71,34 +69,6 @@ class PlayerCard(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the player card's name."""
         return self._display_name_localized
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the player card's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @property
-    def small_art(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the player card's small art."""
-        if self._small_art is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._small_art)
-
-    @property
-    def wide_art(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the player card's wide art."""
-        if self._wide_art is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._wide_art)
-
-    @property
-    def large_art(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the player card's large art."""
-        if self._large_art is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._large_art)
 
     @property
     def theme(self) -> Optional[Theme]:

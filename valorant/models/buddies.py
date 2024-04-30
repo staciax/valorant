@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -49,7 +48,7 @@ class Buddy(BaseModel):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._is_hidden_if_not_owned: bool = data['isHiddenIfNotOwned']
         self.theme_uuid: Optional[str] = data['themeUuid']
-        self._display_icon: Optional[str] = data['displayIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
         self.levels: List[Level] = [Level(state=self._state, data=level, parent=self) for level in data['levels']]
         self._name_localized = Localization(self._display_name, locale=self._state.locale)
@@ -73,11 +72,6 @@ class Buddy(BaseModel):
         """:class: `Theme` Returns the buddy's theme."""
         return self._state.get_theme(self.theme_uuid)
 
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the buddy's icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
     def is_hidden_if_not_owned(self) -> bool:
         """:class: `bool` Returns whether the buddy is hidden if not owned."""
         return self._is_hidden_if_not_owned
@@ -95,7 +89,7 @@ class Level(BaseModel):
         self._state: CacheState = state
         self.charm_level: int = data['charmLevel']
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._display_icon: Optional[str] = data['displayIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
         self.asset_path: str = data['assetPath']
         self.parent: Buddy = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
@@ -118,11 +112,6 @@ class Level(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the buddy's name."""
         return self._display_name_localized
-
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `str` Returns the buddy's display icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
 
 
 BuddyLevel = Level

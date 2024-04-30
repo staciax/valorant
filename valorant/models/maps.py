@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -105,8 +104,8 @@ class Map(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._coordinates: Union[str, Dict[str, str]] = data['coordinates']
-        self._list_view_icon: Optional[str] = data['listViewIcon']
-        self._splash: Optional[str] = data['splash']
+        self.list_view_icon: Optional[str] = data['listViewIcon']
+        self.splash: Optional[str] = data['splash']
         self.asset_path: str = data['assetPath']
         self.url: str = data['mapUrl']
         self.x_multiplier: float = data['xMultiplier']
@@ -140,17 +139,3 @@ class Map(BaseModel):
     def coordinates(self) -> Localization:
         """:class: `str` Returns the mission's coordinates."""
         return self._coordinates_localized
-
-    @property
-    def list_view_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the mission's list view icon."""
-        if self._list_view_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._list_view_icon)
-
-    @property
-    def splash(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the mission's splash."""
-        if self._splash is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._splash)

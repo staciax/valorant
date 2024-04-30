@@ -27,7 +27,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..enums import Locale, RelationType, RewardType, try_enum
 from ..localization import Localization
 from .base import BaseModel
@@ -178,7 +177,7 @@ class Contract(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._display_icon: Optional[str] = data['displayIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
         self.ship_it: bool = data['shipIt']
         self.free_reward_schedule_uuid: str = data['freeRewardScheduleUuid']
         self.content: Content = Content(self._state, data['content'])
@@ -209,13 +208,6 @@ class Contract(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the contract's name."""
         return self._display_name_localized
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the contract's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, self._display_icon)
 
 
 ChapterLevel = Level

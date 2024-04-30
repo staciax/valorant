@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -51,10 +50,10 @@ class Tier:
         self._division_name: Union[str, Dict[str, str]] = data['divisionName']
         self.color: str = data['color']
         self.background_color: str = data['backgroundColor']
-        self._small_icon: Optional[str] = data['smallIcon']
-        self._large_icon: Optional[str] = data['largeIcon']
-        self._rank_triangle_down_icon: Optional[str] = data['rankTriangleDownIcon']
-        self._rank_triangle_up_icon: Optional[str] = data['rankTriangleUpIcon']
+        self.small_icon: Optional[str] = data['smallIcon']
+        self.large_icon: Optional[str] = data['largeIcon']
+        self.rank_triangle_down_icon: Optional[str] = data['rankTriangleDownIcon']
+        self.rank_triangle_up_icon: Optional[str] = data['rankTriangleUpIcon']
         self._name_locale: Localization = Localization(self._name, locale=self._state.locale)
         self._division_name_localized: Localization = Localization(self._division_name, locale=self._state.locale)
 
@@ -67,10 +66,10 @@ class Tier:
     def __hash__(self) -> int:
         return hash(self.tier)
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: object) -> bool:
         return isinstance(other, Tier) and self.tier == other.tier
 
-    def __ne__(self, other) -> bool:
+    def __ne__(self, other: object) -> bool:
         return not self.__eq__(other)
 
     def __lt__(self, other: object) -> bool:
@@ -105,34 +104,6 @@ class Tier:
     def division_name(self) -> Localization:
         """:class: `str` Returns the tier's division."""
         return self._division_name_localized
-
-    @property
-    def small_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the tier's small icon."""
-        if self._small_icon is None:
-            return None
-        return Asset(self._state, self._small_icon)
-
-    @property
-    def large_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the tier's large icon."""
-        if self._large_icon is None:
-            return None
-        return Asset(self._state, self._large_icon)
-
-    @property
-    def rank_triangle_down_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the tier's rank triangle down icon."""
-        if self._rank_triangle_down_icon is None:
-            return None
-        return Asset(self._state, self._rank_triangle_down_icon)
-
-    @property
-    def rank_triangle_up_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the tier's rank triangle up icon."""
-        if self._rank_triangle_up_icon is None:
-            return None
-        return Asset(self._state, self._rank_triangle_up_icon)
 
 
 class CompetitiveTier(BaseModel):

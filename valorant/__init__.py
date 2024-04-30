@@ -15,7 +15,6 @@ __version__ = '1.0.8'
 from typing import Literal, NamedTuple
 
 from . import models as models, utils as utils
-from .asset import Asset as Asset
 from .client import Client as Client
 from .enums import (
     MELEE_WEAPON_ID as MELEE_WEAPON_ID,

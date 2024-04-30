@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -52,7 +51,7 @@ class ContentTier(BaseModel):
         self.juice_value: int = data['juiceValue']
         self.juice_cost: int = data['juiceCost']
         self.highlight_color: str = data['highlightColor']
-        self._display_icon: str = data['displayIcon']
+        self.display_icon: str = data['displayIcon']
         # self._old_display_icon: str = ''
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
@@ -76,8 +75,3 @@ class ContentTier(BaseModel):
         """:class: `str` Returns the content tier's highlight color RGB."""
         # rgba to rgb
         return self.highlight_color[:-1]
-
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the content tier's icon."""
-        return Asset._from_url(self._state, self._display_icon)

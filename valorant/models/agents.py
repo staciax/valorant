@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..enums import AbilitySlot, Locale, try_enum
 from ..localization import Localization
 from .base import BaseModel
@@ -58,7 +57,7 @@ class Role(BaseModel):
         self._state = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
-        self._display_icon: str = data['displayIcon']
+        self.display_icon: str = data['displayIcon']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._description, locale=self._state.locale)
         self._description_localized: Localization = Localization(self._display_name, locale=self._state.locale)
@@ -85,11 +84,6 @@ class Role(BaseModel):
         """:class: `str` Returns the agent role's description."""
         return self._description_localized
 
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the agent role's display icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
 
 class Ability:
     def __init__(self, state: CacheState, data: AbilityPayload) -> None:
@@ -97,7 +91,7 @@ class Ability:
         self.slot: AbilitySlot = try_enum(AbilitySlot, data['slot'])
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
-        self._display_icon: Optional[str] = data['displayIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._description_localized: Localization = Localization(self._description, locale=self._state.locale)
 
@@ -128,13 +122,6 @@ class Ability:
     def description(self) -> Localization:
         """:class: `str` Returns the agent role's description."""
         return self._description_localized
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the agent role's display icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._display_icon)
 
 
 class Media:
@@ -386,13 +373,13 @@ class Agent(BaseModel):
         self.developer_name: str = data['developerName']
         if data['characterTags'] is not None:
             self.character_tags = [Localization(tag, locale=self._state.locale) for tag in data['characterTags']]
-        self._display_icon: str = data['displayIcon']
-        self._display_icon_small: str = data['displayIconSmall']
-        self._bust_portrait: str = data['bustPortrait']
-        self._full_portrait: str = data['fullPortrait']
-        self._full_portrait_v2: str = data['fullPortraitV2']
-        self._killfeed_portrait: str = data['killfeedPortrait']
-        self._background: str = data['background']
+        self.display_icon: str = data['displayIcon']
+        self.display_icon_small: str = data['displayIconSmall']
+        self.bust_portrait: str = data['bustPortrait']
+        self.full_portrait: str = data['fullPortrait']
+        self.full_portrait_v2: str = data['fullPortraitV2']
+        self.killfeed_portrait: str = data['killfeedPortrait']
+        self.background: str = data['background']
         self.background_gradient_colors: List[str] = data['backgroundGradientColors']
         self.asset_path: str = data['assetPath']
         self._is_full_portrait_right_facing: bool = data['isFullPortraitRightFacing']
@@ -429,41 +416,6 @@ class Agent(BaseModel):
     def description(self) -> Localization:
         """:class: `str` Returns the agent's description."""
         return self._description_localized
-
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the agent's display icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @property
-    def display_icon_small(self) -> Asset:
-        """:class: `Asset` Returns the agent's display icon small."""
-        return Asset._from_url(state=self._state, url=self._display_icon_small)
-
-    @property
-    def bust_portrait(self) -> Asset:
-        """:class: `Asset` Returns the agent's bust portrait."""
-        return Asset._from_url(state=self._state, url=self._bust_portrait)
-
-    @property
-    def full_portrait(self) -> Asset:
-        """:class: `Asset` Returns the agent's full portrait."""
-        return Asset._from_url(state=self._state, url=self._full_portrait)
-
-    @property
-    def full_portrait_v2(self) -> Asset:
-        """:class: `Asset` Returns the agent's full portrait v2."""
-        return Asset._from_url(state=self._state, url=self._full_portrait_v2)
-
-    @property
-    def killfeed_portrait(self) -> Asset:
-        """:class: `Asset` Returns the agent's killfeed portrait."""
-        return Asset._from_url(state=self._state, url=self._killfeed_portrait)
-
-    @property
-    def background(self) -> Asset:
-        """:class: `Asset` Returns the agent's background."""
-        return Asset._from_url(state=self._state, url=self._background)
 
     @property
     def abilities(self) -> List[Ability]:

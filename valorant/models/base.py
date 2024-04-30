@@ -27,7 +27,6 @@ from __future__ import annotations
 import uuid
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 
 if TYPE_CHECKING:
@@ -46,7 +45,6 @@ __all__ = (
 
 
 class BaseModel:
-
     def __init__(self, uuid: str) -> None:
         self._uuid = uuid
 
@@ -93,9 +91,9 @@ class ShopData:
         if data['gridPosition'] is not None:
             self.grid_position = GridPosition(data['gridPosition'])
         self.can_be_trashed: bool = data['canBeTrashed']
-        self._image: Optional[str] = data['image']
-        self._new_image: Optional[str] = data['newImage']
-        self._new_image_2: Optional[str] = data['newImage2']
+        self.image: Optional[str] = data['image']
+        self.new_image: Optional[str] = data['newImage']
+        self.new_image_2: Optional[str] = data['newImage2']
         self.asset_path: str = data['assetPath']
         self._category_text_localized: Localization = Localization(self._category_text, locale=self._state.locale)
 
@@ -123,18 +121,3 @@ class ShopData:
     def category_text(self) -> Localization:
         """:class: `str` Returns the weapon's shop category text."""
         return self._category_text_localized
-
-    @property
-    def image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's image."""
-        return Asset._from_url(self._state, url=self._image) if self._image else None
-
-    @property
-    def new_image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's new image."""
-        return Asset._from_url(self._state, url=self._new_image) if self._new_image else None
-
-    @property
-    def new_image_2(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's new image 2."""
-        return Asset._from_url(self._state, url=self._new_image_2) if self._new_image_2 else None

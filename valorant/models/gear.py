@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel, ShopData
 
@@ -48,7 +47,7 @@ class Gear(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._description: Union[str, Dict[str, str]] = data['description']
-        self._display_icon: str = data['displayIcon']
+        self.display_icon: str = data['displayIcon']
         self.asset_path: str = data['assetPath']
         self.shop_data: ShopData = ShopData(state=self._state, item=self, data=data['shopData'])
         self._display_name_localized = Localization(self._display_name, locale=self._state.locale)
@@ -75,8 +74,3 @@ class Gear(BaseModel):
     def description(self) -> Localization:
         """:class: `str` Returns the gear's description."""
         return self._description_localized
-
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the gear's display icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)

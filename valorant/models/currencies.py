@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -48,8 +47,8 @@ class Currency(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self._display_name_singular: Union[str, Dict[str, str]] = data['displayNameSingular']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._large_icon: Optional[str] = data['largeIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.large_icon: Optional[str] = data['largeIcon']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._display_name_singular_localized: Localization = Localization(
@@ -77,17 +76,3 @@ class Currency(BaseModel):
     def display_name_singular(self) -> Localization:
         """:class: `str` Returns the agent's singular name."""
         return self._display_name_singular_localized
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Optional[Asset]` Returns the agent's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @property
-    def large_icon(self) -> Optional[Asset]:
-        """:class: `Optional[Asset]` Returns the agent's large icon."""
-        if self._large_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._large_icon)

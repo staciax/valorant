@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -47,8 +46,8 @@ class Theme(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._store_featured_image: Optional[str] = data['storeFeaturedImage']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.store_featured_image: Optional[str] = data['storeFeaturedImage']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
 
@@ -65,17 +64,3 @@ class Theme(BaseModel):
     def display_name(self) -> Localization:
         """:class: `str` Returns the ceremony's name."""
         return self._display_name_localized
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the ceremony's display icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, self._display_icon)
-
-    @property
-    def store_featured_image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the ceremony's store featured image."""
-        if self._store_featured_image is None:
-            return None
-        return Asset._from_url(self._state, self._store_featured_image)

@@ -26,7 +26,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -59,9 +58,9 @@ class Bundle(BaseModel):
         self._extra_description: Optional[Union[str, Dict[str, str]]] = data['extraDescription']
         self._promo_description: Optional[Union[str, Dict[str, str]]] = data['promoDescription']
         self.use_additional_context: bool = data['useAdditionalContext']
-        self._display_icon: str = data['displayIcon']
-        self._display_icon_2: str = data['displayIcon2']
-        self._vertical_promo_image: str = data['verticalPromoImage']
+        self.display_icon: str = data['displayIcon']
+        self.display_icon_2: str = data['displayIcon2']
+        self.vertical_promo_image: str = data['verticalPromoImage']
         self.asset_path: str = data['assetPath']
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
         self._display_name_sub_text_localized: Localization = Localization(
@@ -137,23 +136,6 @@ class Bundle(BaseModel):
         if self._promo_description is None:
             return None
         return self._promo_description_localized
-
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the bundle's icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @property
-    def display_icon_2(self) -> Asset:
-        """:class: `Asset` Returns the bundle's icon 2."""
-        return Asset._from_url(state=self._state, url=self._display_icon_2)
-
-    @property
-    def vertical_promo_image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the bundle's vertical promo image."""
-        if self._vertical_promo_image is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._vertical_promo_image)
 
     def _add_item(self, item: Union[Skin, Buddy, Spray, PlayerCard]) -> None:
         self._items.append(item)

@@ -1,5 +1,3 @@
-
-
 """
 The MIT License (MIT)
 
@@ -23,11 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ..asset import Asset
 from .base import BaseModel
 
 # fmt: off
@@ -46,8 +44,8 @@ class LevelBorder(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self.starting_level: int = data['startingLevel']
-        self._level_number_appearance: str = data['levelNumberAppearance']
-        self._small_player_card_appearance: str = data['smallPlayerCardAppearance']
+        self.level_number_appearance: str = data['levelNumberAppearance']
+        self.small_player_card_appearance: str = data['smallPlayerCardAppearance']
         self.asset_path: str = data['assetPath']
 
     def __repr__(self) -> str:
@@ -64,13 +62,3 @@ class LevelBorder(BaseModel):
 
     def __ge__(self, other: object) -> bool:
         return isinstance(other, LevelBorder) and self.starting_level >= other.starting_level
-
-    @property
-    def level_number_appearance(self) -> Asset:
-        """:class: `Asset` Returns the level number appearance of the level border."""
-        return Asset._from_url(state=self._state, url=self._level_number_appearance)
-
-    @property
-    def small_player_card_appearance(self) -> Asset:
-        """:class: `Asset` Returns the small player card appearance of the level border."""
-        return Asset._from_url(state=self._state, url=self._small_player_card_appearance)

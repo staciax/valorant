@@ -27,7 +27,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
-from ..asset import Asset
 from ..enums import MELEE_WEAPON_ID, Locale
 from ..localization import Localization
 from .base import BaseModel, ShopData
@@ -172,8 +171,8 @@ class Weapon(BaseModel):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.category: str = data['category']
         self._default_skin_uuid: str = data['defaultSkinUuid']
-        self._display_icon: str = data['displayIcon']
-        self._kill_stream_icon: str = data['killStreamIcon']
+        self.display_icon: str = data['displayIcon']
+        self.kill_stream_icon: str = data['killStreamIcon']
         self.asset_path: str = data['assetPath']
         self.weapon_stats: Optional[WeaponStats] = None
         if data['weaponStats'] is not None:
@@ -199,16 +198,6 @@ class Weapon(BaseModel):
         """:class: `str` Returns the weapon's name."""
         return self._display_name_localized
 
-    @property
-    def display_icon(self) -> Asset:
-        """:class: `Asset` Returns the weapon's icon."""
-        return Asset._from_url(self._state, self._display_icon)
-
-    @property
-    def kill_stream_icon(self) -> Asset:
-        """:class: `Asset` Returns the weapon's kill stream icon."""
-        return Asset._from_url(self._state, self._kill_stream_icon)
-
     def is_melee(self) -> bool:
         """:class: `bool` Returns whether the weapon is a melee weapon."""
         return self._is_melee
@@ -231,8 +220,8 @@ class Skin(BaseModel):
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.theme_uuid: str = data['themeUuid']
         self.content_tier_uuid: Optional[str] = data['contentTierUuid']
-        self._display_icon: str = data['displayIcon']
-        self._wallpaper: Optional[str] = data['wallpaper']
+        self.display_icon: str = data['displayIcon']
+        self.wallpaper: Optional[str] = data['wallpaper']
         self.asset_path: str = data['assetPath']
         self.chromas: List[Chroma] = [Chroma(state=self._state, data=chroma, parent=self) for chroma in data['chromas']]
         self.levels: List[Level] = [
@@ -274,26 +263,12 @@ class Skin(BaseModel):
         return self.content_tier
 
     @property
-    def display_icon(self) -> Optional[Asset]:
+    def display_icon_fix(self) -> Optional[str]:
         """:class: `Asset` Returns the skin's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, self._display_icon)
-
-    @property
-    def display_icon_fix(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's icon."""
-        display_icon = self._display_icon or (self.levels[0].display_icon if len(self.levels) > 0 else None)
+        display_icon = self.display_icon or (self.levels[0].display_icon if len(self.levels) > 0 else None)
         if display_icon is None:
             return None
-        return Asset._from_url(self._state, str(display_icon))
-
-    @property
-    def wallpaper(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's wallpaper."""
-        if self._wallpaper is None:
-            return None
-        return Asset._from_url(self._state, url=self._wallpaper)
+        return display_icon
 
     def is_melee(self) -> bool:
         """:class: `bool` Returns whether the bundle is a melee."""
@@ -325,10 +300,10 @@ class Chroma(BaseModel):
         super().__init__(data['uuid'])
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._full_render: str = data['fullRender']
-        self._swatch: Optional[str] = data['swatch']
-        self._streamed_video: Optional[str] = data['streamedVideo']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.full_render: str = data['fullRender']
+        self.swatch: Optional[str] = data['swatch']
+        self.streamed_video: Optional[str] = data['streamedVideo']
         self.asset_path: str = data['assetPath']
         self.parent: Skin = parent
         self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
@@ -349,14 +324,7 @@ class Chroma(BaseModel):
         return self._display_name_localized
 
     @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, url=self._display_icon)
-
-    @property
-    def display_icon_fix(self) -> Optional[Asset]:
+    def display_icon_fix(self) -> Optional[str]:
         """:class: `Asset` Returns the skin's icon with fixed white background."""
 
         skin = self.parent
@@ -377,32 +345,6 @@ class Chroma(BaseModel):
             display_icon = weapon.display_icon or display_icon
 
         return display_icon
-
-    @property
-    def full_render(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's icon full render."""
-        if self._full_render is None:
-            return None
-        return Asset._from_url(self._state, url=self._full_render)
-
-    @property
-    def swatch(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's swatch."""
-        if self._swatch is None:
-            return None
-        return Asset._from_url(self._state, url=self._swatch)
-
-    @property
-    def streamed_video(self) -> Optional[Asset]:
-        """:class: `Optional[Asset]` Returns the skin's video."""
-        if self._streamed_video is None:
-            return None
-        return Asset._from_url(self._state, url=self._streamed_video)
-
-    @property
-    def video(self) -> Optional[Asset]:
-        """:class: `Asset` alias for streamed_video."""
-        return self.streamed_video
 
     # helpers
 
@@ -435,8 +377,8 @@ class Level(BaseModel):
         self._state: CacheState = state
         self._display_name: Union[str, Dict[str, str]] = data['displayName']
         self.level_item: Optional[str] = data['levelItem']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._streamed_video: Optional[str] = data['streamedVideo']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.streamed_video: Optional[str] = data['streamedVideo']
         self.asset_path: str = data['assetPath']
         self._level_number: int = level_number
         self._is_level_one: bool = level_number == 0
@@ -463,33 +405,12 @@ class Level(BaseModel):
         return self.level_item
 
     @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, url=self._display_icon)
-
-    @property
-    def display_icon_fix(self) -> Optional[Asset]:
+    def display_icon_fix(self) -> Optional[str]:
         """:class: `Asset` Returns the skin's icon with fixed white background."""
-        display_icon = self._display_icon or self.parent.display_icon or self.parent.parent.display_icon
+        display_icon = self.display_icon or self.parent.display_icon or self.parent.parent.display_icon
         if display_icon is None:
             return None
-        if isinstance(display_icon, Asset):
-            return display_icon
-        return Asset._from_url(self._state, url=display_icon)
-
-    @property
-    def streamed_video(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's video."""
-        if self._streamed_video is None:
-            return None
-        return Asset._from_url(self._state, url=self._streamed_video)
-
-    @property
-    def video(self) -> Optional[Asset]:
-        """:class: `Asset` alias for streamed_video."""
-        return self.streamed_video
+        return display_icon
 
     def is_level_one(self) -> bool:
         """:class: `bool` Returns whether the skin is level one."""

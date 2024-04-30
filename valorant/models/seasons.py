@@ -27,7 +27,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from .. import utils
-from ..asset import Asset
 from ..localization import Localization
 from .base import BaseModel
 
@@ -112,28 +111,14 @@ class Border(BaseModel):
         self._state: CacheState = state
         self.level: int = data['level']
         self.wins_required: int = data['winsRequired']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self._small_icon: Optional[str] = data['smallIcon']
+        self.display_icon: Optional[str] = data['displayIcon']
+        self.small_icon: Optional[str] = data['smallIcon']
         self.asset_path: str = data['assetPath']
 
     def __repr__(self) -> str:
         attrs = [('level', self.level), ('wins_required', self.wins_required)]
         joined = ' '.join('%s=%r' % t for t in attrs)
         return f'<{self.__class__.__name__} {joined}>'
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the border's display icon."""
-        if self._display_icon is None:
-            return None
-        return Asset._from_url(self._state, url=self._display_icon)
-
-    @property
-    def small_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the border's small icon."""
-        if self._small_icon is None:
-            return None
-        return Asset._from_url(self._state, url=self._small_icon)
 
 
 class CompetitiveSeason(BaseModel):
