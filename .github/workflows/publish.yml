@@ -10,7 +10,7 @@ permissions:
 # TDDO: migrate to uv for building
 
 jobs:
-  deploy:
+  release-build:
     runs-on: ubuntu-latest
 
     steps:
