@@ -83,4 +83,4 @@ class Equippable(BaseUUIDModel):
     # useful methods
 
     async def fetch_weapon(self, *, client: Client) -> Weapon | None:
-        return await client.fetch_weapon(self.uuid)
+        return await client.fetch_weapon(str(self.uuid))
