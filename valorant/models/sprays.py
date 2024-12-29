@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -24,133 +24,35 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
+from pydantic import Field
 
-from ..asset import Asset
-from ..localization import Localization
-from .base import BaseModel
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..enums import Locale
-    from ..types.sprays import Spray as SprayPayload, SprayLevel as SprayLevelPayload
-    from .themes import Theme
+from .base import BaseModel, LocalizedField
 
 __all__ = (
+    'Level',
     'Spray',
-    'SprayLevel',
 )
 
 
-class Spray(BaseModel):
-    def __init__(self, *, state: CacheState, data: SprayPayload) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self.category: Optional[str] = data['category']
-        self.theme_uuid: Optional[str] = data['themeUuid']
-        self._is_null_spray: bool = data['isNullSpray']
-        self._display_icon: str = data['displayIcon']
-        self._full_icon: Optional[str] = data['fullIcon']
-        self._full_transparent_icon: Optional[str] = data['fullTransparentIcon']
-        self._animation_png: Optional[str] = data['animationPng']
-        self._animation_gif: Optional[str] = data['animationGif']
-        self.asset_path: str = data['assetPath']
-        self.levels: List[Level] = [Level(state=self._state, data=level, parent=self) for level in data['levels']]
-        self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-
-    def __str__(self) -> str:
-        return self.display_name.locale
-
-    def __repr__(self) -> str:
-        return f'<Spray display_name={self.display_name!r}>'
-
-    def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._display_name_localized.from_locale(locale)
-
-    @property
-    def display_name(self) -> Localization:
-        """:class: `str` Returns the skin's name."""
-        return self._display_name_localized
-
-    @property
-    def theme(self) -> Optional[Theme]:
-        if self.theme_uuid is None:
-            return None
-        return self._state.get_theme(self.theme_uuid)
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon)
-
-    @property
-    def full_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's full icon."""
-        if self._full_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._full_icon)
-
-    @property
-    def full_transparent_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's full transparent icon."""
-        if self._full_transparent_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._full_transparent_icon)
-
-    @property
-    def animation_png(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's animation png."""
-        if self._animation_png is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._animation_png)
-
-    @property
-    def animation_gif(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the skin's animation gif."""
-        if self._animation_gif is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._animation_gif)
-
-    def is_null_spray(self) -> bool:
-        """:class: `bool` Returns a boolean representing whether the skin is a null spray."""
-        return self._is_null_spray
-
-
 class Level(BaseModel):
-    def __init__(self, state: CacheState, data: SprayLevelPayload, parent: Spray) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self.spray_level: int = data['sprayLevel']
-        self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._display_icon: Optional[str] = data['displayIcon']
-        self.asset_path: str = data['assetPath']
-        self.parent: Spray = parent
-        self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-
-    def __str__(self) -> str:
-        return self.display_name.locale
-
-    def __repr__(self) -> str:
-        return f'<SprayLevel display_name={self.display_name!r}>'
-
-    def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._display_name_localized.from_locale(locale)
-
-    @property
-    def display_name(self) -> Localization:
-        """:class: `str` Returns the spray's name."""
-        return self._display_name_localized
-
-    @property
-    def level(self) -> int:
-        """:class: `int` alias for :attr: `SprayLevel.spray_level`"""
-        return self.spray_level
-
-    @property
-    def display_icon(self) -> Optional[Asset]:
-        """:class: `str` Returns the spray's display icon."""
-        return Asset._from_url(state=self._state, url=self._display_icon) if self._display_icon else None
+    uuid: str
+    spray_level: int = Field(alias='sprayLevel')
+    display_name: LocalizedField = Field(alias='displayName')
+    display_icon: str | None = Field(alias='displayIcon')
+    asset_path: str = Field(alias='assetPath')
 
 
-SprayLevel = Level
+class Spray(BaseModel):
+    uuid: str
+    display_name: LocalizedField = Field(alias='displayName')
+    category: str | None
+    theme_uuid: str | None = Field(alias='themeUuid')
+    is_null_spray: bool = Field(alias='isNullSpray')
+    hide_if_not_owned: bool = Field(alias='hideIfNotOwned')
+    display_icon: str | None = Field(alias='displayIcon')
+    full_icon: str | None = Field(alias='fullIcon')
+    full_transparent_icon: str | None = Field(alias='fullTransparentIcon')
+    animation_png: str | None = Field(alias='animationPng')
+    animation_gif: str | None = Field(alias='animationGif')
+    asset_path: str = Field(alias='assetPath')
+    levels: list[Level]

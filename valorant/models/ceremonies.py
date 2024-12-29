@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -22,43 +22,14 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from __future__ import annotations
+from pydantic import Field
 
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from .base import BaseModel, LocalizedField
 
-from ..localization import Localization
-from .base import BaseModel
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..enums import Locale
-    from ..types.ceremonies import Ceremony as CeremonyPayload
-
-# fmt: off
-__all__ = (
-    'Ceremony',
-)
-# fmt: on
+__all__ = ('Ceremony',)
 
 
 class Ceremony(BaseModel):
-    def __init__(self, state: CacheState, data: CeremonyPayload) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self.asset_path: str = data['assetPath']
-        self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-
-    def __str__(self) -> str:
-        return self.display_name.locale
-
-    def __repr__(self) -> str:
-        return f'<Ceremony display_name={self.display_name!r}>'
-
-    def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._display_name_localized.from_locale(locale)
-
-    @property
-    def display_name(self) -> Localization:
-        """:class: `str` Returns the ceremony's name."""
-        return self._display_name_localized
+    uuid: str
+    display_name: LocalizedField = Field(alias='displayName')
+    asset_path: str = Field(alias='assetPath')

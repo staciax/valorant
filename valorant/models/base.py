@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -22,119 +22,74 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from __future__ import annotations
+from typing import Generic, TypeVar
 
-import uuid
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from pydantic import BaseModel as PydanticBaseModel, Field
 
-from ..asset import Asset
-from ..localization import Localization
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..enums import Locale
-    from ..types.object import GridPosition as GridPositionPayload, ShopData as ShopDataPayload
-    from .gear import Gear
-    from .weapons import Weapon
-
+T = TypeVar('T')
 
 __all__ = (
     'BaseModel',
-    'GridPosition',
-    'ShopData',
+    'LocalizedField',
+    'Response',
 )
 
 
-class BaseModel:
-
-    def __init__(self, uuid: str) -> None:
-        self._uuid = uuid
-
-    @property
-    def uuid(self) -> uuid.UUID:
-        return uuid.UUID(self._uuid)
+class BaseModel(PydanticBaseModel):
+    """Base class for all models."""
 
     def __repr__(self) -> str:
-        return f'<{self.__class__.__name__} uuid={self.uuid!r}>'
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, self.__class__) and self.uuid == other.uuid
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
-
-    def __hash__(self) -> int:
-        return hash(self.uuid)
+        return f'<{self.__class__.__name__}>'
 
 
-class GridPosition:
-    def __init__(self, data: GridPositionPayload) -> None:
-        self.row: float = data['row']
-        self.column: float = data['column']
+class LocalizedField(BaseModel):
+    de_DE: str = Field(alias='de-DE')
+    es_ES: str = Field(alias='es-ES')
+    ar_AE: str = Field(alias='ar-AE')
+    id_ID: str = Field(alias='id-ID')
+    es_MX: str = Field(alias='es-MX')
+    fr_FR: str = Field(alias='fr-FR')
+    en_US: str = Field(alias='en-US')
+    it_IT: str = Field(alias='it-IT')
+    ja_JP: str = Field(alias='ja-JP')
+    ko_KR: str = Field(alias='ko-KR')
+    th_TH: str = Field(alias='th-TH')
+    pl_PL: str = Field(alias='pl-PL')
+    pt_BR: str = Field(alias='pt-BR')
+    ru_RU: str = Field(alias='ru-RU')
+    tr_TR: str = Field(alias='tr-TR')
+    vi_VN: str = Field(alias='vi-VN')
+    zh_TW: str = Field(alias='zh-TW')
+    zh_CN: str = Field(alias='zh-CN')
+
+    # aliases
+
+    arabic: str = ar_AE
+    german: str = de_DE
+    american_english: str = en_US
+    spain_spanish: str = es_ES
+    spanish_mexican: str = es_MX
+    french: str = fr_FR
+    indonesian: str = id_ID
+    italian: str = it_IT
+    japanese: str = ja_JP
+    korean: str = ko_KR
+    polish: str = pl_PL
+    brazil_portuguese: str = pt_BR
+    russian: str = ru_RU
+    thai: str = th_TH
+    turkish: str = tr_TR
+    vietnamese: str = vi_VN
+    chinese: str = zh_CN
+    taiwan_chinese: str = zh_TW
+
+    def __str__(self) -> str:
+        return self.en_US
 
     def __repr__(self) -> str:
-        return f'<GridPosition row={self.row} column={self.column}>'
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, GridPosition) and self.row == other.row and self.column == other.column
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+        return f'<LocalizedField en_US={self.en_US!r}>'
 
 
-class ShopData:
-    def __init__(self, *, state: CacheState, item: Union[Weapon, Gear], data: ShopDataPayload) -> None:
-        self._item: Union[Weapon, Gear] = item
-        self._state: CacheState = state
-        self.cost: int = data['cost']
-        self.category: Optional[str] = data['category']
-        self._category_text: Union[str, Dict[str, str]] = data['categoryText']
-        self.grid_position: Optional[GridPosition] = None
-        if data['gridPosition'] is not None:
-            self.grid_position = GridPosition(data['gridPosition'])
-        self.can_be_trashed: bool = data['canBeTrashed']
-        self._image: Optional[str] = data['image']
-        self._new_image: Optional[str] = data['newImage']
-        self._new_image_2: Optional[str] = data['newImage2']
-        self.asset_path: str = data['assetPath']
-        self._category_text_localized: Localization = Localization(self._category_text, locale=self._state.locale)
-
-    def __repr__(self) -> str:
-        return f'<ShopData category_text={self.category_text} cost={self.cost}>'
-
-    def __int__(self) -> int:
-        return self.cost
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, ShopData) and self.item == other.item and self.cost == other.cost
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
-
-    def category_text_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._category_text_localized.from_locale(locale)
-
-    @property
-    def item(self) -> Union[Weapon, Gear]:
-        """:class: `Weapon` or :class: `Gear` Returns the item."""
-        return self._item
-
-    @property
-    def category_text(self) -> Localization:
-        """:class: `str` Returns the weapon's shop category text."""
-        return self._category_text_localized
-
-    @property
-    def image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's image."""
-        return Asset._from_url(self._state, url=self._image) if self._image else None
-
-    @property
-    def new_image(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's new image."""
-        return Asset._from_url(self._state, url=self._new_image) if self._new_image else None
-
-    @property
-    def new_image_2(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the weapon's new image 2."""
-        return Asset._from_url(self._state, url=self._new_image_2) if self._new_image_2 else None
+class Response(BaseModel, Generic[T]):
+    status: int
+    data: T
