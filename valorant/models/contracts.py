@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING, TypeAlias
+from uuid import UUID
 
 from pydantic import Field
 
@@ -100,7 +101,7 @@ class Chapter(BaseModel):
 
 class Content(BaseModel):
     relation_type: RelationType | None = Field(alias='relationType')
-    relation_uuid: str | None = Field(alias='relationUuid')
+    relation_uuid: UUID | None = Field(alias='relationUuid')
     chapters: list[Chapter]
     premium_reward_schedule_uuid: str | None = Field(alias='premiumRewardScheduleUuid')
     premium_vp_cost: int = Field(alias='premiumVPCost')

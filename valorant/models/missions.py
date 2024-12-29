@@ -22,6 +22,8 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from uuid import UUID
+
 from pydantic import Field
 
 from ..enums import MissionTag, MissionType
@@ -34,7 +36,7 @@ __all__ = (
 
 
 class Objective(BaseModel):
-    objective_uuid: str = Field(alias='objectiveUuid')
+    objective_uuid: UUID = Field(alias='objectiveUuid')
     value: int
 
 

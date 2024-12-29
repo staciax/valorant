@@ -25,6 +25,7 @@ DEALINGS IN THE SOFTWARE.
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from uuid import UUID
 
 from pydantic import Field
 
@@ -41,7 +42,7 @@ class PlayerCard(BaseUUIDModel):
     # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
-    theme_uuid: str | None = Field(alias='themeUuid')
+    theme_uuid: UUID | None = Field(alias='themeUuid')
     display_icon: str = Field(alias='displayIcon')
     small_art: str = Field(alias='smallArt')
     wide_art: str = Field(alias='wideArt')

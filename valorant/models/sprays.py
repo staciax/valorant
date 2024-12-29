@@ -25,6 +25,7 @@ DEALINGS IN THE SOFTWARE.
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from uuid import UUID
 
 from pydantic import Field
 
@@ -52,7 +53,7 @@ class Spray(BaseUUIDModel):
     # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     category: str | None
-    theme_uuid: str | None = Field(alias='themeUuid')
+    theme_uuid: UUID | None = Field(alias='themeUuid')
     is_null_spray: bool = Field(alias='isNullSpray')
     hide_if_not_owned: bool = Field(alias='hideIfNotOwned')
     display_icon: str | None = Field(alias='displayIcon')
