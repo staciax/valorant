@@ -24,6 +24,8 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from pydantic import Field
 
 from .base import BaseModel, LocalizedField
@@ -32,6 +34,10 @@ __all__ = (
     'Level',
     'Spray',
 )
+
+if TYPE_CHECKING:
+    from ..client import Client
+    from .themes import Theme
 
 
 class Level(BaseModel):
@@ -56,3 +62,10 @@ class Spray(BaseModel):
     animation_gif: str | None = Field(alias='animationGif')
     asset_path: str = Field(alias='assetPath')
     levels: list[Level]
+
+    # useful methods
+
+    async def fetch_theme(self, *, client: Client) -> Theme | None:
+        if self.theme_uuid is None:
+            return None
+        return await client.fetch_theme(self.theme_uuid)

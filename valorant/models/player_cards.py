@@ -22,11 +22,19 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from pydantic import Field
 
 from .base import BaseModel, LocalizedField
 
 __all__ = ('PlayerCard',)
+
+if TYPE_CHECKING:
+    from ..client import Client
+    from .themes import Theme
 
 
 class PlayerCard(BaseModel):
@@ -39,3 +47,10 @@ class PlayerCard(BaseModel):
     wide_art: str = Field(alias='wideArt')
     large_art: str = Field(alias='largeArt')
     asset_path: str = Field(alias='assetPath')
+
+    # useful methods
+
+    async def fetch_theme(self, *, client: Client) -> Theme | None:
+        if self.theme_uuid is None:
+            return None
+        return await client.fetch_theme(self.theme_uuid)

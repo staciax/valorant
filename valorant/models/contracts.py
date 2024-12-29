@@ -22,6 +22,11 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from __future__ import annotations
+
+import logging
+from typing import TYPE_CHECKING, TypeAlias
+
 from pydantic import Field
 
 from ..enums import RelationType, RewardType
@@ -35,12 +40,46 @@ __all__ = (
     'Reward',
 )
 
+if TYPE_CHECKING:
+    from ..client import Client
+    from .agents import Agent
+    from .buddies import Level as BuddyLevel
+    from .currencies import Currency
+    from .events import Event
+    from .player_cards import PlayerCard
+    from .player_titles import PlayerTitle
+    from .seasons import Season
+    from .sprays import Spray
+    from .weapons import Level as SkinLevel
+
+    RewardItemType: TypeAlias = SkinLevel | BuddyLevel | Currency | PlayerCard | PlayerTitle | Spray
+
+log = logging.getLogger(__name__)
+
 
 class Reward(BaseModel):
     type: RewardType
     uuid: str
     amount: int
     is_highlighted: bool = Field(alias='isHighlighted')
+
+    # useful methods
+
+    async def fetch_item(self, *, client: Client) -> RewardItemType | None:  # noqa: PLR0911
+        if self.type is RewardType.skin_level:
+            return await client.fetch_weapon_skin_level(str(self.uuid))
+        if self.type is RewardType.buddy_level:
+            return await client.fetch_buddy_level(str(self.uuid))
+        if self.type is RewardType.player_card:
+            return await client.fetch_player_card(str(self.uuid))
+        if self.type is RewardType.player_title:
+            return await client.fetch_player_title(str(self.uuid))
+        if self.type is RewardType.spray:
+            return await client.fetch_spray(str(self.uuid))
+        if self.type is RewardType.currency:
+            return await client.fetch_currency(str(self.uuid))
+        log.warning('Unknown reward type: %s', self.type)
+        return None
 
 
 class Level(BaseModel):
@@ -52,6 +91,7 @@ class Level(BaseModel):
     is_purchasable_with_dough: bool = Field(alias='isPurchasableWithDough')
 
 
+# TODO: add index chapter
 class Chapter(BaseModel):
     is_epilogue: bool = Field(alias='isEpilogue')
     levels: list[Level]
@@ -64,6 +104,20 @@ class Content(BaseModel):
     chapters: list[Chapter]
     premium_reward_schedule_uuid: str | None = Field(alias='premiumRewardScheduleUuid')
     premium_vp_cost: int = Field(alias='premiumVPCost')
+
+    # useful methods
+
+    async def fetch_relationship(self, *, client: Client) -> Agent | Event | Season | None:
+        if self.relation_type is None or self.relation_uuid is None:
+            return None
+        if self.relation_type is RelationType.agent:
+            return await client.fetch_agent(self.relation_uuid)
+        if self.relation_type is RelationType.event:
+            return await client.fetch_event(self.relation_uuid)
+        if self.relation_type is RelationType.season:
+            return await client.fetch_season(self.relation_uuid)
+        log.warning('Unknown relation type: %s, uuid: %s', self.relation_type, self.relation_uuid)
+        return None
 
 
 class Contract(BaseModel):

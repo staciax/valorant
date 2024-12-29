@@ -22,6 +22,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from pydantic import Field
 
 from ..enums import GameRule
@@ -33,6 +37,10 @@ __all__ = (
     'GameMode',
     'GameRuleBoolOverride',
 )
+
+if TYPE_CHECKING:
+    from ..client import Client
+    from .weapons import Weapon
 
 
 class GameFeatureOverride(BaseModel):
@@ -71,3 +79,8 @@ class Equippable(BaseModel):
     display_icon: str = Field(alias='displayIcon')
     kill_stream_icon: str = Field(alias='killStreamIcon')
     asset_path: str = Field(alias='assetPath')
+
+    # useful methods
+
+    async def fetch_weapon(self, *, client: Client) -> Weapon | None:
+        return await client.fetch_weapon(self.uuid)

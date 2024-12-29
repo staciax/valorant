@@ -22,7 +22,9 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from pydantic import Field
 
@@ -32,6 +34,10 @@ __all__ = (
     'Buddy',
     'Level',
 )
+
+if TYPE_CHECKING:
+    from ..client import Client
+    from .themes import Theme
 
 
 class Level(BaseModel):
@@ -50,10 +56,17 @@ class Buddy(BaseModel):
     uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
-    theme_uuid: Any = Field(alias='themeUuid')
+    theme_uuid: str | None = Field(alias='themeUuid')
     display_icon: str = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')
     levels: list[Level]
 
     def __repr__(self) -> str:
         return f'<Buddy display_name={self.display_name!r}>'
+
+    # useful methods
+
+    async def fetch_theme(self, *, client: Client) -> Theme | None:
+        if self.theme_uuid is None:
+            return None
+        return await client.fetch_theme(self.theme_uuid)

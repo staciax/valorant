@@ -22,7 +22,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from __future__ import annotations
+
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from pydantic import Field
 
@@ -34,6 +37,9 @@ __all__ = (
     'Season',
 )
 
+if TYPE_CHECKING:
+    from ..client import Client
+
 
 class Season(BaseModel):
     uuid: str
@@ -44,6 +50,13 @@ class Season(BaseModel):
     end_time: datetime = Field(alias='endTime')
     parent_uuid: str | None = Field(alias='parentUuid')
     asset_path: str = Field(alias='assetPath')
+
+    # useful methods
+
+    async def fetch_parent(self, *, client: Client) -> Season | None:
+        if self.parent_uuid is None:
+            return None
+        return await client.fetch_season(self.parent_uuid)
 
 
 class Border(BaseModel):
@@ -63,3 +76,6 @@ class Competitive(BaseModel):
     competitive_tiers_uuid: str = Field(alias='competitiveTiersUuid')
     borders: list[Border] | None
     asset_path: str = Field(alias='assetPath')
+
+    async def fetch_season(self, *, client: Client) -> Season | None:
+        return await client.fetch_season(self.season_uuid)
