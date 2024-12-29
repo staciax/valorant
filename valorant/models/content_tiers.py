@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('ContentTier',)
 
 
-class ContentTier(BaseModel):
-    uuid: str
+class ContentTier(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     dev_name: str = Field(alias='devName')
     rank: int

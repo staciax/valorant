@@ -25,7 +25,7 @@ DEALINGS IN THE SOFTWARE.
 from pydantic import Field
 
 from ..enums import MissionTag, MissionType
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Mission',
@@ -38,8 +38,8 @@ class Objective(BaseModel):
     value: int
 
 
-class Mission(BaseModel):
-    uuid: str
+class Mission(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField | None = Field(alias='displayName')
     title: LocalizedField | None
     type: MissionType | None

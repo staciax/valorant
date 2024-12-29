@@ -27,7 +27,7 @@ from __future__ import annotations
 from pydantic import Field
 
 from ..enums import WeaponCategory
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'AdsStats',
@@ -102,8 +102,8 @@ class ShopData(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Chroma(BaseModel):
-    uuid: str
+class Chroma(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     full_render: str = Field(alias='fullRender')
@@ -112,8 +112,8 @@ class Chroma(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Level(BaseModel):
-    uuid: str
+class Level(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     level_item: str | None = Field(alias='levelItem')
     display_icon: str | None = Field(alias='displayIcon')
@@ -121,8 +121,8 @@ class Level(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Skin(BaseModel):
-    uuid: str
+class Skin(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     theme_uuid: str = Field(alias='themeUuid')
     content_tier_uuid: str | None = Field(alias='contentTierUuid')
@@ -133,8 +133,8 @@ class Skin(BaseModel):
     levels: list[Level]
 
 
-class Weapon(BaseModel):
-    uuid: str
+class Weapon(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     category: WeaponCategory
     default_skin_uuid: str = Field(alias='defaultSkinUuid')

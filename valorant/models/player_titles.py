@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('PlayerTitle',)
 
 
-class PlayerTitle(BaseModel):
-    uuid: str
+class PlayerTitle(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField | None = Field(alias='displayName')
     title_text: LocalizedField | None = Field(alias='titleText')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')

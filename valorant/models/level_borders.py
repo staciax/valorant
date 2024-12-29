@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('LevelBorder',)
 
 
-class LevelBorder(BaseModel):
-    uuid: str
+class LevelBorder(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     starting_level: int = Field(alias='startingLevel')
     level_number_appearance: str = Field(alias='levelNumberAppearance')

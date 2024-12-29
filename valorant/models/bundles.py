@@ -26,13 +26,13 @@ from typing import Any
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('Bundle',)
 
 
-class Bundle(BaseModel):
-    uuid: str
+class Bundle(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_name_sub_text: Any = Field(alias='displayNameSubText')
     description: LocalizedField

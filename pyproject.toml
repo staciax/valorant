@@ -146,6 +146,7 @@ quote-annotations = true
 runtime-evaluated-base-classes = [
   "pydantic.BaseModel",
   "valorant.models.base.BaseModel",
+  "valorant.models.base.BaseUUIDModel",
 ]
 
 [tool.ruff.lint.flake8-unused-arguments]

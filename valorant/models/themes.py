@@ -24,12 +24,12 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('Theme',)
 
 
-class Theme(BaseModel):
+class Theme(BaseUUIDModel):
     uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')

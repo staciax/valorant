@@ -26,7 +26,7 @@ from typing import Any
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Callout',
@@ -46,8 +46,8 @@ class Callout(BaseModel):
     location: Location
 
 
-class Map(BaseModel):
-    uuid: str
+class Map(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     narrative_description: Any = Field(alias='narrativeDescription')
     tactical_description: LocalizedField | None = Field(alias='tacticalDescription')

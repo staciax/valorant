@@ -24,13 +24,13 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('Currency',)
 
 
-class Currency(BaseModel):
-    uuid: str
+class Currency(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_name_singular: LocalizedField = Field(alias='displayNameSingular')
     display_icon: str = Field(alias='displayIcon')

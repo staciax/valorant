@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('PlayerCard',)
 
@@ -37,8 +37,8 @@ if TYPE_CHECKING:
     from .themes import Theme
 
 
-class PlayerCard(BaseModel):
-    uuid: str
+class PlayerCard(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
     theme_uuid: str | None = Field(alias='themeUuid')

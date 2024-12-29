@@ -26,7 +26,7 @@ from typing import Any
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Detail',
@@ -53,8 +53,8 @@ class ShopData(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Gear(BaseModel):
-    uuid: str
+class Gear(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     description: LocalizedField
     descriptions: list[LocalizedField]

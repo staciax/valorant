@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Border',
@@ -41,8 +41,8 @@ if TYPE_CHECKING:
     from ..client import Client
 
 
-class Season(BaseModel):
-    uuid: str
+class Season(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     title: LocalizedField | None
     type: str | None

@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Level',
@@ -40,16 +40,16 @@ if TYPE_CHECKING:
     from .themes import Theme
 
 
-class Level(BaseModel):
-    uuid: str
+class Level(BaseUUIDModel):
+    # uuid: str
     spray_level: int = Field(alias='sprayLevel')
     display_name: LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')
 
 
-class Spray(BaseModel):
-    uuid: str
+class Spray(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     category: str | None
     theme_uuid: str | None = Field(alias='themeUuid')

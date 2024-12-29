@@ -26,13 +26,13 @@ from datetime import datetime
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('Event',)
 
 
-class Event(BaseModel):
-    uuid: str
+class Event(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     short_display_name: LocalizedField = Field(alias='shortDisplayName')
     start_time: datetime = Field(alias='startTime')

@@ -22,7 +22,10 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from __future__ import annotations
+
 from typing import Generic, TypeVar
+from uuid import UUID
 
 from pydantic import BaseModel as PydanticBaseModel, Field
 
@@ -30,6 +33,7 @@ T = TypeVar('T')
 
 __all__ = (
     'BaseModel',
+    'BaseUUIDModel',
     'LocalizedField',
     'Response',
 )
@@ -40,6 +44,19 @@ class BaseModel(PydanticBaseModel):
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}>'
+
+
+class BaseUUIDModel(BaseModel):
+    uuid: UUID = Field(alias='uuid')
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, self.__class__) and self.uuid == other.uuid
+
+    def __ne__(self, other: object) -> bool:
+        return not self.__eq__(other)
+
+    def __hash__(self) -> int:
+        return hash(self.uuid)
 
 
 class LocalizedField(BaseModel):

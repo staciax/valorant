@@ -30,7 +30,7 @@ from typing import TYPE_CHECKING, TypeAlias
 from pydantic import Field
 
 from ..enums import RelationType, RewardType
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Chapter',
@@ -57,9 +57,9 @@ if TYPE_CHECKING:
 log = logging.getLogger(__name__)
 
 
-class Reward(BaseModel):
+class Reward(BaseUUIDModel):
+    # uuid: str
     type: RewardType
-    uuid: str
     amount: int
     is_highlighted: bool = Field(alias='isHighlighted')
 
@@ -120,8 +120,8 @@ class Content(BaseModel):
         return None
 
 
-class Contract(BaseModel):
-    uuid: str
+class Contract(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     ship_it: bool = Field(alias='shipIt')

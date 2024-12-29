@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Buddy',
@@ -40,8 +40,8 @@ if TYPE_CHECKING:
     from .themes import Theme
 
 
-class Level(BaseModel):
-    uuid: str
+class Level(BaseUUIDModel):
+    # uuid: str
     charm_level: int = Field(alias='charmLevel')
     hide_if_not_owned: bool = Field(alias='hideIfNotOwned')
     display_name: LocalizedField = Field(alias='displayName')
@@ -52,8 +52,8 @@ class Level(BaseModel):
         return f'<Level display_name={self.display_name!r}>'
 
 
-class Buddy(BaseModel):
-    uuid: str
+class Buddy(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
     theme_uuid: str | None = Field(alias='themeUuid')

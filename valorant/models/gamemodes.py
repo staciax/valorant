@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING
 from pydantic import Field
 
 from ..enums import GameRule
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Equippable',
@@ -53,8 +53,8 @@ class GameRuleBoolOverride(BaseModel):
     state: bool
 
 
-class GameMode(BaseModel):
-    uuid: str
+class GameMode(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     description: LocalizedField | None
     duration: LocalizedField | None
@@ -72,8 +72,8 @@ class GameMode(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Equippable(BaseModel):
-    uuid: str
+class Equippable(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     category: str
     display_icon: str = Field(alias='displayIcon')

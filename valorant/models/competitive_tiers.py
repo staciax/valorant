@@ -25,7 +25,7 @@ DEALINGS IN THE SOFTWARE.
 from pydantic import Field
 
 from ..enums import DivisionTier
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'CompetitiveTier',
@@ -46,8 +46,8 @@ class Tier(BaseModel):
     rank_triangle_up_icon: str | None = Field(alias='rankTriangleUpIcon')
 
 
-class CompetitiveTier(BaseModel):
-    uuid: str
+class CompetitiveTier(BaseUUIDModel):
+    # uuid: str
     asset_object_name: str = Field(alias='assetObjectName')
     tiers: list[Tier]
     asset_path: str = Field(alias='assetPath')

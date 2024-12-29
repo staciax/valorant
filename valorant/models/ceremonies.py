@@ -24,12 +24,12 @@ DEALINGS IN THE SOFTWARE.
 
 from pydantic import Field
 
-from .base import BaseModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = ('Ceremony',)
 
 
-class Ceremony(BaseModel):
-    uuid: str
+class Ceremony(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     asset_path: str = Field(alias='assetPath')

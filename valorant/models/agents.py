@@ -28,7 +28,7 @@ from typing import Any
 from pydantic import Field
 
 from ..enums import AbilitySlot
-from .base import BaseModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Ability',
@@ -38,8 +38,8 @@ __all__ = (
 )
 
 
-class Role(BaseModel):
-    uuid: str
+class Role(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     description: LocalizedField
     display_icon: str = Field(alias='displayIcon')
@@ -69,8 +69,8 @@ class Ability(BaseModel):
         return f'<Ability display_name={self.display_name!r}>'
 
 
-class Agent(BaseModel):
-    uuid: str
+class Agent(BaseUUIDModel):
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     description: LocalizedField
     developer_name: str = Field(alias='developerName')
