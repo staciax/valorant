@@ -1,19 +1,21 @@
 # valorant
-A modern, easy to use, feature-rich, and async ready API wrapper for [Valorant API](https://valorant-api.com) written in Python.
+A modern, easy to use, and async ready API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 
-## Key Features
+## Features
+- Fully type annotated.
 - Modern Pythonic API using `async` and  `await`.
+- Supports Python 3.10+.
+- Supports localizations.
+<!-- TODO: supports caching -->
 
 ## Installing
-Python 3.10 or higher is required
+To install the library, you can just run the following command:
+```
+# uv
+uv add valorant.py
 
-Windows: <br>
-```
-$ pip install -U valorant.py
-```
-Linux/MacOS:
-```
-$ python3 -m pip install -U valorant.py
+# pip
+pip install valorant.py
 ```
  
 ## Quick Example
