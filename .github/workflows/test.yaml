@@ -11,7 +11,7 @@ on:
       - synchronize
 
 jobs:
-  pytest:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
