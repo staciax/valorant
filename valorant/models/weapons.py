@@ -26,7 +26,7 @@ from __future__ import annotations
 
 from pydantic import Field
 
-from ..enums import WeaponCategory
+from ..enums import ShopCategory, WeaponCategory
 from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
@@ -91,7 +91,7 @@ class GridPosition(BaseModel):
 
 class ShopData(BaseModel):
     cost: int
-    category: str
+    category: ShopCategory
     shop_order_priority: int = Field(alias='shopOrderPriority')
     category_text: LocalizedField = Field(alias='categoryText')
     grid_position: GridPosition | None = Field(alias='gridPosition')

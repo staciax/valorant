@@ -26,6 +26,7 @@ from typing import Any
 
 from pydantic import Field
 
+from ..enums import ShopCategory
 from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
@@ -42,7 +43,7 @@ class Detail(BaseModel):
 
 class ShopData(BaseModel):
     cost: int
-    category: str
+    category: ShopCategory
     shop_order_priority: int = Field(alias='shopOrderPriority')
     category_text: LocalizedField = Field(alias='categoryText')
     grid_position: Any = Field(alias='gridPosition')

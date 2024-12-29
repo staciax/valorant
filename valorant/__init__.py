@@ -24,6 +24,7 @@ from .enums import (
     RelationType,
     RewardType,
     SeasonType,
+    ShopCategory,
     WeaponCategory,
 )
 from .errors import BadRequest, Forbidden, HTTPException, InternalServerError, RateLimited, ValorantError
@@ -44,6 +45,7 @@ __all__ = (
     'RelationType',
     'RewardType',
     'SeasonType',
+    'ShopCategory',
     'ValorantError',
     'WeaponCategory',
     'models',

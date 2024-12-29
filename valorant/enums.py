@@ -34,6 +34,7 @@ __all__ = (
     'RelationType',
     'RewardType',
     'SeasonType',
+    'ShopCategory',
     'WeaponCategory',
 )
 
@@ -111,6 +112,16 @@ class RewardType(str, Enum):
 
 class SeasonType(str, Enum):
     act = 'EAresSeasonType::Act'
+
+
+class ShopCategory(str, Enum):
+    armor = 'Armor'
+    pistols = 'Pistols'
+    smgs = 'SMGs'
+    shotguns = 'Shotguns'
+    heavy_weapons = 'Heavy Weapons'
+    rifles = 'Rifles'
+    sniper_rifles = 'Sniper Rifles'
 
 
 class WeaponCategory(str, Enum):
