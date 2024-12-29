@@ -30,6 +30,7 @@ from uuid import UUID
 
 from pydantic import Field
 
+from ..enums import SeasonType
 from .base import BaseUUIDModel, LocalizedField
 
 __all__ = (
@@ -46,7 +47,7 @@ class Season(BaseUUIDModel):
     # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     title: LocalizedField | None
-    type: str | None
+    type: SeasonType | None
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
     parent_uuid: UUID | None = Field(alias='parentUuid')

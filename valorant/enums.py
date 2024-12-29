@@ -33,6 +33,7 @@ __all__ = (
     'MissionType',
     'RelationType',
     'RewardType',
+    'SeasonType',
     'WeaponCategory',
 )
 
@@ -106,6 +107,10 @@ class RewardType(str, Enum):
     player_card = 'PlayerCard'
     player_title = 'Title'
     spray = 'Spray'
+
+
+class SeasonType(str, Enum):
+    act = 'EAresSeasonType::Act'
 
 
 class WeaponCategory(str, Enum):
