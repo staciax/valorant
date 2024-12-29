@@ -22,6 +22,7 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
+from datetime import datetime
 from uuid import UUID
 
 from pydantic import Field
@@ -47,8 +48,8 @@ class Mission(BaseUUIDModel):
     type: MissionType | None
     xp_grant: int = Field(alias='xpGrant')
     progress_to_complete: int = Field(alias='progressToComplete')
-    activation_date: str = Field(alias='activationDate')
-    expiration_date: str = Field(alias='expirationDate')
+    activation_date: datetime = Field(alias='activationDate')
+    expiration_date: datetime = Field(alias='expirationDate')
     tags: list[MissionTag] | None
     objectives: list[Objective] | None
     asset_path: str = Field(alias='assetPath')
