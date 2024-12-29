@@ -75,7 +75,7 @@ class Competitive(BaseUUIDModel):
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
     season_uuid: UUID = Field(alias='seasonUuid')
-    competitive_tiers_uuid: str = Field(alias='competitiveTiersUuid')
+    competitive_tiers_uuid: UUID = Field(alias='competitiveTiersUuid')
     borders: list[Border] | None
     asset_path: str = Field(alias='assetPath')
 
