@@ -26,6 +26,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import TYPE_CHECKING
+from uuid import UUID
 
 from pydantic import Field
 
@@ -48,7 +49,7 @@ class Season(BaseUUIDModel):
     type: str | None
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
-    parent_uuid: str | None = Field(alias='parentUuid')
+    parent_uuid: UUID | None = Field(alias='parentUuid')
     asset_path: str = Field(alias='assetPath')
 
     # useful methods
@@ -72,7 +73,7 @@ class Competitive(BaseUUIDModel):
     # uuid: str
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
-    season_uuid: str = Field(alias='seasonUuid')
+    season_uuid: UUID = Field(alias='seasonUuid')
     competitive_tiers_uuid: str = Field(alias='competitiveTiersUuid')
     borders: list[Border] | None
     asset_path: str = Field(alias='assetPath')
