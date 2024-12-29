@@ -15,15 +15,15 @@ report: # See the coverage report
 .PHONY: lint
 .SILENT: lint
 lint: # Run the linter
-	mypy valorant
-	ruff check valorant
-	ruff format valorant --check
+	mypy valorant tests
+	ruff check valorant tests
+	ruff format valorant tests --check
 
 .PHONY: format
 .SILENT: format
 format: # Format the code
-	ruff check valorant --fix
-	ruff format valorant
+	ruff check valorant tests --fix
+	ruff format valorant tests
 
 .PHONY: test
 .SILENT: test
