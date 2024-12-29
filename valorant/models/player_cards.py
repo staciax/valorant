@@ -54,4 +54,4 @@ class PlayerCard(BaseUUIDModel):
     async def fetch_theme(self, *, client: Client) -> Theme | None:
         if self.theme_uuid is None:
             return None
-        return await client.fetch_theme(self.theme_uuid)
+        return await client.fetch_theme(str(self.theme_uuid))

@@ -112,11 +112,11 @@ class Content(BaseModel):
         if self.relation_type is None or self.relation_uuid is None:
             return None
         if self.relation_type is RelationType.agent:
-            return await client.fetch_agent(self.relation_uuid)
+            return await client.fetch_agent(str(self.relation_uuid))
         if self.relation_type is RelationType.event:
-            return await client.fetch_event(self.relation_uuid)
+            return await client.fetch_event(str(self.relation_uuid))
         if self.relation_type is RelationType.season:
-            return await client.fetch_season(self.relation_uuid)
+            return await client.fetch_season(str(self.relation_uuid))
         log.warning('Unknown relation type: %s, uuid: %s', self.relation_type, self.relation_uuid)
         return None
 
