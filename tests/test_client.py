@@ -16,7 +16,7 @@ async def test_agents(client: Client) -> None:
     assert len(agents) > 0
 
     agent_id = agents[0].uuid
-    agent = await client.fetch_agent(agent_id)
+    agent = await client.fetch_agent(str(agent_id))
     assert agent is not None
     assert agent_id == agent.uuid
 
@@ -30,7 +30,7 @@ async def test_buddies(client: Client) -> None:
     assert len(buddies) > 0
 
     buddy_id = buddies[0].uuid
-    buddy = await client.fetch_buddy(buddy_id)
+    buddy = await client.fetch_buddy(str(buddy_id))
     assert buddy is not None
     assert buddy_id == buddy.uuid
 
@@ -44,7 +44,7 @@ async def test_buddy_levels(client: Client) -> None:
     assert len(buddy_levels) > 0
 
     buddy_level_id = buddy_levels[0].uuid
-    buddy_level = await client.fetch_buddy_level(buddy_level_id)
+    buddy_level = await client.fetch_buddy_level(str(buddy_level_id))
     assert buddy_level is not None
     assert buddy_level_id == buddy_level.uuid
 
@@ -58,7 +58,7 @@ async def test_bundles(client: Client) -> None:
     assert len(bundles) > 0
 
     bundle_id = bundles[0].uuid
-    bundle = await client.fetch_bundle(bundle_id)
+    bundle = await client.fetch_bundle(str(bundle_id))
     assert bundle is not None
     assert bundle_id == bundle.uuid
 
@@ -72,7 +72,7 @@ async def test_ceremonies(client: Client) -> None:
     assert len(ceremonies) > 0
 
     ceremony_id = ceremonies[0].uuid
-    ceremony = await client.fetch_ceremony(ceremony_id)
+    ceremony = await client.fetch_ceremony(str(ceremony_id))
     assert ceremony is not None
     assert ceremony_id == ceremony.uuid
 
@@ -86,7 +86,7 @@ async def test_competitive_tiers(client: Client) -> None:
     assert len(competitive_tiers) > 0
 
     competitive_tier_id = competitive_tiers[0].uuid
-    competitive_tier = await client.fetch_competitive_tier(competitive_tier_id)
+    competitive_tier = await client.fetch_competitive_tier(str(competitive_tier_id))
     assert competitive_tier is not None
     assert competitive_tier_id == competitive_tier.uuid
 
@@ -100,7 +100,7 @@ async def test_content_tiers(client: Client) -> None:
     assert len(content_tiers) > 0
 
     content_tier_id = content_tiers[0].uuid
-    content_tier = await client.fetch_content_tier(content_tier_id)
+    content_tier = await client.fetch_content_tier(str(content_tier_id))
     assert content_tier is not None
     assert content_tier_id == content_tier.uuid
 
@@ -114,7 +114,7 @@ async def test_contracts(client: Client) -> None:
     assert len(contracts) > 0
 
     contract_id = contracts[0].uuid
-    contract = await client.fetch_contract(contract_id)
+    contract = await client.fetch_contract(str(contract_id))
     assert contract is not None
     assert contract_id == contract.uuid
 
@@ -128,7 +128,7 @@ async def test_currencies(client: Client) -> None:
     assert len(currencies) > 0
 
     currency_id = currencies[0].uuid
-    currency = await client.fetch_currency(currency_id)
+    currency = await client.fetch_currency(str(currency_id))
     assert currency is not None
     assert currency_id == currency.uuid
 
@@ -142,7 +142,7 @@ async def test_events(client: Client) -> None:
     assert len(events) > 0
 
     event_id = events[0].uuid
-    event = await client.fetch_event(event_id)
+    event = await client.fetch_event(str(event_id))
     assert event is not None
     assert event_id == event.uuid
 
@@ -156,7 +156,7 @@ async def test_game_modes(client: Client) -> None:
     assert len(game_modes) > 0
 
     game_mode_id = game_modes[0].uuid
-    game_mode = await client.fetch_game_mode(game_mode_id)
+    game_mode = await client.fetch_game_mode(str(game_mode_id))
     assert game_mode is not None
     assert game_mode_id == game_mode.uuid
 
@@ -170,7 +170,7 @@ async def test_game_mode_equippables(client: Client) -> None:
     assert len(game_mode_equippables) > 0
 
     game_mode_equippable_id = game_mode_equippables[0].uuid
-    game_mode_equippable = await client.fetch_game_mode_equippable(game_mode_equippable_id)
+    game_mode_equippable = await client.fetch_game_mode_equippable(str(game_mode_equippable_id))
     assert game_mode_equippable is not None
     assert game_mode_equippable_id == game_mode_equippable.uuid
 
@@ -184,7 +184,7 @@ async def test_gears(client: Client) -> None:
     assert len(gears) > 0
 
     gear_id = gears[0].uuid
-    gear = await client.fetch_gear(gear_id)
+    gear = await client.fetch_gear(str(gear_id))
     assert gear is not None
     assert gear_id == gear.uuid
 
@@ -198,7 +198,7 @@ async def test_level_borders(client: Client) -> None:
     assert len(level_borders) > 0
 
     level_border_id = level_borders[0].uuid
-    level_border = await client.fetch_level_border(level_border_id)
+    level_border = await client.fetch_level_border(str(level_border_id))
     assert level_border is not None
     assert level_border_id == level_border.uuid
 
@@ -212,7 +212,7 @@ async def test_maps(client: Client) -> None:
     assert len(maps) > 0
 
     map_id = maps[0].uuid
-    map_ = await client.fetch_map(map_id)
+    map_ = await client.fetch_map(str(map_id))
     assert map_ is not None
     assert map_id == map_.uuid
 
@@ -226,7 +226,7 @@ async def test_missions(client: Client) -> None:
     assert len(missions) > 0
 
     mission_id = missions[0].uuid
-    mission = await client.fetch_mission(mission_id)
+    mission = await client.fetch_mission(str(mission_id))
     assert mission is not None
     assert mission_id == mission.uuid
 
@@ -240,7 +240,7 @@ async def test_player_cards(client: Client) -> None:
     assert len(player_cards) > 0
 
     player_card_id = player_cards[0].uuid
-    player_card = await client.fetch_player_card(player_card_id)
+    player_card = await client.fetch_player_card(str(player_card_id))
     assert player_card is not None
     assert player_card_id == player_card.uuid
 
@@ -254,7 +254,7 @@ async def test_player_titles(client: Client) -> None:
     assert len(player_titles) > 0
 
     player_title_id = player_titles[0].uuid
-    player_title = await client.fetch_player_title(player_title_id)
+    player_title = await client.fetch_player_title(str(player_title_id))
     assert player_title is not None
     assert player_title_id == player_title.uuid
 
@@ -268,7 +268,7 @@ async def test_seasons(client: Client) -> None:
     assert len(seasons) > 0
 
     season_id = seasons[0].uuid
-    season = await client.fetch_season(season_id)
+    season = await client.fetch_season(str(season_id))
     assert season is not None
     assert season_id == season.uuid
 
@@ -282,7 +282,7 @@ async def test_competitive_seasons(client: Client) -> None:
     assert len(competitive_seasons) > 0
 
     competitive_season_id = competitive_seasons[0].uuid
-    competitive_season = await client.competitive_season(competitive_season_id)
+    competitive_season = await client.competitive_season(str(competitive_season_id))
     assert competitive_season is not None
     assert competitive_season_id == competitive_season.uuid
 
@@ -296,7 +296,7 @@ async def test_sprays(client: Client) -> None:
     assert len(sprays) > 0
 
     spray_id = sprays[0].uuid
-    spray = await client.fetch_spray(spray_id)
+    spray = await client.fetch_spray(str(spray_id))
     assert spray is not None
     assert spray_id == spray.uuid
 
@@ -310,7 +310,7 @@ async def test_spray_levels(client: Client) -> None:
     assert len(spray_levels) > 0
 
     spray_level_id = spray_levels[0].uuid
-    spray_level = await client.fetch_spray_level(spray_level_id)
+    spray_level = await client.fetch_spray_level(str(spray_level_id))
     assert spray_level is not None
     assert spray_level_id == spray_level.uuid
 
@@ -324,7 +324,7 @@ async def test_themes(client: Client) -> None:
     assert len(themes) > 0
 
     theme_id = themes[0].uuid
-    theme = await client.fetch_theme(theme_id)
+    theme = await client.fetch_theme(str(theme_id))
     assert theme is not None
     assert theme_id == theme.uuid
 
@@ -338,7 +338,7 @@ async def test_weapons(client: Client) -> None:
     assert len(weapons) > 0
 
     weapon_id = weapons[0].uuid
-    weapon = await client.fetch_weapon(weapon_id)
+    weapon = await client.fetch_weapon(str(weapon_id))
     assert weapon is not None
     assert weapon_id == weapon.uuid
 
@@ -352,7 +352,7 @@ async def test_weapon_skins(client: Client) -> None:
     assert len(weapon_skins) > 0
 
     weapon_skin_id = weapon_skins[0].uuid
-    weapon_skin = await client.fetch_weapon_skin(weapon_skin_id)
+    weapon_skin = await client.fetch_weapon_skin(str(weapon_skin_id))
     assert weapon_skin is not None
     assert weapon_skin_id == weapon_skin.uuid
 
@@ -366,7 +366,7 @@ async def test_weapon_skin_chromas(client: Client) -> None:
     assert len(weapon_skin_chromas) > 0
 
     weapon_skin_chroma_id = weapon_skin_chromas[0].uuid
-    weapon_skin_chroma = await client.fetch_weapon_skin_chroma(weapon_skin_chroma_id)
+    weapon_skin_chroma = await client.fetch_weapon_skin_chroma(str(weapon_skin_chroma_id))
     assert weapon_skin_chroma is not None
     assert weapon_skin_chroma_id == weapon_skin_chroma.uuid
 
@@ -380,7 +380,7 @@ async def test_weapon_skin_levels(client: Client) -> None:
     assert len(weapon_skin_levels) > 0
 
     weapon_skin_level_id = weapon_skin_levels[0].uuid
-    weapon_skin_level = await client.fetch_weapon_skin_level(weapon_skin_level_id)
+    weapon_skin_level = await client.fetch_weapon_skin_level(str(weapon_skin_level_id))
     assert weapon_skin_level is not None
     assert weapon_skin_level_id == weapon_skin_level.uuid
 
