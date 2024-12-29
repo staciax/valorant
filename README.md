@@ -5,7 +5,7 @@ A modern, easy to use, feature-rich, and async ready API wrapper for [Valorant A
 - Modern Pythonic API using `async` and  `await`.
 
 ## Installing
-Python 3.8 or higher is required
+Python 3.10 or higher is required
 
 Windows: <br>
 ```
