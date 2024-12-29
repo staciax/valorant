@@ -30,7 +30,7 @@ __all__ = ('Theme',)
 
 
 class Theme(BaseUUIDModel):
-    uuid: str
+    # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     store_featured_image: str | None = Field(alias='storeFeaturedImage')
