@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseUUIDModel, LocalizedField
 
 __all__ = (
     'Border',
@@ -59,8 +59,8 @@ class Season(BaseUUIDModel):
         return await client.fetch_season(self.parent_uuid)
 
 
-class Border(BaseModel):
-    uuid: str
+class Border(BaseUUIDModel):
+    # uuid: str
     level: int
     wins_required: int = Field(alias='winsRequired')
     display_icon: str = Field(alias='displayIcon')
@@ -68,8 +68,8 @@ class Border(BaseModel):
     asset_path: str = Field(alias='assetPath')
 
 
-class Competitive(BaseModel):
-    uuid: str
+class Competitive(BaseUUIDModel):
+    # uuid: str
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
     season_uuid: str = Field(alias='seasonUuid')
