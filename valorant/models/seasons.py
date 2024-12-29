@@ -57,7 +57,7 @@ class Season(BaseUUIDModel):
     async def fetch_parent(self, *, client: Client) -> Season | None:
         if self.parent_uuid is None:
             return None
-        return await client.fetch_season(self.parent_uuid)
+        return await client.fetch_season(str(self.parent_uuid))
 
 
 class Border(BaseUUIDModel):
@@ -79,4 +79,4 @@ class Competitive(BaseUUIDModel):
     asset_path: str = Field(alias='assetPath')
 
     async def fetch_season(self, *, client: Client) -> Season | None:
-        return await client.fetch_season(self.season_uuid)
+        return await client.fetch_season(str(self.season_uuid))
