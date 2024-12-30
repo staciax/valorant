@@ -63,14 +63,14 @@ class DivisionTier(str, Enum):
 
 
 class GameFeature(str, Enum):
-    deathmatch_encourage_far_spawning = 'EGameFeatureToggleName::DeathmatchEncourageFarSpawning'
-    reuse_actor_on_respawn = 'EGameFeatureToggleName::ReuseActorOnRespawn'
     allow_shopping_while_dead = 'EGameFeatureToggleName::AllowShoppingWhileDead'
-    use_server_authoritative_drop_out = 'EGameFeatureToggleName::UseServerAuthoritativeDropOut'
-    equippable_cache_recycling = 'EGameFeatureToggleName::EquippableCacheRecycling'
-    use_mesh_material_manager_alt = 'EGameFeatureToggleName::UseMeshMaterialManagerAlt'
+    deathmatch_encourage_far_spawning = 'EGameFeatureToggleName::DeathmatchEncourageFarSpawning'
     disable_fog_of_war = 'EGameFeatureToggleName::DisableFogOfWar'
+    equippable_cache_recycling = 'EGameFeatureToggleName::EquippableCacheRecycling'
+    reuse_actor_on_respawn = 'EGameFeatureToggleName::ReuseActorOnRespawn'
     remove_deleted_fx_cs_from_pool = 'EGameFeatureToggleName::RemoveDeletedFXCsFromPool'
+    use_mesh_material_manager_alt = 'EGameFeatureToggleName::UseMeshMaterialManagerAlt'
+    use_server_authoritative_drop_out = 'EGameFeatureToggleName::UseServerAuthoritativeDropOut'
 
 
 class GameRule(str, Enum):
