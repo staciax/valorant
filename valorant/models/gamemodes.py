@@ -28,7 +28,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import Field
 
-from ..enums import GameRule
+from ..enums import GameFeature, GameRule
 from .base import BaseModel, BaseUUIDModel, LocalizedField
 
 __all__ = (
@@ -44,7 +44,7 @@ if TYPE_CHECKING:
 
 
 class GameFeatureOverride(BaseModel):
-    feature_name: str = Field(alias='featureName')
+    feature_name: GameFeature = Field(alias='featureName')
     state: bool
 
 

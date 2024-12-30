@@ -27,6 +27,7 @@ from enum import Enum
 __all__ = (
     'AbilitySlot',
     'DivisionTier',
+    'GameFeature',
     'GameRule',
     'Locale',
     'MissionTag',
@@ -59,6 +60,17 @@ class DivisionTier(str, Enum):
     ascendant = 'ECompetitiveDivision::ASCENDANT'
     immortal = 'ECompetitiveDivision::IMMORTAL'
     radiant = 'ECompetitiveDivision::RADIANT'
+
+
+class GameFeature(str, Enum):
+    deathmatch_encourage_far_spawning = 'EGameFeatureToggleName::DeathmatchEncourageFarSpawning'
+    reuse_actor_on_respawn = 'EGameFeatureToggleName::ReuseActorOnRespawn'
+    allow_shopping_while_dead = 'EGameFeatureToggleName::AllowShoppingWhileDead'
+    use_server_authoritative_drop_out = 'EGameFeatureToggleName::UseServerAuthoritativeDropOut'
+    equippable_cache_recycling = 'EGameFeatureToggleName::EquippableCacheRecycling'
+    use_mesh_material_manager_alt = 'EGameFeatureToggleName::UseMeshMaterialManagerAlt'
+    disable_fog_of_war = 'EGameFeatureToggleName::DisableFogOfWar'
+    remove_deleted_fx_cs_from_pool = 'EGameFeatureToggleName::RemoveDeletedFXCsFromPool'
 
 
 class GameRule(str, Enum):

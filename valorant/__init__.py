@@ -17,6 +17,7 @@ from .client import Client
 from .enums import (
     AbilitySlot,
     DivisionTier,
+    GameFeature,
     GameRule,
     Locale,
     MissionTag,
@@ -35,6 +36,7 @@ __all__ = (
     'Client',
     'DivisionTier',
     'Forbidden',
+    'GameFeature',
     'GameRule',
     'HTTPException',
     'InternalServerError',
