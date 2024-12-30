@@ -25,10 +25,19 @@ DEALINGS IN THE SOFTWARE.
 from __future__ import annotations
 
 from datetime import datetime
+from functools import cached_property
+from typing import NamedTuple
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, computed_field
 
 __all__ = ('Version',)
+
+
+class VersionInfo(NamedTuple):
+    major: int
+    minor: int
+    patch: int
+    build: int
 
 
 class Version(BaseModel):
@@ -40,3 +49,9 @@ class Version(BaseModel):
     riot_client_version: str = Field(alias='riotClientVersion')
     riot_client_build: str = Field(alias='riotClientBuild')
     build_date: datetime = Field(alias='buildDate')
+
+    @computed_field  # type: ignore[misc]
+    @cached_property
+    def version_info(self) -> VersionInfo:
+        major, minor, patch, build = map(int, self.version.split('.'))
+        return VersionInfo(major=major, minor=minor, patch=patch, build=build)
