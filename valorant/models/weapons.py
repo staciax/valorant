@@ -24,6 +24,9 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+from uuid import UUID
+
 from pydantic import Field
 
 from ..enums import ShopCategory, WeaponCategory
@@ -38,6 +41,12 @@ __all__ = (
     'ShopData',
     'WeaponStats',
 )
+
+
+if TYPE_CHECKING:
+    from ..client import Client
+    from .content_tiers import ContentTier
+    from .themes import Theme
 
 
 class AdsStats(BaseModel):
@@ -124,13 +133,25 @@ class Level(BaseUUIDModel):
 class Skin(BaseUUIDModel):
     # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
-    theme_uuid: str = Field(alias='themeUuid')
-    content_tier_uuid: str | None = Field(alias='contentTierUuid')
+    theme_uuid: UUID = Field(alias='themeUuid')
+    content_tier_uuid: UUID | None = Field(alias='contentTierUuid')
     display_icon: str | None = Field(alias='displayIcon')
     wallpaper: str | None
     asset_path: str = Field(alias='assetPath')
     chromas: list[Chroma]
     levels: list[Level]
+
+    # useful methods
+
+    async def fetch_theme(self, *, client: Client) -> Theme | None:
+        if self.theme_uuid is None:
+            return None
+        return await client.fetch_theme(str(self.theme_uuid))
+
+    async def fetch_content_tier(self, *, client: Client) -> ContentTier | None:
+        if self.content_tier_uuid is None:
+            return None
+        return await client.fetch_content_tier(str(self.content_tier_uuid))
 
 
 class Weapon(BaseUUIDModel):
