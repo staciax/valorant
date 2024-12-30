@@ -162,7 +162,7 @@ ignore-variadic-names = true
 ]
 
 [tool.pytest.ini_options]
-addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant"
+addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov=tests"
 
 [tool.coverage.report]
 show_missing = true
