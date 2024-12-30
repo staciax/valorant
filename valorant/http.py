@@ -32,7 +32,7 @@ from urllib.parse import quote as _uriquote
 
 import aiohttp
 
-from . import __version__, utils
+from . import __version__
 from .errors import BadRequest, HTTPException, InternalServerError, NotFound, RateLimited
 
 if TYPE_CHECKING:
@@ -45,11 +45,6 @@ _log = logging.getLogger(__name__)
 
 
 # http-client inspired by https://github.com/Rapptz/discord.py/blob/master/discord/http.py
-
-
-async def to_json(response: aiohttp.ClientResponse) -> dict[str, Any] | str:
-    text = await response.text(encoding='utf-8')
-    return utils._from_json(text)
 
 
 class Route:
@@ -96,8 +91,7 @@ class HTTPClient:
         async with self.__session.request(method, url, **kwargs) as response:  # noqa: F811
             _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
 
-            # data = await response.json()
-            data = await to_json(response)
+            data = await response.json()
 
             if 300 > response.status >= 200:
                 _log.debug('%s %s has received %s', method, url, data)
