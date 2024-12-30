@@ -50,7 +50,6 @@ async def test_division_tier(client: Client) -> None:
     assert used_division_tiers == all_division_tiers
 
 
-def test_locale() -> None: ...
 @pytest.mark.anyio
 async def test_game_feature(client: Client) -> None:
     game_modes = await client.fetch_game_modes()
