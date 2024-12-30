@@ -74,7 +74,7 @@ class HTTPClient:
         user_agent = 'valorantx (https://github.com/staciax/valorant {0}) Python/{1[0]}.{1[1]} aiohttp/{2}'
         self.user_agent: str = user_agent.format(__version__, sys.version_info, aiohttp.__version__)
 
-    async def init(self) -> None:
+    async def start(self) -> None:
         if self.__session is None:
             self.__session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(limit=0))
 

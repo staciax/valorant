@@ -79,7 +79,7 @@ class Client:
         self._closed: bool = False
 
     async def __aenter__(self) -> Self:
-        await self.init()
+        await self.start()
         return self
 
     async def __aexit__(
@@ -91,9 +91,9 @@ class Client:
         if not self.is_closed():
             await self.close()
 
-    async def init(self) -> None:
-        await self.http.init()
-        _log.info('client initialized')
+    async def start(self) -> None:
+        await self.http.start()
+        _log.info('client started')
 
     def is_closed(self) -> bool:
         return self._closed
