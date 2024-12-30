@@ -85,7 +85,6 @@ select = [
   "BLE",   # flake8-blind-except
   "A",     # flake8-builtins
   "COM",   # flake8-commas
-  # "DTZ",   # flake8-datetimez
   "FA",    # flake8-future-annotations
   "ISC",   # flake8-implicit-str-concat
   "LOG",   # flake8-logging
@@ -107,6 +106,8 @@ select = [
   "FURB", # refurb
 
   "RUF", # ruff-specific rules
+
+  # "DTZ",   # flake8-datetimez
 ]
 ignore = [
   "ANN401", # any-type
