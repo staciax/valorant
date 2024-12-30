@@ -1,5 +1,5 @@
 # valorant
-A modern, easy to use, and async ready API wrapper for [Valorant API](https://valorant-api.com) written in Python.
+An Asynchronous API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 
 ## Features
 - Fully type annotated.
