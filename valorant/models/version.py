@@ -50,7 +50,7 @@ class Version(BaseModel):
     riot_client_build: str = Field(alias='riotClientBuild')
     build_date: datetime = Field(alias='buildDate')
 
-    @computed_field  # type: ignore[misc]
+    @computed_field  # type: ignore[prop-decorator]
     @cached_property
     def version_info(self) -> VersionInfo:
         major, minor, patch, build = map(int, self.version.split('.'))
