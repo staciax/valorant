@@ -93,8 +93,8 @@ class GameRule(str, Enum):
 
 
 class MissionType(str, Enum):
-    weekly = 'EAresMissionType::Weekly'
     daily = 'EAresMissionType::Daily'
+    weekly = 'EAresMissionType::Weekly'
     tutorial = 'EAresMissionType::Tutorial'
     npe = 'EAresMissionType::NPE'
     bte = 'EAresMissionType::BTE'
@@ -112,11 +112,11 @@ class RelationType(str, Enum):
 
 
 class RewardType(str, Enum):
-    skin_level = 'EquippableSkinLevel'
     buddy_level = 'EquippableCharmLevel'
     currency = 'Currency'
     player_card = 'PlayerCard'
     player_title = 'Title'
+    skin_level = 'EquippableSkinLevel'
     spray = 'Spray'
 
 
