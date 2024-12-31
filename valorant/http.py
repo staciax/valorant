@@ -121,153 +121,265 @@ class HTTPClient:
 
     # valorant-api.com
 
-    def get_agents(self, *, language: str | None = 'all', is_playable_character: bool = True) -> Response[Any]:
-        params = {'isPlayableCharacter': str(is_playable_character), 'language': language}
+    def get_agents(self, *, language: str | None = None, is_playable_character: bool = True) -> Response[Any]:
+        params = {'isPlayableCharacter': str(is_playable_character)}
+        if language is not None:
+            params['language'] = language
         return self.request(Route('GET', '/agents'), params=params)
 
-    def get_agent(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        params = {'language': language}
+    def get_agent(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language is not None:
+            params['language'] = language
         return self.request(Route('GET', '/agents/{uuid}', uuid=uuid), params=params)
 
     # # -
 
-    def get_buddies(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/buddies'), params={'language': language})
+    def get_buddies(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/buddies'), params=params)
 
-    def get_buddy(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/buddies/{uuid}', uuid=uuid), params={'language': language})
+    def get_buddy(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/buddies/{uuid}', uuid=uuid), params=params)
 
-    def get_buddy_levels(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/buddies/levels'), params={'language': language})
+    def get_buddy_levels(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/buddies/levels'), params=params)
 
-    def get_buddy_level(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/buddies/levels/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_bundles(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/bundles'), params={'language': language})
-
-    def get_bundle(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/bundles/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_ceremonies(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/ceremonies'), params={'language': language})
-
-    def get_ceremony(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/ceremonies/{uuid}', uuid=uuid), params={'language': language})
+    def get_buddy_level(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/buddies/levels/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_competitive_tiers(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/competitivetiers'), params={'language': language})
+    def get_bundles(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/bundles'), params=params)
 
-    def get_competitive_tier(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/competitivetiers/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_content_tiers(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/contenttiers'), params={'language': language})
-
-    def get_content_tier(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/contenttiers/{uuid}', uuid=uuid), params={'language': language})
+    def get_bundle(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/bundles/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_contracts(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/contracts'), params={'language': language})
+    def get_ceremonies(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/ceremonies'), params=params)
 
-    def get_contract(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/contracts/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_currencies(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/currencies'), params={'language': language})
-
-    def get_currency(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/currencies/{uuid}', uuid=uuid), params={'language': language})
+    def get_ceremony(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/ceremonies/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_events(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/events'), params={'language': language})
+    def get_competitive_tiers(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/competitivetiers'), params=params)
 
-    def get_event(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/events/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_game_modes(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gamemodes'), params={'language': language})
-
-    def get_game_mode(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gamemodes/{uuid}', uuid=uuid), params={'language': language})
-
-    def get_game_mode_equippables(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gamemodes/equippables'), params={'language': language})
-
-    def get_game_mode_equippable(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gamemodes/equippables/{uuid}', uuid=uuid), params={'language': language})
+    def get_competitive_tier(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/competitivetiers/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_all_gear(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gear'), params={'language': language})
+    def get_content_tiers(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/contenttiers'), params=params)
 
-    def get_gear(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/gear/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_level_borders(self) -> Response[Any]:
-        return self.request(Route('GET', '/levelborders'), params={'language': 'all'})
-
-    def get_level_border(self, uuid: str) -> Response[Any]:
-        return self.request(Route('GET', '/levelborders/{uuid}', uuid=uuid), params={'language': 'all'})
+    def get_content_tier(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/contenttiers/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_maps(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/maps'), params={'language': language})
+    def get_contracts(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/contracts'), params=params)
 
-    def get_map(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/maps/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_missions(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/missions'), params={'language': language})
-
-    def get_mission(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/missions/{uuid}', uuid=uuid), params={'language': language})
+    def get_contract(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/contracts/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_player_cards(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/playercards'), params={'language': language})
+    def get_currencies(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/currencies'), params=params)
 
-    def get_player_card(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/playercards/{uuid}', uuid=uuid), params={'language': language})
-
-    # -
-
-    def get_player_titles(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/playertitles'), params={'language': language})
-
-    def get_player_title(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/playertitles/{uuid}', uuid=uuid), params={'language': language})
+    def get_currency(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/currencies/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_seasons(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/seasons'), params={'language': language})
+    def get_events(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/events'), params=params)
 
-    def get_season(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/seasons/{uuid}', uuid=uuid), params={'language': language})
+    def get_event(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/events/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_game_modes(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gamemodes'), params=params)
+
+    def get_game_mode(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gamemodes/{uuid}', uuid=uuid), params=params)
+
+    def get_game_mode_equippables(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gamemodes/equippables'), params=params)
+
+    def get_game_mode_equippable(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gamemodes/equippables/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_all_gear(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gear'), params=params)
+
+    def get_gear(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/gear/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_level_borders(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/levelborders'), params=params)
+
+    def get_level_border(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/levelborders/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_maps(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/maps'), params=params)
+
+    def get_map(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/maps/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_missions(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/missions'), params=params)
+
+    def get_mission(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/missions/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_player_cards(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/playercards'), params=params)
+
+    def get_player_card(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/playercards/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_player_titles(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/playertitles'), params=params)
+
+    def get_player_title(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/playertitles/{uuid}', uuid=uuid), params=params)
+
+    # -
+
+    def get_seasons(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/seasons'), params=params)
+
+    def get_season(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/seasons/{uuid}', uuid=uuid), params=params)
 
     def get_competitive_seasons(self) -> Response[Any]:
         return self.request(Route('GET', '/seasons/competitive'))
@@ -277,51 +389,93 @@ class HTTPClient:
 
     # -
 
-    def get_sprays(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/sprays'), params={'language': language})
+    def get_sprays(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/sprays'), params=params)
 
-    def get_spray(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/sprays/{uuid}', uuid=uuid), params={'language': language})
+    def get_spray(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/sprays/{uuid}', uuid=uuid), params=params)
 
-    def get_spray_levels(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/sprays/levels'), params={'language': language})
+    def get_spray_levels(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/sprays/levels'), params=params)
 
-    def get_spray_level(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/sprays/levels/{uuid}', uuid=uuid), params={'language': language})
+    def get_spray_level(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/sprays/levels/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_themes(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/themes'), params={'language': language})
+    def get_themes(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/themes'), params=params)
 
-    def get_theme(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/themes/{uuid}', uuid=uuid), params={'language': language})
+    def get_theme(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/themes/{uuid}', uuid=uuid), params=params)
 
     # -
 
-    def get_weapons(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons'), params={'language': language})
+    def get_weapons(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons'), params=params)
 
-    def get_weapon(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/{uuid}', uuid=uuid), params={'language': language})
+    def get_weapon(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/{uuid}', uuid=uuid), params=params)
 
-    def get_weapon_skins(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skins'), params={'language': language})
+    def get_weapon_skins(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skins'), params=params)
 
-    def get_weapon_skin(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skins/{uuid}', uuid=uuid), params={'language': language})
+    def get_weapon_skin(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skins/{uuid}', uuid=uuid), params=params)
 
-    def get_weapon_skin_chromas(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skinchromas'), params={'language': language})
+    def get_weapon_skin_chromas(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skinchromas'), params=params)
 
-    def get_weapon_skin_chroma(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skinchromas/{uuid}', uuid=uuid), params={'language': language})
+    def get_weapon_skin_chroma(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skinchromas/{uuid}', uuid=uuid), params=params)
 
-    def get_weapon_skin_levels(self, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skinlevels'), params={'language': language})
+    def get_weapon_skin_levels(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skinlevels'), params=params)
 
-    def get_weapon_skin_level(self, uuid: str, *, language: str | None = 'all') -> Response[Any]:
-        return self.request(Route('GET', '/weapons/skinlevels/{uuid}', uuid=uuid), params={'language': language})
+    def get_weapon_skin_level(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/weapons/skinlevels/{uuid}', uuid=uuid), params=params)
 
     # -
 
