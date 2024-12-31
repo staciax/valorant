@@ -26,9 +26,7 @@ import valorant
 
 
 async def main() -> None:
-    client = valorant.Client()
-
-    async with client:
+    async with valorant.Client() as client:
         weapons = await client.fetch_weapons()
         for weapon in weapons:
             print(weapon.display_name)
