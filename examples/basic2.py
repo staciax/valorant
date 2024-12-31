@@ -43,18 +43,18 @@ async def main() -> None:
 
         # skin
 
-        skins = await client.fetch_weapon_skins()
+        skins = await client.fetch_skins()
         for skin in skins:
             print(skin.display_name)
 
         # skin level
 
-        skin_levels = await client.fetch_weapon_skin_levels()
+        skin_levels = await client.fetch_skin_levels()
         for level in skin_levels:
             print(level.display_name)
 
         # skin chroma
-        skin_chromas = await client.fetch_weapon_skin_chromas()
+        skin_chromas = await client.fetch_skin_chromas()
         for chroma in skin_chromas:
             print(chroma.display_name)
 

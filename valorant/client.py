@@ -397,36 +397,32 @@ class Client:
         weapons = Response[list[Weapon]].model_validate(data)
         return weapons.data
 
-    async def fetch_weapon_skin(self, uuid: str, /, *, language: LanguageOption | None = None) -> Skin | None:
+    async def fetch_skin(self, uuid: str, /, *, language: LanguageOption | None = None) -> Skin | None:
         data = await self.http.get_weapon_skin(uuid, language=language or self.language)
         skin = Response[Skin].model_validate(data)
         return skin.data
 
-    async def fetch_weapon_skins(self, *, language: LanguageOption | None = None) -> list[Skin]:
+    async def fetch_skins(self, *, language: LanguageOption | None = None) -> list[Skin]:
         data = await self.http.get_weapon_skins(language=language or self.language)
         skins = Response[list[Skin]].model_validate(data)
         return skins.data
 
-    async def fetch_weapon_skin_chroma(
-        self, uuid: str, /, *, language: LanguageOption | None = None
-    ) -> SkinChroma | None:
+    async def fetch_skin_chroma(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinChroma | None:
         data = await self.http.get_weapon_skin_chroma(uuid, language=language or self.language)
         skin_chroma = Response[SkinChroma].model_validate(data)
         return skin_chroma.data
 
-    async def fetch_weapon_skin_chromas(self, *, language: LanguageOption | None = None) -> list[SkinChroma]:
+    async def fetch_skin_chromas(self, *, language: LanguageOption | None = None) -> list[SkinChroma]:
         data = await self.http.get_weapon_skin_chromas(language=language or self.language)
         skin_chromas = Response[list[SkinChroma]].model_validate(data)
         return skin_chromas.data
 
-    async def fetch_weapon_skin_level(
-        self, uuid: str, /, *, language: LanguageOption | None = None
-    ) -> SkinLevel | None:
+    async def fetch_skin_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinLevel | None:
         data = await self.http.get_weapon_skin_level(uuid, language=language or self.language)
         skin_level = Response[SkinLevel].model_validate(data)
         return skin_level.data
 
-    async def fetch_weapon_skin_levels(self, *, language: LanguageOption | None = None) -> list[SkinLevel]:
+    async def fetch_skin_levels(self, *, language: LanguageOption | None = None) -> list[SkinLevel]:
         data = await self.http.get_weapon_skin_levels(language=language or self.language)
         skin_levels = Response[list[SkinLevel]].model_validate(data)
         return skin_levels.data

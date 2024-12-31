@@ -348,44 +348,44 @@ async def test_weapons(client: Client) -> None:
 
 @pytest.mark.anyio
 async def test_weapon_skins(client: Client) -> None:
-    weapon_skins = await client.fetch_weapon_skins()
+    weapon_skins = await client.fetch_skins()
     assert len(weapon_skins) > 0
 
     weapon_skin_id = weapon_skins[0].uuid
-    weapon_skin = await client.fetch_weapon_skin(str(weapon_skin_id))
+    weapon_skin = await client.fetch_skin(str(weapon_skin_id))
     assert weapon_skin is not None
     assert weapon_skin_id == weapon_skin.uuid
 
     with pytest.raises(NotFound):
-        await client.fetch_weapon_skin('fake-weapon-skin-id')
+        await client.fetch_skin('fake-weapon-skin-id')
 
 
 @pytest.mark.anyio
 async def test_weapon_skin_chromas(client: Client) -> None:
-    weapon_skin_chromas = await client.fetch_weapon_skin_chromas()
+    weapon_skin_chromas = await client.fetch_skin_chromas()
     assert len(weapon_skin_chromas) > 0
 
     weapon_skin_chroma_id = weapon_skin_chromas[0].uuid
-    weapon_skin_chroma = await client.fetch_weapon_skin_chroma(str(weapon_skin_chroma_id))
+    weapon_skin_chroma = await client.fetch_skin_chroma(str(weapon_skin_chroma_id))
     assert weapon_skin_chroma is not None
     assert weapon_skin_chroma_id == weapon_skin_chroma.uuid
 
     with pytest.raises(NotFound):
-        await client.fetch_weapon_skin_chroma('fake-weapon-skin-chroma-id')
+        await client.fetch_skin_chroma('fake-weapon-skin-chroma-id')
 
 
 @pytest.mark.anyio
 async def test_weapon_skin_levels(client: Client) -> None:
-    weapon_skin_levels = await client.fetch_weapon_skin_levels()
+    weapon_skin_levels = await client.fetch_skin_levels()
     assert len(weapon_skin_levels) > 0
 
     weapon_skin_level_id = weapon_skin_levels[0].uuid
-    weapon_skin_level = await client.fetch_weapon_skin_level(str(weapon_skin_level_id))
+    weapon_skin_level = await client.fetch_skin_level(str(weapon_skin_level_id))
     assert weapon_skin_level is not None
     assert weapon_skin_level_id == weapon_skin_level.uuid
 
     with pytest.raises(NotFound):
-        await client.fetch_weapon_skin_level('fake-weapon-skin-level-id')
+        await client.fetch_skin_level('fake-weapon-skin-level-id')
 
 
 @pytest.mark.anyio
