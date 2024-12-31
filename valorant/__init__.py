@@ -10,7 +10,7 @@ __title__ = 'valorant'
 __author__ = 'STACiA'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2023-present STACiA'
-__version__ = '2.0.0'
+__version__ = '2.0.1a'
 
 from . import models
 from .client import Client
