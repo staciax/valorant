@@ -49,7 +49,7 @@ __all__ = (
 )
 
 
-class AbilitySlot(StrEnum):  # type: ignore[misc]
+class AbilitySlot(StrEnum):
     passive = 'Passive'
     grenade = 'Grenade'
     ability_1 = 'Ability1'
@@ -57,7 +57,7 @@ class AbilitySlot(StrEnum):  # type: ignore[misc]
     ultimate = 'Ultimate'
 
 
-class DivisionTier(StrEnum):  # type: ignore[misc]
+class DivisionTier(StrEnum):
     unranked = 'ECompetitiveDivision::UNRANKED'
     invalid = 'ECompetitiveDivision::INVALID'
     iron = 'ECompetitiveDivision::IRON'
