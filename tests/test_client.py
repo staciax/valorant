@@ -278,16 +278,16 @@ async def test_seasons(client: Client) -> None:
 
 @pytest.mark.anyio
 async def test_competitive_seasons(client: Client) -> None:
-    competitive_seasons = await client.competitive_seasons()
+    competitive_seasons = await client.fetch_competitive_seasons()
     assert len(competitive_seasons) > 0
 
     competitive_season_id = competitive_seasons[0].uuid
-    competitive_season = await client.competitive_season(str(competitive_season_id))
+    competitive_season = await client.fetch_competitive_season(str(competitive_season_id))
     assert competitive_season is not None
     assert competitive_season_id == competitive_season.uuid
 
     with pytest.raises(NotFound):
-        await client.competitive_season('fake-competitive-season-id')
+        await client.fetch_competitive_season('fake-competitive-season-id')
 
 
 @pytest.mark.anyio

@@ -333,12 +333,12 @@ class Client:
         seasons = Response[list[Season]].model_validate(data)
         return seasons.data
 
-    async def competitive_season(self, uuid: str, /) -> CompetitiveSeason | None:
+    async def fetch_competitive_season(self, uuid: str, /) -> CompetitiveSeason | None:
         data = await self.http.get_competitive_season(uuid)
         competitive_season = Response[CompetitiveSeason].model_validate(data)
         return competitive_season.data
 
-    async def competitive_seasons(self) -> list[CompetitiveSeason]:
+    async def fetch_competitive_seasons(self) -> list[CompetitiveSeason]:
         data = await self.http.get_competitive_seasons()
         competitive_seasons = Response[list[CompetitiveSeason]].model_validate(data)
         return competitive_seasons.data
