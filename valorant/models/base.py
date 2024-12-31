@@ -47,7 +47,7 @@ class BaseModel(PydanticBaseModel):
 
 
 class BaseUUIDModel(BaseModel):
-    uuid: UUID = Field(alias='uuid')
+    uuid: UUID
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, self.__class__) and self.uuid == other.uuid
