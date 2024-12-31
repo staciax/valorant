@@ -1,12 +1,16 @@
 import asyncio
 
 import valorant
+from valorant.models.base import LocalizedField
 
 
 async def main() -> None:
     client = valorant.Client()
     async with client:
-        weapon = await client.fetch_weapon('9c82e19d-4575-0200-1a81-3eacf00cf872')  # Vandal
+        weapon = await client.fetch_weapon(
+            '9c82e19d-4575-0200-1a81-3eacf00cf872',  # Vandal
+            language='all',  # all languages (LocalizedField)
+        )  # Vandal
         assert weapon is not None
 
         for skin in weapon.skins[:5]:
@@ -14,6 +18,8 @@ async def main() -> None:
             print(skin.display_icon)
 
             # display_name locale
+            assert skin.display_name is not None
+            assert isinstance(skin.display_name, LocalizedField)
             print(skin.display_name.ja_JP)
             print(skin.display_name.japanese)
 

@@ -1,26 +1,18 @@
 import asyncio
 
 import valorant
+from valorant.enums import Language
 
 
 async def main() -> None:
     client = valorant.Client()
     async with client:
         # agent
-        agents = await client.fetch_agents()
-        for agent in agents:
-            print(agent.display_name)
-            # role = agent.role
-            # print(role.display_name)
-            # print(role.display_icon)
-
-            print(agent.display_icon)
-            print(agent.display_icon_small)
-            print(agent.full_portrait_v2)
-
-            # grenade = agent.get_ability(valorant.AbilitySlot.grenade)
-            # if grenade is not None:
-            #     print(grenade.display_name)
+        agents = await client.fetch_agents(language=Language.japanese)
+        for agent in agents[:1]:
+            if agent.role is not None:
+                print(agent.role.display_name)
+                print(agent.role.display_icon)
 
         # buddy
         buddies = await client.fetch_buddies()
@@ -49,29 +41,22 @@ async def main() -> None:
                 for chroma in skin.chromas:
                     print(chroma.display_name)
 
-        # skin child of weapon
+        # skin
 
         skins = await client.fetch_weapon_skins()
         for skin in skins:
-            # weapon = skin.parent
-            print(weapon.display_name, skin.display_name)
+            print(skin.display_name)
 
-        # skin level child of skin
+        # skin level
 
         skin_levels = await client.fetch_weapon_skin_levels()
         for level in skin_levels:
-            # skin = level.parent
-            # weapon = skin.parent
-            # print(skin.display_name, str(level.display_name).strip())
-            print(level.display_icon)
+            print(level.display_name)
 
-        # skin chroma child of skin
+        # skin chroma
         skin_chromas = await client.fetch_weapon_skin_chromas()
         for chroma in skin_chromas:
-            # skin = chroma.parent
-            # weapon = skin.parent
-            # print(weapon.display_name, skin.display_name, str(chroma.display_name).strip())
-            print(chroma.display_icon)
+            print(chroma.display_name)
 
 
 asyncio.run(main())
