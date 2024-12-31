@@ -26,6 +26,7 @@ from datetime import datetime
 from typing import Any
 
 from pydantic import Field
+from pydantic.color import Color
 
 from ..enums import AbilitySlot
 from .base import BaseModel, BaseUUIDModel, LocalizedField
@@ -82,7 +83,7 @@ class Agent(BaseUUIDModel):
     full_portrait_v2: str | None = Field(alias='fullPortraitV2')
     killfeed_portrait: str = Field(alias='killfeedPortrait')
     background: str | None
-    background_gradient_colors: list[str] = Field(alias='backgroundGradientColors')
+    background_gradient_colors: list[Color] = Field(alias='backgroundGradientColors')
     asset_path: str = Field(alias='assetPath')
     is_full_portrait_right_facing: bool = Field(alias='isFullPortraitRightFacing')
     is_playable_character: bool = Field(alias='isPlayableCharacter')

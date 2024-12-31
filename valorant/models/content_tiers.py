@@ -23,6 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 from pydantic import Field
+from pydantic.color import Color
 
 from .base import BaseUUIDModel, LocalizedField
 
@@ -36,6 +37,6 @@ class ContentTier(BaseUUIDModel):
     rank: int
     juice_value: int = Field(alias='juiceValue')
     juice_cost: int = Field(alias='juiceCost')
-    highlight_color: str = Field(alias='highlightColor')
+    highlight_color: Color = Field(alias='highlightColor')
     display_icon: str = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')

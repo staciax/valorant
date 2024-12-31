@@ -23,6 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 from pydantic import Field
+from pydantic.color import Color
 
 from ..enums import DivisionTier
 from .base import BaseModel, BaseUUIDModel, LocalizedField
@@ -38,8 +39,8 @@ class Tier(BaseModel):
     tier_name: LocalizedField = Field(alias='tierName')
     division: DivisionTier
     division_name: LocalizedField = Field(alias='divisionName')
-    color: str
-    background_color: str = Field(alias='backgroundColor')
+    color: Color
+    background_color: Color = Field(alias='backgroundColor')
     small_icon: str | None = Field(alias='smallIcon')
     large_icon: str | None = Field(alias='largeIcon')
     rank_triangle_down_icon: str | None = Field(alias='rankTriangleDownIcon')
