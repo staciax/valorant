@@ -3,9 +3,10 @@ An Asynchronous API wrapper for [Valorant API](https://valorant-api.com) written
 
 ## Features
 - Fully type annotated.
+- [Pydantic V2](https://docs.pydantic.dev/latest/) models.
 - Modern Pythonic API using `async` and  `await`.
 - Supports Python 3.10+.
-- Supports localizations.
+- Supports all languages.
 <!-- TODO: supports caching -->
 
 ## Installing
