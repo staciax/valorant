@@ -28,7 +28,8 @@ from uuid import UUID
 from pydantic import Field
 
 from ..enums import MissionTag, MissionType
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
     'Mission',

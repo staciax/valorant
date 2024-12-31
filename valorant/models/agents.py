@@ -29,7 +29,8 @@ from pydantic import Field
 from pydantic_extra_types.color import Color
 
 from ..enums import AbilitySlot
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField  # Changed from language to localization
 
 __all__ = (
     'Ability',

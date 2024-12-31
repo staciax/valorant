@@ -26,7 +26,8 @@ from pydantic import Field
 from pydantic_extra_types.color import Color
 
 from ..enums import DivisionTier
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
     'CompetitiveTier',

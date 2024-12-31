@@ -30,7 +30,8 @@ from uuid import UUID
 from pydantic import Field
 
 from ..enums import ShopCategory, WeaponCategory
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField  # Changed from language to localization
 
 __all__ = (
     'AdsStats',

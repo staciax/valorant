@@ -29,7 +29,8 @@ from uuid import UUID
 
 from pydantic import Field
 
-from .base import BaseUUIDModel, LocalizedField
+from .base import BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = ('PlayerCard',)
 

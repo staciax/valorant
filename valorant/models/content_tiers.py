@@ -25,7 +25,8 @@ DEALINGS IN THE SOFTWARE.
 from pydantic import Field
 from pydantic_extra_types.color import Color
 
-from .base import BaseUUIDModel, LocalizedField
+from .base import BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = ('ContentTier',)
 

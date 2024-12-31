@@ -31,7 +31,8 @@ from uuid import UUID
 from pydantic import Field
 
 from ..enums import RelationType, RewardType
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
     'Chapter',

@@ -27,7 +27,8 @@ from typing import Any
 from pydantic import Field
 
 from ..enums import ShopCategory
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
     'Detail',

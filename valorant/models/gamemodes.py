@@ -29,7 +29,8 @@ from typing import TYPE_CHECKING
 from pydantic import Field
 
 from ..enums import GameFeature, GameRule
-from .base import BaseModel, BaseUUIDModel, LocalizedField
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
     'Equippable',
