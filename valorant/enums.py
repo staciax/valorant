@@ -22,14 +22,23 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from enum import Enum
+import sys
+
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+
+else:
+    from enum import Enum
+
+    class StrEnum(str, Enum): ...
+
 
 __all__ = (
     'AbilitySlot',
     'DivisionTier',
     'GameFeature',
     'GameRule',
-    'Locale',
+    'Language',
     'MissionTag',
     'MissionType',
     'RelationType',
@@ -40,7 +49,7 @@ __all__ = (
 )
 
 
-class AbilitySlot(str, Enum):
+class AbilitySlot(StrEnum):  # type: ignore[misc]
     passive = 'Passive'
     grenade = 'Grenade'
     ability_1 = 'Ability1'
@@ -48,7 +57,7 @@ class AbilitySlot(str, Enum):
     ultimate = 'Ultimate'
 
 
-class DivisionTier(str, Enum):
+class DivisionTier(StrEnum):  # type: ignore[misc]
     unranked = 'ECompetitiveDivision::UNRANKED'
     invalid = 'ECompetitiveDivision::INVALID'
     iron = 'ECompetitiveDivision::IRON'
@@ -62,7 +71,7 @@ class DivisionTier(str, Enum):
     radiant = 'ECompetitiveDivision::RADIANT'
 
 
-class GameFeature(str, Enum):
+class GameFeature(StrEnum):
     allow_shopping_while_dead = 'EGameFeatureToggleName::AllowShoppingWhileDead'
     deathmatch_encourage_far_spawning = 'EGameFeatureToggleName::DeathmatchEncourageFarSpawning'
     disable_fog_of_war = 'EGameFeatureToggleName::DisableFogOfWar'
@@ -73,7 +82,7 @@ class GameFeature(str, Enum):
     use_server_authoritative_drop_out = 'EGameFeatureToggleName::UseServerAuthoritativeDropOut'
 
 
-class GameRule(str, Enum):
+class GameRule(StrEnum):
     accolades_enabled = 'EGameRuleBoolName::AccoladesEnabled'
     allow_drop_out = 'EGameRuleBoolName::AllowDropOut'
     assign_random_agents = 'EGameRuleBoolName::AssignRandomAgents'
@@ -92,7 +101,7 @@ class GameRule(str, Enum):
     use_in_dev_weapons = 'EGameRuleBoolName::UseInDevWeapons'
 
 
-class MissionType(str, Enum):
+class MissionType(StrEnum):
     daily = 'EAresMissionType::Daily'
     weekly = 'EAresMissionType::Weekly'
     tutorial = 'EAresMissionType::Tutorial'
@@ -100,18 +109,18 @@ class MissionType(str, Enum):
     bte = 'EAresMissionType::BTE'
 
 
-class MissionTag(str, Enum):
+class MissionTag(StrEnum):
     econ = 'EAresMissionTag::Econ'
     combat = 'EAresMissionTag::Combat'
 
 
-class RelationType(str, Enum):
+class RelationType(StrEnum):
     agent = 'Agent'
     event = 'Event'
     season = 'Season'
 
 
-class RewardType(str, Enum):
+class RewardType(StrEnum):
     buddy_level = 'EquippableCharmLevel'
     currency = 'Currency'
     player_card = 'PlayerCard'
@@ -120,11 +129,11 @@ class RewardType(str, Enum):
     spray = 'Spray'
 
 
-class SeasonType(str, Enum):
+class SeasonType(StrEnum):
     act = 'EAresSeasonType::Act'
 
 
-class ShopCategory(str, Enum):
+class ShopCategory(StrEnum):
     armor = 'Armor'
     pistols = 'Pistols'
     smgs = 'SMGs'
@@ -134,7 +143,7 @@ class ShopCategory(str, Enum):
     sniper_rifles = 'Sniper Rifles'
 
 
-class WeaponCategory(str, Enum):
+class WeaponCategory(StrEnum):
     melee = 'EEquippableCategory::Melee'
     sidearm = 'EEquippableCategory::Sidearm'
     smg = 'EEquippableCategory::SMG'
@@ -144,7 +153,7 @@ class WeaponCategory(str, Enum):
     sniper = 'EEquippableCategory::Sniper'
 
 
-class Locale(str, Enum):
+class Locale(StrEnum):
     arabic = 'ar-AE'
     german = 'de-DE'
     american_english = 'en-US'
