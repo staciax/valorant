@@ -55,9 +55,9 @@ class GameRuleBoolOverride(BaseModel):
 
 class GameMode(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    description: LocalizedField | None
-    duration: LocalizedField | None
+    display_name: str | LocalizedField = Field(alias='displayName')
+    description: str | LocalizedField | None
+    duration: str | LocalizedField | None
     economy_type: str | None = Field(alias='economyType')
     allows_match_timeouts: bool = Field(alias='allowsMatchTimeouts')
     is_team_voice_allowed: bool = Field(alias='isTeamVoiceAllowed')
@@ -74,7 +74,7 @@ class GameMode(BaseUUIDModel):
 
 class Equippable(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     category: str
     display_icon: str = Field(alias='displayIcon')
     kill_stream_icon: str = Field(alias='killStreamIcon')

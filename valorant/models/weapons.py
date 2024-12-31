@@ -102,7 +102,7 @@ class ShopData(BaseModel):
     cost: int
     category: ShopCategory
     shop_order_priority: int = Field(alias='shopOrderPriority')
-    category_text: LocalizedField = Field(alias='categoryText')
+    category_text: str | LocalizedField = Field(alias='categoryText')
     grid_position: GridPosition | None = Field(alias='gridPosition')
     can_be_trashed: bool = Field(alias='canBeTrashed')
     image: str | None
@@ -113,7 +113,7 @@ class ShopData(BaseModel):
 
 class Chroma(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     full_render: str = Field(alias='fullRender')
     swatch: str | None
@@ -123,7 +123,7 @@ class Chroma(BaseUUIDModel):
 
 class Level(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     level_item: str | None = Field(alias='levelItem')
     display_icon: str | None = Field(alias='displayIcon')
     streamed_video: str | None = Field(alias='streamedVideo')
@@ -132,7 +132,7 @@ class Level(BaseUUIDModel):
 
 class Skin(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     theme_uuid: UUID = Field(alias='themeUuid')
     content_tier_uuid: UUID | None = Field(alias='contentTierUuid')
     display_icon: str | None = Field(alias='displayIcon')
@@ -156,7 +156,7 @@ class Skin(BaseUUIDModel):
 
 class Weapon(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     category: WeaponCategory
     default_skin_uuid: str = Field(alias='defaultSkinUuid')
     display_icon: str = Field(alias='displayIcon')

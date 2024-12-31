@@ -33,8 +33,8 @@ __all__ = ('Event',)
 
 class Event(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    short_display_name: LocalizedField = Field(alias='shortDisplayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
+    short_display_name: str | LocalizedField = Field(alias='shortDisplayName')
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
     asset_path: str = Field(alias='assetPath')

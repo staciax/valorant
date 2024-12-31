@@ -31,11 +31,11 @@ __all__ = ('Bundle',)
 
 class Bundle(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    display_name_sub_text: LocalizedField | None = Field(alias='displayNameSubText')
-    description: LocalizedField
-    extra_description: LocalizedField | None = Field(alias='extraDescription')
-    promo_description: LocalizedField | None = Field(alias='promoDescription')
+    display_name: str | LocalizedField = Field(alias='displayName')
+    display_name_sub_text: str | LocalizedField | None = Field(alias='displayNameSubText')
+    description: str | LocalizedField
+    extra_description: str | LocalizedField | None = Field(alias='extraDescription')
+    promo_description: str | LocalizedField | None = Field(alias='promoDescription')
     use_additional_context: bool = Field(alias='useAdditionalContext')
     display_icon: str = Field(alias='displayIcon')
     display_icon2: str = Field(alias='displayIcon2')

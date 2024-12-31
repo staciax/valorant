@@ -41,8 +41,8 @@ __all__ = (
 
 class Role(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    description: LocalizedField
+    display_name: str | LocalizedField = Field(alias='displayName')
+    description: str | LocalizedField
     display_icon: str = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')
 
@@ -62,8 +62,8 @@ class Recruitment(BaseModel):
 
 class Ability(BaseModel):
     slot: AbilitySlot
-    display_name: LocalizedField = Field(alias='displayName')
-    description: LocalizedField
+    display_name: str | LocalizedField = Field(alias='displayName')
+    description: str | LocalizedField
     display_icon: str | None = Field(alias='displayIcon')
 
     def __repr__(self) -> str:
@@ -72,10 +72,10 @@ class Ability(BaseModel):
 
 class Agent(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    description: LocalizedField
+    display_name: str | LocalizedField = Field(alias='displayName')
+    description: str | LocalizedField
     developer_name: str = Field(alias='developerName')
-    character_tags: list[LocalizedField] | None = Field(alias='characterTags')
+    character_tags: list[str | LocalizedField] | None = Field(alias='characterTags')
     display_icon: str = Field(alias='displayIcon')
     display_icon_small: str = Field(alias='displayIconSmall')
     bust_portrait: str | None = Field(alias='bustPortrait')

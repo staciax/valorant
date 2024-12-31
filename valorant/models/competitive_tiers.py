@@ -36,9 +36,9 @@ __all__ = (
 
 class Tier(BaseModel):
     tier: int
-    tier_name: LocalizedField = Field(alias='tierName')
+    tier_name: str | LocalizedField = Field(alias='tierName')
     division: DivisionTier
-    division_name: LocalizedField = Field(alias='divisionName')
+    division_name: str | LocalizedField = Field(alias='divisionName')
     color: Color
     background_color: Color = Field(alias='backgroundColor')
     small_icon: str | None = Field(alias='smallIcon')

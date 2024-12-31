@@ -44,14 +44,14 @@ if TYPE_CHECKING:
 class Level(BaseUUIDModel):
     # uuid: str
     spray_level: int = Field(alias='sprayLevel')
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')
 
 
 class Spray(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     category: str | None
     theme_uuid: UUID | None = Field(alias='themeUuid')
     is_null_spray: bool = Field(alias='isNullSpray')

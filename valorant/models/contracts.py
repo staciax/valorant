@@ -123,7 +123,7 @@ class Content(BaseModel):
 
 class Contract(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     display_icon: str | None = Field(alias='displayIcon')
     ship_it: bool = Field(alias='shipIt')
     use_level_vp_cost_override: bool = Field(alias='useLevelVPCostOverride')

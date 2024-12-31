@@ -45,7 +45,7 @@ class Level(BaseUUIDModel):
     # uuid: str
     charm_level: int = Field(alias='charmLevel')
     hide_if_not_owned: bool = Field(alias='hideIfNotOwned')
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     display_icon: str = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')
 
@@ -55,7 +55,7 @@ class Level(BaseUUIDModel):
 
 class Buddy(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
     theme_uuid: UUID | None = Field(alias='themeUuid')
     display_icon: str = Field(alias='displayIcon')

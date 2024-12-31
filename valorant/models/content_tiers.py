@@ -32,7 +32,7 @@ __all__ = ('ContentTier',)
 
 class ContentTier(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     dev_name: str = Field(alias='devName')
     rank: int
     juice_value: int = Field(alias='juiceValue')

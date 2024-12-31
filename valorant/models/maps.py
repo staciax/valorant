@@ -41,17 +41,17 @@ class Location(BaseModel):
 
 
 class Callout(BaseModel):
-    region_name: LocalizedField = Field(alias='regionName')
-    super_region_name: LocalizedField = Field(alias='superRegionName')
+    region_name: str | LocalizedField = Field(alias='regionName')
+    super_region_name: str | LocalizedField = Field(alias='superRegionName')
     location: Location
 
 
 class Map(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     narrative_description: Any = Field(alias='narrativeDescription')
-    tactical_description: LocalizedField | None = Field(alias='tacticalDescription')
-    coordinates: LocalizedField | None
+    tactical_description: str | LocalizedField | None = Field(alias='tacticalDescription')
+    coordinates: str | LocalizedField | None
     display_icon: str | None = Field(alias='displayIcon')
     list_view_icon: str = Field(alias='listViewIcon')
     list_view_icon_tall: str | None = Field(alias='listViewIconTall')

@@ -31,8 +31,8 @@ __all__ = ('Currency',)
 
 class Currency(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    display_name_singular: LocalizedField = Field(alias='displayNameSingular')
+    display_name: str | LocalizedField = Field(alias='displayName')
+    display_name_singular: str | LocalizedField = Field(alias='displayNameSingular')
     display_icon: str = Field(alias='displayIcon')
     large_icon: str = Field(alias='largeIcon')
     reward_preview_icon: str = Field(alias='rewardPreviewIcon')

@@ -31,7 +31,7 @@ __all__ = ('LevelBorder',)
 
 class LevelBorder(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     starting_level: int = Field(alias='startingLevel')
     level_number_appearance: str = Field(alias='levelNumberAppearance')
     small_player_card_appearance: str = Field(alias='smallPlayerCardAppearance')

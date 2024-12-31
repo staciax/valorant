@@ -37,15 +37,15 @@ __all__ = (
 
 
 class Detail(BaseModel):
-    name: LocalizedField
-    value: LocalizedField
+    name: str | LocalizedField
+    value: str | LocalizedField
 
 
 class ShopData(BaseModel):
     cost: int
     category: ShopCategory
     shop_order_priority: int = Field(alias='shopOrderPriority')
-    category_text: LocalizedField = Field(alias='categoryText')
+    category_text: str | LocalizedField = Field(alias='categoryText')
     grid_position: Any = Field(alias='gridPosition')
     can_be_trashed: bool = Field(alias='canBeTrashed')
     image: Any
@@ -56,9 +56,9 @@ class ShopData(BaseModel):
 
 class Gear(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    description: LocalizedField
-    descriptions: list[LocalizedField]
+    display_name: str | LocalizedField = Field(alias='displayName')
+    description: str | LocalizedField
+    descriptions: list[str | LocalizedField]
     details: list[Detail]
     display_icon: str = Field(alias='displayIcon')
     asset_path: str = Field(alias='assetPath')

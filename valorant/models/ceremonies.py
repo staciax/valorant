@@ -31,5 +31,5 @@ __all__ = ('Ceremony',)
 
 class Ceremony(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     asset_path: str = Field(alias='assetPath')

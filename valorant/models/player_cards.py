@@ -40,7 +40,7 @@ if TYPE_CHECKING:
 
 class PlayerCard(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
+    display_name: str | LocalizedField = Field(alias='displayName')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
     theme_uuid: UUID | None = Field(alias='themeUuid')
     display_icon: str = Field(alias='displayIcon')

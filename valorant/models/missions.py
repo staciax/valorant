@@ -43,8 +43,8 @@ class Objective(BaseModel):
 
 class Mission(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField | None = Field(alias='displayName')
-    title: LocalizedField | None
+    display_name: str | LocalizedField | None = Field(alias='displayName')
+    title: str | LocalizedField | None
     type: MissionType | None
     xp_grant: int = Field(alias='xpGrant')
     progress_to_complete: int = Field(alias='progressToComplete')

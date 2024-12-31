@@ -31,7 +31,7 @@ __all__ = ('PlayerTitle',)
 
 class PlayerTitle(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField | None = Field(alias='displayName')
-    title_text: LocalizedField | None = Field(alias='titleText')
+    display_name: str | LocalizedField | None = Field(alias='displayName')
+    title_text: str | LocalizedField | None = Field(alias='titleText')
     is_hidden_if_not_owned: bool = Field(alias='isHiddenIfNotOwned')
     asset_path: str = Field(alias='assetPath')

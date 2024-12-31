@@ -45,8 +45,8 @@ if TYPE_CHECKING:
 
 class Season(BaseUUIDModel):
     # uuid: str
-    display_name: LocalizedField = Field(alias='displayName')
-    title: LocalizedField | None
+    display_name: str | LocalizedField = Field(alias='displayName')
+    title: str | LocalizedField | None
     type: SeasonType | None
     start_time: datetime = Field(alias='startTime')
     end_time: datetime = Field(alias='endTime')
