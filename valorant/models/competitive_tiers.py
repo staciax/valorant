@@ -23,7 +23,7 @@ DEALINGS IN THE SOFTWARE.
 """
 
 from pydantic import Field
-from pydantic.color import Color
+from pydantic_extra_types.color import Color
 
 from ..enums import DivisionTier
 from .base import BaseModel, BaseUUIDModel, LocalizedField

@@ -26,7 +26,7 @@ from datetime import datetime
 from typing import Any
 
 from pydantic import Field
-from pydantic.color import Color
+from pydantic_extra_types.color import Color
 
 from ..enums import AbilitySlot
 from .base import BaseModel, BaseUUIDModel, LocalizedField
