@@ -153,7 +153,7 @@ class WeaponCategory(StrEnum):
     sniper = 'EEquippableCategory::Sniper'
 
 
-class Locale(StrEnum):
+class Language(StrEnum):
     arabic = 'ar-AE'
     german = 'de-DE'
     american_english = 'en-US'
