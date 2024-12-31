@@ -1,7 +1,7 @@
 import asyncio
 
 import valorant
-from valorant.models.base import LocalizedField
+from valorant.models.localization import LocalizedField
 
 
 async def main() -> None:
