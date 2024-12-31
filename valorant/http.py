@@ -89,7 +89,7 @@ class HTTPClient:
         data: dict[str, Any] | str | None = None
 
         async with self.__session.request(method, url, **kwargs) as response:  # noqa: F811
-            _log.debug('%s %s with %s has returned %s', method, url, kwargs.get('data'), response.status)
+            _log.debug('%s %s with returned %s', method, url, response.status)
 
             data = await response.json()
 
