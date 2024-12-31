@@ -41,6 +41,9 @@ __all__ = (
 class BaseModel(PydanticBaseModel):
     """Base class for all models."""
 
+    # TODO: How to enable this only on run tests?
+    # model_config = ConfigDict(extra='forbid')
+
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}>'
 
