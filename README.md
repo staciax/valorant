@@ -32,8 +32,6 @@ async def main() -> None:
         weapons = await client.fetch_weapons()
         for weapon in weapons:
             print(weapon.display_name)
-            print(weapon.display_name.ja_JP)
-            print(weapon.display_name.japanese)
             print(weapon.display_icon)
 
 
