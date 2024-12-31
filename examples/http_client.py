@@ -3,9 +3,9 @@ import asyncio
 from valorant.http import HTTPClient
 
 
-async def main():
+async def main() -> None:
     http = HTTPClient()
-    await http.init()
+    await http.start()
 
     # agents
 

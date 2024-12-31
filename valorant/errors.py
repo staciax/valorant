@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict, Optional, Union
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     from aiohttp import ClientResponse
@@ -43,13 +43,12 @@ __all__ = (
 class ValorantError(Exception):
     """Exception that's raised when a Valorant API request operation fails."""
 
-    pass
-
 
 class HTTPException(ValorantError):
     """Exception that's raised when an HTTP request operation fails.
+
     Attributes
-    ------------
+    ----------
     response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request. This is an
         instance of :class:`aiohttp.ClientResponse`. In some cases
@@ -60,7 +59,7 @@ class HTTPException(ValorantError):
         The status code of the HTTP request.
     """
 
-    def __init__(self, response: ClientResponse, message: Optional[Union[str, Dict[str, Any]]]):
+    def __init__(self, response: ClientResponse, message: str | dict[str, Any] | None) -> None:
         self.response: ClientResponse = response
         self.status: int = response.status
         self.text: str
@@ -69,7 +68,7 @@ class HTTPException(ValorantError):
         else:
             self.text = message or ''
 
-        fmt = '{0.status} {0.reason}'
+        fmt = '{0.status}'
         if len(self.text):
             fmt += ': {1}'
 
@@ -78,39 +77,34 @@ class HTTPException(ValorantError):
 
 class BadRequest(HTTPException):
     """Exception that's raised for when status code 400 occurs.
+
     Subclass of :exc:`HTTPException`
     """
-
-    pass
 
 
 class Forbidden(HTTPException):
     """Exception that's raised for when status code 403 occurs.
+
     Subclass of :exc:`HTTPException`
     """
-
-    pass
 
 
 class NotFound(HTTPException):
     """Exception that's raised for when status code 404 occurs.
+
     Subclass of :exc:`HTTPException`
     """
-
-    pass
 
 
 class InternalServerError(HTTPException):
     """Exception that's raised for when status code 500 occurs.
+
     Subclass of :exc:`HTTPException`
     """
-
-    pass
 
 
 class RateLimited(HTTPException):
     """Exception that's raised for when a 429 status code occurs.
+
     Subclass of :exc:`HTTPException`.
     """
-
-    pass

@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -22,135 +22,47 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from __future__ import annotations
+from typing import Any
 
-from typing import TYPE_CHECKING, Dict, List, Optional, Union
+from pydantic import Field
 
-from ..asset import Asset
-from ..localization import Localization
-from .base import BaseModel
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..enums import Locale
-    from ..types.maps import Callout as CalloutPayload, Location as LocationPayload, Map as MapPayload
-
+from .base import BaseModel, BaseUUIDModel
+from .localization import LocalizedField
 
 __all__ = (
-    'Map',
     'Callout',
     'Location',
+    'Map',
 )
 
 
-class Location:
-    def __init__(self, data: LocationPayload) -> None:
-        self.x: float = data['x']
-        self.y: float = data['y']
-
-    def __repr__(self) -> str:
-        return f'<Location x={self.x} y={self.y}>'
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, Location) and self.x == other.x and self.y == other.y
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
+class Location(BaseModel):
+    x: float
+    y: float
 
 
-class Callout:
-    def __init__(self, state: CacheState, data: CalloutPayload) -> None:
-        self._state: CacheState = state
-        self._region_name: Union[str, Dict[str, str]] = data['regionName']
-        self._super_region_name: Union[str, Dict[str, str]] = data['superRegionName']
-        self.location: Location = Location(data['location'])
-        self._region_name_localized: Localization = Localization(self._region_name, locale=self._state.locale)
-        self._super_region_name_localized: Localization = Localization(
-            self._super_region_name, locale=self._state.locale
-        )
-
-    def __str__(self) -> str:
-        return self.region_name.locale
-
-    def __repr__(self) -> str:
-        attrs = [
-            ('region_name', self.region_name),
-            ('super_region_name', self.super_region_name),
-            ('location', self.location),
-        ]
-        joined = ' '.join('%s=%r' % t for t in attrs)
-        return f'<{self.__class__.__name__} {joined}>'
-
-    def __eq__(self, other: object) -> bool:
-        return isinstance(other, Callout) and self.region_name == other.region_name and self.location == other.location
-
-    def region_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._region_name_localized.from_locale(locale)
-
-    def super_region_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._super_region_name_localized.from_locale(locale)
-
-    @property
-    def region_name(self) -> Localization:
-        return self._region_name_localized
-
-    @property
-    def super_region_name(self) -> Localization:
-        return self._super_region_name_localized
+class Callout(BaseModel):
+    region_name: str | LocalizedField = Field(alias='regionName')
+    super_region_name: str | LocalizedField = Field(alias='superRegionName')
+    location: Location
 
 
-class Map(BaseModel):
-    def __init__(self, state: CacheState, data: MapPayload) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._coordinates: Union[str, Dict[str, str]] = data['coordinates']
-        self._list_view_icon: Optional[str] = data['listViewIcon']
-        self._splash: Optional[str] = data['splash']
-        self.asset_path: str = data['assetPath']
-        self.url: str = data['mapUrl']
-        self.x_multiplier: float = data['xMultiplier']
-        self.y_multiplier: float = data['yMultiplier']
-        self.x_scalar_to_add: float = data['xScalarToAdd']
-        self.y_scalar_to_add: float = data['yScalarToAdd']
-        self.callouts: Optional[List[Callout]] = None
-        if data['callouts'] is not None:
-            self.callouts = [Callout(self._state, callout) for callout in data['callouts']]
-        self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._coordinates_localized: Localization = Localization(self._coordinates, locale=self._state.locale)
-
-    def __str__(self) -> str:
-        return self.display_name.locale
-
-    def __repr__(self) -> str:
-        return f'<Map display_name={self.display_name!r}>'
-
-    def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._display_name_localized.from_locale(locale)
-
-    def coordinates_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._coordinates_localized.from_locale(locale)
-
-    @property
-    def display_name(self) -> Localization:
-        """:class: `str` Returns the mission's name."""
-        return self._display_name_localized
-
-    @property
-    def coordinates(self) -> Localization:
-        """:class: `str` Returns the mission's coordinates."""
-        return self._coordinates_localized
-
-    @property
-    def list_view_icon(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the mission's list view icon."""
-        if self._list_view_icon is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._list_view_icon)
-
-    @property
-    def splash(self) -> Optional[Asset]:
-        """:class: `Asset` Returns the mission's splash."""
-        if self._splash is None:
-            return None
-        return Asset._from_url(state=self._state, url=self._splash)
+class Map(BaseUUIDModel):
+    # uuid: str
+    display_name: str | LocalizedField = Field(alias='displayName')
+    narrative_description: Any = Field(alias='narrativeDescription')
+    tactical_description: str | LocalizedField | None = Field(alias='tacticalDescription')
+    coordinates: str | LocalizedField | None
+    display_icon: str | None = Field(alias='displayIcon')
+    list_view_icon: str = Field(alias='listViewIcon')
+    list_view_icon_tall: str | None = Field(alias='listViewIconTall')
+    splash: str
+    stylized_background_image: str | None = Field(alias='stylizedBackgroundImage')
+    premier_background_image: str | None = Field(alias='premierBackgroundImage')
+    asset_path: str = Field(alias='assetPath')
+    map_url: str = Field(alias='mapUrl')
+    x_multiplier: float = Field(alias='xMultiplier')
+    y_multiplier: float = Field(alias='yMultiplier')
+    x_scalar_to_add: float = Field(alias='xScalarToAdd')
+    y_scalar_to_add: float = Field(alias='yScalarToAdd')
+    callouts: list[Callout] | None

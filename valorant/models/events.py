@@ -1,5 +1,5 @@
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -22,70 +22,20 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from __future__ import annotations
+from datetime import datetime
 
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from pydantic import Field
 
-from .. import utils
-from ..localization import Localization
-from .base import BaseModel
+from .base import BaseUUIDModel
+from .localization import LocalizedField
 
-if TYPE_CHECKING:
-    import datetime
-
-    from ..cache import CacheState
-    from ..enums import Locale
-    from ..types.events import Event as EventPayload
-
-# fmt: off
-__all__ = (
-    'Event',
-)
-# fmt: on
+__all__ = ('Event',)
 
 
-class Event(BaseModel):
-    def __init__(self, state: CacheState, data: EventPayload) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self._display_name: Union[str, Dict[str, str]] = data['displayName']
-        self._short_display_name: Union[str, Dict[str, str]] = data['shortDisplayName']
-        self._start_time_iso: str = data['startTime']
-        self._end_time_iso: str = data['endTime']
-        self.asset_path: str = data['assetPath']
-        self._display_name_localized: Localization = Localization(self._display_name, locale=self._state.locale)
-        self._short_display_name_localized: Localization = Localization(
-            self._short_display_name, locale=self._state.locale
-        )
-
-    def __str__(self) -> str:
-        return self.display_name.locale
-
-    def __repr__(self) -> str:
-        return f'<Event display_name={self.display_name!r}>'
-
-    def display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._display_name_localized.from_locale(locale)
-
-    def short_display_name_localized(self, locale: Optional[Union[Locale, str]] = None) -> str:
-        return self._short_display_name_localized.from_locale(locale)
-
-    @property
-    def display_name(self) -> Localization:
-        """:class: `str` Returns the agent's name."""
-        return self._display_name_localized
-
-    @property
-    def short_display_name(self) -> Localization:
-        """:class: `str` Returns the agent's short name."""
-        return self._short_display_name_localized
-
-    @property
-    def start_time(self) -> datetime.datetime:
-        """:class: `datetime.datetime` Returns the event's start time."""
-        return utils.parse_iso_datetime(self._start_time_iso)
-
-    @property
-    def end_time(self) -> datetime.datetime:
-        """:class: `datetime.datetime` Returns the event's end time."""
-        return utils.parse_iso_datetime(self._end_time_iso)
+class Event(BaseUUIDModel):
+    # uuid: str
+    display_name: str | LocalizedField = Field(alias='displayName')
+    short_display_name: str | LocalizedField = Field(alias='shortDisplayName')
+    start_time: datetime = Field(alias='startTime')
+    end_time: datetime = Field(alias='endTime')
+    asset_path: str = Field(alias='assetPath')

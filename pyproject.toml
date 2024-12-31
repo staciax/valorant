@@ -1,77 +1,137 @@
-[build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "valorant.py"
-description = "A modern, easy to use, feature-rich, and async ready API wrapper for Valorant API written in Python."
-readme = { file = "README.md", content-type = "text/markdown" }
-requires-python = ">=3.8"
-license = "MIT"
+description = "An Asynchronous API wrapper for Valorant API written in Python."
+readme = "README.md"
+requires-python = ">=3.10"
 authors = [{ name = "STACiA", email = "stacia.dev@gmail.com" }]
 classifiers = [
-    'License :: OSI Approved :: MIT License',
-    'Intended Audience :: Developers',
-    'Natural Language :: English',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.8',
-    'Programming Language :: Python :: 3.9',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python",
+  "Development Status :: 4 - Beta",
+  "Typing :: Typed",
+  "Framework :: AsyncIO",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Internet :: WWW/HTTP",
 ]
-dynamic = ["version", "dependencies"]
+dependencies = [
+  "aiohttp>=3.11.11,<4.0",
+  "pydantic>2.0,<3.0",
+  "pydantic-extra-types>=2.10.1,<3.0",
+]
+dynamic = ["version"]
+
+[dependency-groups]
+dev = [
+  "mypy>=1.14.0,<1.15",
+  "ruff>=0.8.4,<0.9",
+  "pytest>=8.3.4,<9.0",
+  "pytest-cov>=6.0.0,<7.0",
+  "coverage>=7.6.10,<8.0",
+  "anyio>=4.7.0,<5.0",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "valorant.__version__" }
 
 [project.urls]
 homepage = "https://github.com/staciax/valorant"
 repository = "https://github.com/staciax/valorant"
 issues = "https://github.com/staciax/valorant/issues"
 
-[tool.setuptools.dynamic]
-dependencies = { file = "requirements.txt" }
-
-[tool.pyright]
-include = ["valorant", "valorant/models", "valorant/types"]
-exclude = ["**/__pycache__", "build", "dist"]
-pythonVersion = "3.8"
-typeCheckingMode = "basic"
-reportUnnecessaryTypeIgnoreComment = "warning"
-reportMissingParameterType = "error"
-reportMissingTypeArgument = "error"
-reportUnusedVariable = "warning"
+[tool.mypy]
+strict = true
+python_version = "3.10"
+exclude = [".venv", "build"]
 
 [tool.ruff]
 line-length = 120
-target-version = "py38"
-exclude = [".git", ".ruff_cache", ".venv"]
+target-version = "py310"
+exclude = [
+  ".git",
+  ".ruff_cache",
+  ".mypy_cache",
+  ".pytest_cache",
+  ".venv",
+  "dist",
+  "build",
+]
+
+[tool.ruff.format]
+preview = true
+quote-style = "single"
+skip-magic-trailing-comma = false
 
 [tool.ruff.lint]
 preview = true
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # pyflakes
-    "I",   # isort
-    "UP",  # pyupgrade,
-    "B",   # flake8-bugbear
-    "C4",  # flake8-comprehensions
-    "TCH", # flake8-type-checking
-    "LOG", # flake8-logging
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "I",  # isort
+  "B",  # flake8-bugbear
+  "C4", # flake8-comprehensions
+  "UP", # pyupgrade
+  "D",  # pydocstyle
+
+  "YTT",   # flake8-2020
+  "ANN",   # flake8-annotations
+  "ASYNC", # flake8-async
+  "S",     # flake8-bandit
+  "BLE",   # flake8-blind-except
+  "A",     # flake8-builtins
+  "COM",   # flake8-commas
+  "FA",    # flake8-future-annotations
+  "ISC",   # flake8-implicit-str-concat
+  "LOG",   # flake8-logging
+  "G",     # flake8-logging-format
+  "PIE",   # flake8-pie
+  "PYI",   # flake8-pyi
+  "PT",    # flake8-pytest-style
+  "Q",     # flake8-quotes
+  "RSE",   # flake8-raise 
+  "RET",   # flake8-return
+  "SIM",   # flake8-simplify
+  "TC",    # flake8-type-checking
+  "ARG",   # flake8-unused-arguments
+
+  "PGH",  # pygrep-hooks
+  "PL",   # pylint
+  "TRY",  # tryceratops
+  "PERF", # perflint
+  "FURB", # refurb
+
+  "RUF", # ruff-specific rules
+
+  # "DTZ",   # flake8-datetimez
 ]
 ignore = [
-    "E501", # line-too-long
+  "ANN401", # any-type
+  "COM812", # trailing-comma-missing, conflicts with black
+  "COM819", # prohibited-trailing-comma
+  "E501",   # line-too-long, handled by black
+  "ISC001", # single-line-implicit-string-concatenation, conflicts with black
+  "S101",   # assert, handled by pytest
+  "SIM117", # multiple-with-statements
+
+  "D100", # undocumented-public-module
+  "D101", # undocumented-public-class
+  "D102", # undocumented-public-method
+  "D103", # undocumented-public-function
+  "D104", # undocumented-public-package
+  "D105", # undocumented-magic-method
+  "D106", # undocumented-public-nested-class
+  "D107", # undocumented-public-init
 ]
 
-[tool.ruff.lint.per-file-ignores]
-"valorant/models/maps.py" = ["UP031"]
-"valorant/models/seasons.py" = ["UP031"]
-"valorant/models/weapons.py" = ["UP031"]
-"valorant/models/version.py" = ["UP031"]
-
-[tool.ruff.format]
-quote-style = "single"
-skip-magic-trailing-comma = false
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
@@ -83,12 +143,33 @@ convention = "numpy"
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
 
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.lint.flake8-type-checking]
+quote-annotations = true
+runtime-evaluated-base-classes = [
+  "pydantic.BaseModel",
+  "valorant.models.base.BaseModel",
+  "valorant.models.base.BaseUUIDModel",
+]
+
+[tool.ruff.lint.flake8-unused-arguments]
+ignore-variadic-names = true
+
+[tool.ruff.lint.per-file-ignores]
+"valorant/*" = [
+  "PLR0904", # too-many-public-methods
+]
+"valorant/http.py" = [
+  "A005",    # builtin-module-shadowing
+  "PLR2004", # magic-value-comparison
+]
+
 [tool.pytest.ini_options]
-asyncio_mode = "strict"
-addopts = "-v --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov-report term-missing"
+addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov=tests"
 
 [tool.coverage.report]
-exclude_also = [
-  "if TYPE_CHECKING:",
-  "def __repr__",
-]
+show_missing = true
+precision = 2
+exclude_also = ["if TYPE_CHECKING:", "def __repr__"]

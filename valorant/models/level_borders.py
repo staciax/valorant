@@ -1,7 +1,5 @@
-
-
 """
-The MIT License (MIT)
+The MIT License (MIT).
 
 Copyright (c) 2023-present STACiA
 
@@ -23,54 +21,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
-from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from pydantic import Field
 
-from ..asset import Asset
-from .base import BaseModel
+from .base import BaseUUIDModel
+from .localization import LocalizedField
 
-# fmt: off
-__all__ = (
-    'LevelBorder',
-)
-# fmt: on
-
-if TYPE_CHECKING:
-    from ..cache import CacheState
-    from ..types.level_borders import LevelBorder as LevelBorderPayload
+__all__ = ('LevelBorder',)
 
 
-class LevelBorder(BaseModel):
-    def __init__(self, state: CacheState, data: LevelBorderPayload) -> None:
-        super().__init__(data['uuid'])
-        self._state: CacheState = state
-        self.starting_level: int = data['startingLevel']
-        self._level_number_appearance: str = data['levelNumberAppearance']
-        self._small_player_card_appearance: str = data['smallPlayerCardAppearance']
-        self.asset_path: str = data['assetPath']
-
-    def __repr__(self) -> str:
-        return f'<LevelBorder starting_level={self.starting_level!r}>'
-
-    def __lt__(self, other: object) -> bool:
-        return isinstance(other, LevelBorder) and self.starting_level < other.starting_level
-
-    def __le__(self, other: object) -> bool:
-        return isinstance(other, LevelBorder) and self.starting_level <= other.starting_level
-
-    def __gt__(self, other: object) -> bool:
-        return isinstance(other, LevelBorder) and self.starting_level > other.starting_level
-
-    def __ge__(self, other: object) -> bool:
-        return isinstance(other, LevelBorder) and self.starting_level >= other.starting_level
-
-    @property
-    def level_number_appearance(self) -> Asset:
-        """:class: `Asset` Returns the level number appearance of the level border."""
-        return Asset._from_url(state=self._state, url=self._level_number_appearance)
-
-    @property
-    def small_player_card_appearance(self) -> Asset:
-        """:class: `Asset` Returns the small player card appearance of the level border."""
-        return Asset._from_url(state=self._state, url=self._small_player_card_appearance)
+class LevelBorder(BaseUUIDModel):
+    # uuid: str
+    display_name: str | LocalizedField = Field(alias='displayName')
+    starting_level: int = Field(alias='startingLevel')
+    level_number_appearance: str = Field(alias='levelNumberAppearance')
+    small_player_card_appearance: str = Field(alias='smallPlayerCardAppearance')
+    asset_path: str = Field(alias='assetPath')

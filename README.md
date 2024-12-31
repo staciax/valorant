@@ -1,19 +1,22 @@
 # valorant
-A modern, easy to use, feature-rich, and async ready API wrapper for Valorant API written in Python.
+An Asynchronous API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 
-## Key Features
-- Modern Pythonic API using `async` and  `await`.
+## Features
+- Fully type annotated.
+- [Pydantic V2](https://docs.pydantic.dev/latest/) models.
+- Supports Python 3.10+.
+- Supports all languages.
+<!-- TODO: supports caching -->
+<!-- - Modern Pythonic API using `async` and  `await`. -->
 
 ## Installing
-Python 3.8 or higher is required
+To install the library, you can just run the following command:
+```
+# uv
+uv add valorant.py
 
-Windows: <br>
-```
-$ pip install -U valorant.py
-```
-Linux/MacOS:
-```
-$ python3 -m pip install -U valorant.py
+# pip
+pip install valorant.py
 ```
  
 ## Quick Example
@@ -21,33 +24,17 @@ $ python3 -m pip install -U valorant.py
 import asyncio
 import valorant
 
-async def main():
-    client = valorant.Client(valorant.Locale.thai)  # set default locale to thai
+
+async def main() -> None:
+    client = valorant.Client()
+
     async with client:
-        weapon = client.get_weapon('9c82e19d-4575-0200-1a81-3eacf00cf872')  # Vandal
-        assert weapon is not None
-
-        for skin in weapon.skins:
-            print(skin.display_name)  # default locale
-            print(skin.display_icon)
-
-            # specify locale
-            print(skin.display_name.ja_JP)
-            print(skin.display_name.japanese)
-            print(skin.display_name.from_locale(valorant.Locale.japanese))
-
-            if skin.theme is not None:
-                print(skin.theme.display_name)
-                print(skin.theme.display_icon)
-
-            if skin.content_tier is not None:
-                print(skin.content_tier.display_name)
-                print(skin.content_tier.display_icon)
-
-            for level in skin.levels:
-                print(level.display_name)
-            for chroma in skin.chromas:
-                print(chroma.display_name)
+        weapons = await client.fetch_weapons()
+        for weapon in weapons:
+            print(weapon.display_name)
+            print(weapon.display_name.ja_JP)
+            print(weapon.display_name.japanese)
+            print(weapon.display_icon)
 
 
 asyncio.run(main())
