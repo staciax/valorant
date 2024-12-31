@@ -22,8 +22,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from typing import Any
-
 from pydantic import Field
 
 from .base import BaseUUIDModel, LocalizedField
@@ -34,13 +32,13 @@ __all__ = ('Bundle',)
 class Bundle(BaseUUIDModel):
     # uuid: str
     display_name: LocalizedField = Field(alias='displayName')
-    display_name_sub_text: Any = Field(alias='displayNameSubText')
+    display_name_sub_text: LocalizedField | None = Field(alias='displayNameSubText')
     description: LocalizedField
-    extra_description: Any = Field(alias='extraDescription')
-    promo_description: Any = Field(alias='promoDescription')
+    extra_description: LocalizedField | None = Field(alias='extraDescription')
+    promo_description: LocalizedField | None = Field(alias='promoDescription')
     use_additional_context: bool = Field(alias='useAdditionalContext')
     display_icon: str = Field(alias='displayIcon')
     display_icon2: str = Field(alias='displayIcon2')
-    logo_icon: Any = Field(alias='logoIcon')
+    logo_icon: str | None = Field(alias='logoIcon')
     vertical_promo_image: str | None = Field(alias='verticalPromoImage')
     asset_path: str = Field(alias='assetPath')
