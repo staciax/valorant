@@ -40,7 +40,7 @@ dev = [
 ]
 
 [project.optional-dependencies]
-speed = ["msgspec>=0.19.0,<0.20"]
+speed = ["msgspec>=0.19.0,<1.0"]
 
 [tool.setuptools.dynamic]
 version = { attr = "valorant.__version__" }
