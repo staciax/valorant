@@ -31,8 +31,8 @@ dynamic = ["version"]
 
 [dependency-groups]
 dev = [
-  "mypy>=1.14.0,<1.15",
-  "ruff>=0.8.4,<0.9",
+  "mypy>=1.14.1,<1.15",
+  "ruff>=0.8.6,<0.9",
   "pytest>=8.3.4,<9.0",
   "pytest-cov>=6.0.0,<7.0",
   "coverage>=7.6.10,<8.0",
