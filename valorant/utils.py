@@ -1,9 +1,9 @@
 import json
 
 try:
-    import msgspec
+    import msgspec  # type: ignore[import-not-found]
 except ImportError:  # pragma: no cover
-    msgspec = None  # type: ignore[assignment]
+    msgspec = None
 
 
 if msgspec is None:  # noqa: SIM108
