@@ -39,6 +39,9 @@ dev = [
   "anyio>=4.7.0,<5.0",
 ]
 
+[project.optional-dependencies]
+speed = ["msgspec>=0.19.0,<1.0"]
+
 [tool.setuptools.dynamic]
 version = { attr = "valorant.__version__" }
 
@@ -131,7 +134,6 @@ ignore = [
   "D106", # undocumented-public-nested-class
   "D107", # undocumented-public-init
 ]
-
 
 [tool.ruff.lint.isort]
 combine-as-imports = true

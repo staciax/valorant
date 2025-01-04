@@ -12,7 +12,7 @@ __license__ = 'MIT'
 __copyright__ = 'Copyright 2023-present STACiA'
 __version__ = '2.0.1a'
 
-from . import models
+from . import models, utils
 from .client import Client
 from .enums import (
     AbilitySlot,
@@ -51,4 +51,5 @@ __all__ = (
     'ValorantError',
     'WeaponCategory',
     'models',
+    'utils',
 )
