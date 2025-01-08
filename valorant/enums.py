@@ -127,6 +127,7 @@ class RewardType(StrEnum):
     player_title = 'Title'
     skin_level = 'EquippableSkinLevel'
     spray = 'Spray'
+    totem = 'Totem'
 
 
 class SeasonType(StrEnum):

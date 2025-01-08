@@ -76,6 +76,7 @@ class Agent(BaseUUIDModel):
     display_name: str | LocalizedField = Field(alias='displayName')
     description: str | LocalizedField
     developer_name: str = Field(alias='developerName')
+    release_date: datetime = Field(alias='releaseDate')
     character_tags: list[str | LocalizedField] | None = Field(alias='characterTags')
     display_icon: str = Field(alias='displayIcon')
     display_icon_small: str = Field(alias='displayIconSmall')
