@@ -55,6 +55,10 @@ strict = true
 python_version = "3.10"
 exclude = [".venv", "build"]
 
+[[tool.mypy.overrides]]
+module = "valorant.utils"
+disable_error_code = ["assignment", "import-not-found"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py310"

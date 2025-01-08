@@ -1,5 +1,3 @@
-# mypy: disable-error-code="assignment, import-not-found"
-
 import json
 
 try:
