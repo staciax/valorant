@@ -120,8 +120,16 @@ class Client:
         agent = Response[Agent].model_validate(data)
         return agent.data
 
-    async def fetch_agents(self, *, language: LanguageOption | None = None) -> list[Agent]:
-        data = await self.http.get_agents(language=language or self.language)
+    async def fetch_agents(
+        self,
+        *,
+        language: LanguageOption | None = None,
+        is_playable_character: bool | None = None,
+    ) -> list[Agent]:
+        data = await self.http.get_agents(
+            language=language or self.language,
+            is_playable_character=is_playable_character,
+        )
         agents = Response[list[Agent]].model_validate(data)
         return agents.data
 

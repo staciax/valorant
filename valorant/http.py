@@ -126,10 +126,17 @@ class HTTPClient:
 
     # valorant-api.com
 
-    def get_agents(self, *, language: str | None = None, is_playable_character: bool = True) -> Response[Any]:
-        params = {'isPlayableCharacter': str(is_playable_character)}
+    def get_agents(
+        self,
+        *,
+        language: str | None = None,
+        is_playable_character: bool | None = None,
+    ) -> Response[Any]:
+        params = {}
         if language is not None:
             params['language'] = language
+        if is_playable_character is not None:
+            params['isPlayableCharacter'] = str(is_playable_character)
         return self.request(Route('GET', '/agents'), params=params)
 
     def get_agent(self, uuid: str, *, language: str | None = None) -> Response[Any]:
