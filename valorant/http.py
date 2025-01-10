@@ -90,10 +90,7 @@ class HTTPClient:
         url = route.url
         kwargs['headers'] = {'User-Agent': self.user_agent}
 
-        response: aiohttp.ClientResponse | None = None
-        data: dict[str, Any] | str | None = None
-
-        async with self.__session.request(method, url, **kwargs) as response:  # noqa: F811
+        async with self.__session.request(method, url, **kwargs) as response:
             _log.debug('%s %s with returned %s', method, url, response.status)
 
             data = await to_json(response)
