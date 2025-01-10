@@ -27,7 +27,7 @@ from __future__ import annotations
 
 import logging
 import sys
-from typing import TYPE_CHECKING, Any, ClassVar, TypeVar
+from typing import TYPE_CHECKING, Any, ClassVar, TypeAlias, TypeVar
 from urllib.parse import quote as _uriquote
 
 import aiohttp
@@ -39,7 +39,7 @@ if TYPE_CHECKING:
     from collections.abc import Coroutine
 
     T = TypeVar('T')
-    Response = Coroutine[Any, Any, T]
+    Response: TypeAlias = Coroutine[Any, Any, T]
 
 _log = logging.getLogger(__name__)
 
