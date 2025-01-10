@@ -51,8 +51,6 @@ from .models.themes import Theme
 from .models.version import Version
 from .models.weapons import Chroma as SkinChroma, Level as SkinLevel, Skin, Weapon
 
-_log = logging.getLogger(__name__)
-
 # fmt: off
 __all__ = (
     'Client',
@@ -69,6 +67,8 @@ if TYPE_CHECKING:
     from .enums import Language
 
     LanguageOption: TypeAlias = Language | Literal['all']
+
+_log = logging.getLogger(__name__)
 
 
 class Client:
