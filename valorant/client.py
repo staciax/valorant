@@ -38,7 +38,7 @@ from .models.content_tiers import ContentTier
 from .models.contracts import Contract
 from .models.currencies import Currency
 from .models.events import Event
-from .models.gamemodes import Equippable as GameModeEquippable, GameMode
+from .models.game_modes import Equippable as GameModeEquippable, GameMode
 from .models.gear import Gear
 from .models.level_borders import LevelBorder
 from .models.maps import Map
