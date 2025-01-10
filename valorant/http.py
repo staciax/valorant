@@ -124,7 +124,7 @@ class HTTPClient:
         if self.__session and self.__session.closed:
             self.__session = None
 
-    # valorant-api.com
+    # agents
 
     def get_agents(
         self,
@@ -145,7 +145,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/agents/{uuid}', uuid=uuid), params=params)
 
-    # # -
+    # buddies
 
     def get_buddies(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -171,7 +171,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/buddies/levels/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # bundles
 
     def get_bundles(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -185,7 +185,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/bundles/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # ceremonies
 
     def get_ceremonies(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -199,7 +199,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/ceremonies/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # competitive tiers
 
     def get_competitive_tiers(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -227,7 +227,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/contenttiers/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # contracts
 
     def get_contracts(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -241,7 +241,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/contracts/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # currencies
 
     def get_currencies(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -255,7 +255,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/currencies/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # events
 
     def get_events(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -269,7 +269,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/events/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # flex
 
     def get_all_flex(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -283,7 +283,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/flex/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # game modes
 
     def get_game_modes(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -309,7 +309,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/gamemodes/equippables/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # gear
 
     def get_all_gear(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -323,7 +323,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/gear/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # level borders
 
     def get_level_borders(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -337,7 +337,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/levelborders/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # maps
 
     def get_maps(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -351,7 +351,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/maps/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # missions
 
     def get_missions(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -365,7 +365,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/missions/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # player cards
 
     def get_player_cards(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -379,7 +379,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/playercards/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # player titles
 
     def get_player_titles(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -393,7 +393,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/playertitles/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # seasons
 
     def get_seasons(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -413,7 +413,7 @@ class HTTPClient:
     def get_competitive_season(self, uuid: str) -> Response[Any]:
         return self.request(Route('GET', '/seasons/competitive/{uuid}', uuid=uuid))
 
-    # -
+    # sprays
 
     def get_sprays(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -439,7 +439,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/sprays/levels/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # themes
 
     def get_themes(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -453,7 +453,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/themes/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # weapons
 
     def get_weapons(self, *, language: str | None = None) -> Response[Any]:
         params = {}
@@ -503,7 +503,7 @@ class HTTPClient:
             params['language'] = language
         return self.request(Route('GET', '/weapons/skinlevels/{uuid}', uuid=uuid), params=params)
 
-    # -
+    # version
 
     def get_version(self) -> Response[Any]:
         return self.request(Route('GET', '/version'))
