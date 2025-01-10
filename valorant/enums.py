@@ -121,11 +121,11 @@ class RelationType(StrEnum):
 
 
 class RewardType(StrEnum):
-    buddy_level = 'EquippableCharmLevel'
+    equippable_charm_level = 'EquippableCharmLevel'
     currency = 'Currency'
     player_card = 'PlayerCard'
     player_title = 'Title'
-    skin_level = 'EquippableSkinLevel'
+    equippable_skin_level = 'EquippableSkinLevel'
     spray = 'Spray'
     totem = 'Totem'
 
