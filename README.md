@@ -1,5 +1,5 @@
 # valorant
-An Asynchronous API wrapper for [Valorant API](https://valorant-api.com) written in Python.
+An API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 
 ## Features
 - Supports all endpoints. (includes undocumented endpoints)
