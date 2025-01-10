@@ -48,13 +48,14 @@ if TYPE_CHECKING:
     from .buddies import Level as BuddyLevel
     from .currencies import Currency
     from .events import Event
+    from .flex import Flex
     from .player_cards import PlayerCard
     from .player_titles import PlayerTitle
     from .seasons import Season
     from .sprays import Spray
     from .weapons import Level as SkinLevel
 
-    RewardItemType: TypeAlias = SkinLevel | BuddyLevel | Currency | PlayerCard | PlayerTitle | Spray
+    RewardItemType: TypeAlias = SkinLevel | BuddyLevel | Currency | PlayerCard | PlayerTitle | Spray | Flex
 
 log = logging.getLogger(__name__)
 
@@ -80,7 +81,8 @@ class Reward(BaseUUIDModel):
             return await client.fetch_spray(str(self.uuid))
         if self.type is RewardType.currency:
             return await client.fetch_currency(str(self.uuid))
-        # TODO: add reward type totem?
+        if self.type is RewardType.totem:
+            return await client.fetch_flex(str(self.uuid))
         log.warning('Unknown reward type: %s', self.type)
         return None
 

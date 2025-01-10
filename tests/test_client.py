@@ -151,6 +151,20 @@ async def test_events(client: Client) -> None:
 
 
 @pytest.mark.anyio
+async def test_flexes(client: Client) -> None:
+    flexes = await client.fetch_flexes()
+    assert len(flexes) > 0
+
+    flex_id = flexes[0].uuid
+    flex = await client.fetch_flex(str(flex_id))
+    assert flex is not None
+    assert flex_id == flex.uuid
+
+    with pytest.raises(NotFound):
+        await client.fetch_flex('fake-flex-id')
+
+
+@pytest.mark.anyio
 async def test_game_modes(client: Client) -> None:
     game_modes = await client.fetch_game_modes()
     assert len(game_modes) > 0

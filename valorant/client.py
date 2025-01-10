@@ -38,6 +38,7 @@ from .models.content_tiers import ContentTier
 from .models.contracts import Contract
 from .models.currencies import Currency
 from .models.events import Event
+from .models.flex import Flex
 from .models.game_modes import Equippable as GameModeEquippable, GameMode
 from .models.gear import Gear
 from .models.level_borders import LevelBorder
@@ -240,6 +241,18 @@ class Client:
         data = await self.http.get_events(language=language or self.language)
         events = Response[list[Event]].model_validate(data)
         return events.data
+
+    # flex
+
+    async def fetch_flex(self, uuid: str, /, *, language: LanguageOption | None = None) -> Flex | None:
+        data = await self.http.get_flex(uuid, language=language or self.language)
+        flex = Response[Flex].model_validate(data)
+        return flex.data
+
+    async def fetch_flexes(self, *, language: LanguageOption | None = None) -> list[Flex]:
+        data = await self.http.get_all_flex(language=language or self.language)
+        flexes = Response[list[Flex]].model_validate(data)
+        return flexes.data
 
     # game_modes
 

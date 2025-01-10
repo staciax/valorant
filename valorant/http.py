@@ -271,6 +271,20 @@ class HTTPClient:
 
     # -
 
+    def get_all_flex(self, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/flex'), params=params)
+
+    def get_flex(self, uuid: str, *, language: str | None = None) -> Response[Any]:
+        params = {}
+        if language:
+            params['language'] = language
+        return self.request(Route('GET', '/flex/{uuid}', uuid=uuid), params=params)
+
+    # -
+
     def get_game_modes(self, *, language: str | None = None) -> Response[Any]:
         params = {}
         if language:
