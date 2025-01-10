@@ -68,9 +68,9 @@ class Reward(BaseUUIDModel):
     # useful methods
 
     async def fetch_item(self, *, client: Client) -> RewardItemType | None:  # noqa: PLR0911
-        if self.type is RewardType.skin_level:
+        if self.type is RewardType.equippable_skin_level:
             return await client.fetch_skin_level(str(self.uuid))
-        if self.type is RewardType.buddy_level:
+        if self.type is RewardType.equippable_charm_level:
             return await client.fetch_buddy_level(str(self.uuid))
         if self.type is RewardType.player_card:
             return await client.fetch_player_card(str(self.uuid))
