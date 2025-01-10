@@ -80,6 +80,7 @@ class Reward(BaseUUIDModel):
             return await client.fetch_spray(str(self.uuid))
         if self.type is RewardType.currency:
             return await client.fetch_currency(str(self.uuid))
+        # TODO: add reward type totem?
         log.warning('Unknown reward type: %s', self.type)
         return None
 
