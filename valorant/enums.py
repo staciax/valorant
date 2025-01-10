@@ -122,11 +122,11 @@ class RelationType(StrEnum):
 
 class RewardType(StrEnum):
     # fmt: off
-    equippable_charm_level = 'EquippableCharmLevel'  # buddy level
     currency = 'Currency'
+    equippable_charm_level = 'EquippableCharmLevel'  # buddy level
+    equippable_skin_level = 'EquippableSkinLevel'   # skin level
     player_card = 'PlayerCard'
     player_title = 'Title'
-    equippable_skin_level = 'EquippableSkinLevel'   # skin level
     spray = 'Spray'
     totem = 'Totem'                                 # flex
     # fmt: on
