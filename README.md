@@ -2,6 +2,7 @@
 An Asynchronous API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 
 ## Features
+- Supports all endpoints. (includes undocumented endpoints)
 - Fully type annotated.
 - [Pydantic V2](https://docs.pydantic.dev/latest/) models.
 - Supports Python 3.10+.
