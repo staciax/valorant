@@ -76,7 +76,7 @@ class GameFeature(StrEnum):
     deathmatch_encourage_far_spawning = 'EGameFeatureToggleName::DeathmatchEncourageFarSpawning'
     disable_fog_of_war = 'EGameFeatureToggleName::DisableFogOfWar'
     equippable_cache_recycling = 'EGameFeatureToggleName::EquippableCacheRecycling'
-    reuse_actor_on_respawn = 'EGameFeatureToggleName::ReuseActorOnRespawn'
+    # reuse_actor_on_respawn = 'EGameFeatureToggleName::ReuseActorOnRespawn'
     remove_deleted_fx_cs_from_pool = 'EGameFeatureToggleName::RemoveDeletedFXCsFromPool'
     use_mesh_material_manager_alt = 'EGameFeatureToggleName::UseMeshMaterialManagerAlt'
     use_server_authoritative_drop_out = 'EGameFeatureToggleName::UseServerAuthoritativeDropOut'
