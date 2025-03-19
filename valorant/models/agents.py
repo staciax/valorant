@@ -79,7 +79,7 @@ class Agent(BaseUUIDModel):
     release_date: datetime = Field(alias='releaseDate')
     character_tags: list[str | LocalizedField] | None = Field(alias='characterTags')
     display_icon: str = Field(alias='displayIcon')
-    display_icon_small: str = Field(alias='displayIconSmall')
+    display_icon_small: str | None = Field(alias='displayIconSmall')
     bust_portrait: str | None = Field(alias='bustPortrait')
     full_portrait: str | None = Field(alias='fullPortrait')
     full_portrait_v2: str | None = Field(alias='fullPortraitV2')
