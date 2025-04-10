@@ -1,6 +1,3 @@
-venv=.venv
-python=$(venv)/bin/python
-
 default: help
 
 .PHONY: help
@@ -10,22 +7,22 @@ help:
 .PHONY: report
 .SILENT: report
 report: # See the coverage report
-	$(python) -m coverage report
+	uv run coverage report
 
 .PHONY: lint
 .SILENT: lint
 lint: # Run the linter
-	mypy valorant tests
-	ruff check valorant tests
-	ruff format valorant tests --check
+	uv run mypy valorant tests
+	uv run ruff check valorant tests
+	uv run ruff format valorant tests --check
 
 .PHONY: format
 .SILENT: format
 format: # Format the code
-	ruff check valorant tests --fix
-	ruff format valorant tests
+	uv run ruff check valorant tests --fix
+	uv run ruff format valorant tests
 
 .PHONY: test
 .SILENT: test
 test: # Run the tests
-	$(python) -m pytest
+	uv run pytest
