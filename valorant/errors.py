@@ -31,11 +31,8 @@ if TYPE_CHECKING:
 
 __all__ = (
     'BadRequest',
-    'Forbidden',
     'HTTPException',
-    'InternalServerError',
     'NotFound',
-    'RateLimited',
     'ValorantError',
 )
 
@@ -82,29 +79,8 @@ class BadRequest(HTTPException):
     """
 
 
-class Forbidden(HTTPException):
-    """Exception that's raised for when status code 403 occurs.
-
-    Subclass of :exc:`HTTPException`
-    """
-
-
 class NotFound(HTTPException):
     """Exception that's raised for when status code 404 occurs.
 
     Subclass of :exc:`HTTPException`
-    """
-
-
-class InternalServerError(HTTPException):
-    """Exception that's raised for when status code 500 occurs.
-
-    Subclass of :exc:`HTTPException`
-    """
-
-
-class RateLimited(HTTPException):
-    """Exception that's raised for when a 429 status code occurs.
-
-    Subclass of :exc:`HTTPException`.
     """

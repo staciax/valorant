@@ -28,22 +28,19 @@ from .enums import (
     ShopCategory,
     WeaponCategory,
 )
-from .errors import BadRequest, Forbidden, HTTPException, InternalServerError, RateLimited, ValorantError
+from .errors import HTTPException, NotFound, ValorantError
 
 __all__ = (
     'AbilitySlot',
-    'BadRequest',
     'Client',
     'DivisionTier',
-    'Forbidden',
     'GameFeature',
     'GameRule',
     'HTTPException',
-    'InternalServerError',
     'Language',
     'MissionTag',
     'MissionType',
-    'RateLimited',
+    'NotFound',
     'RelationType',
     'RewardType',
     'SeasonType',
