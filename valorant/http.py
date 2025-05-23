@@ -33,7 +33,7 @@ from urllib.parse import quote as _uriquote
 import aiohttp
 
 from . import __version__, utils
-from .errors import BadRequest, HTTPException, InternalServerError, NotFound, RateLimited
+from .errors import HTTPException, NotFound
 
 if TYPE_CHECKING:
     from collections.abc import Coroutine
@@ -42,9 +42,6 @@ if TYPE_CHECKING:
     Response: TypeAlias = Coroutine[Any, Any, T]
 
 _log = logging.getLogger(__name__)
-
-
-# http-client inspired by https://github.com/Rapptz/discord.py/blob/master/discord/http.py
 
 
 async def to_json(response: aiohttp.ClientResponse) -> dict[str, Any] | str:
@@ -99,17 +96,12 @@ class HTTPClient:
                 _log.debug('%s %s has received %s', method, url, data)
                 return data
 
-            if response.status == 400:
-                raise BadRequest(response, data)
-
-            if response.status == 429:
-                raise RateLimited(response, data)
+            # if response.status in {400, 404}:
+            #     _log.debug('%s %s has received %s', method, url, data)
+            #     return None
 
             if response.status == 404:
                 raise NotFound(response, data)
-
-            if response.status >= 500:
-                raise InternalServerError(response, data)
 
             raise HTTPException(response, data)
 

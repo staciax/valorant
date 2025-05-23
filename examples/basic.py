@@ -10,9 +10,7 @@ async def main() -> None:
         weapon = await client.fetch_weapon(
             '9c82e19d-4575-0200-1a81-3eacf00cf872',  # Vandal
             language='all',  # all languages (LocalizedField)
-        )  # Vandal
-        assert weapon is not None
-
+        )
         for skin in weapon.skins[:5]:
             print(skin.display_name)
             print(skin.display_icon)

@@ -10,7 +10,7 @@ __title__ = 'valorant'
 __author__ = 'STACiA'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2023-present STACiA'
-__version__ = '2.0.5'
+__version__ = '2.1.0'
 
 from . import models, utils
 from .client import Client
@@ -28,22 +28,19 @@ from .enums import (
     ShopCategory,
     WeaponCategory,
 )
-from .errors import BadRequest, Forbidden, HTTPException, InternalServerError, RateLimited, ValorantError
+from .errors import HTTPException, NotFound, ValorantError
 
 __all__ = (
     'AbilitySlot',
-    'BadRequest',
     'Client',
     'DivisionTier',
-    'Forbidden',
     'GameFeature',
     'GameRule',
     'HTTPException',
-    'InternalServerError',
     'Language',
     'MissionTag',
     'MissionType',
-    'RateLimited',
+    'NotFound',
     'RelationType',
     'RewardType',
     'SeasonType',

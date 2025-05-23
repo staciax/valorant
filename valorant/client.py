@@ -116,7 +116,7 @@ class Client:
 
     # agents
 
-    async def fetch_agent(self, uuid: str, /, *, language: LanguageOption | None = None) -> Agent | None:
+    async def fetch_agent(self, uuid: str, /, *, language: LanguageOption | None = None) -> Agent:
         data = await self.http.get_agent(uuid, language=language or self.language)
         agent = Response[Agent].model_validate(data)
         return agent.data
@@ -136,7 +136,7 @@ class Client:
 
     # buddies
 
-    async def fetch_buddy(self, uuid: str, /, *, language: LanguageOption | None = None) -> Buddy | None:
+    async def fetch_buddy(self, uuid: str, /, *, language: LanguageOption | None = None) -> Buddy:
         data = await self.http.get_buddy(uuid, language=language or self.language)
         buddy = Response[Buddy].model_validate(data)
         return buddy.data
@@ -146,7 +146,7 @@ class Client:
         buddies = Response[list[Buddy]].model_validate(data)
         return buddies.data
 
-    async def fetch_buddy_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> BuddyLevel | None:
+    async def fetch_buddy_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> BuddyLevel:
         data = await self.http.get_buddy_level(uuid, language=language or self.language)
         buddy_level = Response[BuddyLevel].model_validate(data)
         return buddy_level.data
@@ -158,7 +158,7 @@ class Client:
 
     # bundles
 
-    async def fetch_bundle(self, uuid: str, /, *, language: LanguageOption | None = None) -> Bundle | None:
+    async def fetch_bundle(self, uuid: str, /, *, language: LanguageOption | None = None) -> Bundle:
         data = await self.http.get_bundle(uuid, language=language or self.language)
         bundle = Response[Bundle].model_validate(data)
         return bundle.data
@@ -170,7 +170,7 @@ class Client:
 
     # ceremonies
 
-    async def fetch_ceremony(self, uuid: str, /, *, language: LanguageOption | None = None) -> Ceremony | None:
+    async def fetch_ceremony(self, uuid: str, /, *, language: LanguageOption | None = None) -> Ceremony:
         data = await self.http.get_ceremony(uuid, language=language or self.language)
         ceremony = Response[Ceremony].model_validate(data)
         return ceremony.data
@@ -196,7 +196,7 @@ class Client:
 
     # content_tiers
 
-    async def fetch_content_tier(self, uuid: str, /, *, language: LanguageOption | None = None) -> ContentTier | None:
+    async def fetch_content_tier(self, uuid: str, /, *, language: LanguageOption | None = None) -> ContentTier:
         data = await self.http.get_content_tier(uuid, language=language or self.language)
         content_tier = Response[ContentTier].model_validate(data)
         return content_tier.data
@@ -208,7 +208,7 @@ class Client:
 
     # contracts
 
-    async def fetch_contract(self, uuid: str, /, *, language: LanguageOption | None = None) -> Contract | None:
+    async def fetch_contract(self, uuid: str, /, *, language: LanguageOption | None = None) -> Contract:
         data = await self.http.get_contract(uuid, language=language or self.language)
         contract = Response[Contract].model_validate(data)
         return contract.data
@@ -220,7 +220,7 @@ class Client:
 
     # currencies
 
-    async def fetch_currency(self, uuid: str, /, *, language: LanguageOption | None = None) -> Currency | None:
+    async def fetch_currency(self, uuid: str, /, *, language: LanguageOption | None = None) -> Currency:
         data = await self.http.get_currency(uuid, language=language or self.language)
         currency = Response[Currency].model_validate(data)
         return currency.data
@@ -232,7 +232,7 @@ class Client:
 
     # events
 
-    async def fetch_event(self, uuid: str, /, *, language: LanguageOption | None = None) -> Event | None:
+    async def fetch_event(self, uuid: str, /, *, language: LanguageOption | None = None) -> Event:
         data = await self.http.get_event(uuid, language=language or self.language)
         event = Response[Event].model_validate(data)
         return event.data
@@ -244,7 +244,7 @@ class Client:
 
     # flex
 
-    async def fetch_flex(self, uuid: str, /, *, language: LanguageOption | None = None) -> Flex | None:
+    async def fetch_flex(self, uuid: str, /, *, language: LanguageOption | None = None) -> Flex:
         data = await self.http.get_flex(uuid, language=language or self.language)
         flex = Response[Flex].model_validate(data)
         return flex.data
@@ -256,7 +256,7 @@ class Client:
 
     # game_modes
 
-    async def fetch_game_mode(self, uuid: str, /, *, language: LanguageOption | None = None) -> GameMode | None:
+    async def fetch_game_mode(self, uuid: str, /, *, language: LanguageOption | None = None) -> GameMode:
         data = await self.http.get_game_mode(uuid, language=language or self.language)
         game_mode = Response[GameMode].model_validate(data)
         return game_mode.data
@@ -280,7 +280,7 @@ class Client:
 
     # gear
 
-    async def fetch_gear(self, uuid: str, /, *, language: LanguageOption | None = None) -> Gear | None:
+    async def fetch_gear(self, uuid: str, /, *, language: LanguageOption | None = None) -> Gear:
         data = await self.http.get_gear(uuid, language=language or self.language)
         gear = Response[Gear].model_validate(data)
         return gear.data
@@ -292,7 +292,7 @@ class Client:
 
     # level_borders
 
-    async def fetch_level_border(self, uuid: str, /, *, language: LanguageOption | None = None) -> LevelBorder | None:
+    async def fetch_level_border(self, uuid: str, /, *, language: LanguageOption | None = None) -> LevelBorder:
         data = await self.http.get_level_border(uuid, language=language or self.language)
         level_border = Response[LevelBorder].model_validate(data)
         return level_border.data
@@ -304,7 +304,7 @@ class Client:
 
     # maps
 
-    async def fetch_map(self, uuid: str, /, *, language: LanguageOption | None = None) -> Map | None:
+    async def fetch_map(self, uuid: str, /, *, language: LanguageOption | None = None) -> Map:
         data = await self.http.get_map(uuid, language=language or self.language)
         map_ = Response[Map].model_validate(data)
         return map_.data
@@ -316,7 +316,7 @@ class Client:
 
     # missions
 
-    async def fetch_mission(self, uuid: str, /, *, language: LanguageOption | None = None) -> Mission | None:
+    async def fetch_mission(self, uuid: str, /, *, language: LanguageOption | None = None) -> Mission:
         data = await self.http.get_mission(uuid, language=language or self.language)
         mission = Response[Mission].model_validate(data)
         return mission.data
@@ -328,7 +328,7 @@ class Client:
 
     # player cards
 
-    async def fetch_player_card(self, uuid: str, /, *, language: LanguageOption | None = None) -> PlayerCard | None:
+    async def fetch_player_card(self, uuid: str, /, *, language: LanguageOption | None = None) -> PlayerCard:
         data = await self.http.get_player_card(uuid, language=language or self.language)
         player_card = Response[PlayerCard].model_validate(data)
         return player_card.data
@@ -340,7 +340,7 @@ class Client:
 
     # player titles
 
-    async def fetch_player_title(self, uuid: str, /, *, language: LanguageOption | None = None) -> PlayerTitle | None:
+    async def fetch_player_title(self, uuid: str, /, *, language: LanguageOption | None = None) -> PlayerTitle:
         data = await self.http.get_player_title(uuid, language=language or self.language)
         player_title = Response[PlayerTitle].model_validate(data)
         return player_title.data
@@ -352,7 +352,7 @@ class Client:
 
     # seasons
 
-    async def fetch_season(self, uuid: str, /, *, language: LanguageOption | None = None) -> Season | None:
+    async def fetch_season(self, uuid: str, /, *, language: LanguageOption | None = None) -> Season:
         data = await self.http.get_season(uuid, language=language or self.language)
         season = Response[Season].model_validate(data)
         return season.data
@@ -362,7 +362,7 @@ class Client:
         seasons = Response[list[Season]].model_validate(data)
         return seasons.data
 
-    async def fetch_competitive_season(self, uuid: str, /) -> CompetitiveSeason | None:
+    async def fetch_competitive_season(self, uuid: str, /) -> CompetitiveSeason:
         data = await self.http.get_competitive_season(uuid)
         competitive_season = Response[CompetitiveSeason].model_validate(data)
         return competitive_season.data
@@ -374,7 +374,7 @@ class Client:
 
     # sprays
 
-    async def fetch_spray(self, uuid: str, /, *, language: LanguageOption | None = None) -> Spray | None:
+    async def fetch_spray(self, uuid: str, /, *, language: LanguageOption | None = None) -> Spray:
         data = await self.http.get_spray(uuid, language=language or self.language)
         spray = Response[Spray].model_validate(data)
         return spray.data
@@ -384,7 +384,7 @@ class Client:
         sprays = Response[list[Spray]].model_validate(data)
         return sprays.data
 
-    async def fetch_spray_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> SprayLevel | None:
+    async def fetch_spray_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> SprayLevel:
         data = await self.http.get_spray_level(uuid, language=language or self.language)
         spray_level = Response[SprayLevel].model_validate(data)
         return spray_level.data
@@ -396,7 +396,7 @@ class Client:
 
     # themes
 
-    async def fetch_theme(self, uuid: str, /, *, language: LanguageOption | None = None) -> Theme | None:
+    async def fetch_theme(self, uuid: str, /, *, language: LanguageOption | None = None) -> Theme:
         data = await self.http.get_theme(uuid, language=language or self.language)
         theme = Response[Theme].model_validate(data)
         return theme.data
@@ -408,7 +408,7 @@ class Client:
 
     # weapons
 
-    async def fetch_weapon(self, uuid: str, /, *, language: LanguageOption | None = None) -> Weapon | None:
+    async def fetch_weapon(self, uuid: str, /, *, language: LanguageOption | None = None) -> Weapon:
         data = await self.http.get_weapon(uuid, language=language or self.language)
         weapon = Response[Weapon].model_validate(data)
         return weapon.data
@@ -418,7 +418,7 @@ class Client:
         weapons = Response[list[Weapon]].model_validate(data)
         return weapons.data
 
-    async def fetch_skin(self, uuid: str, /, *, language: LanguageOption | None = None) -> Skin | None:
+    async def fetch_skin(self, uuid: str, /, *, language: LanguageOption | None = None) -> Skin:
         data = await self.http.get_weapon_skin(uuid, language=language or self.language)
         skin = Response[Skin].model_validate(data)
         return skin.data
@@ -428,7 +428,7 @@ class Client:
         skins = Response[list[Skin]].model_validate(data)
         return skins.data
 
-    async def fetch_skin_chroma(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinChroma | None:
+    async def fetch_skin_chroma(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinChroma:
         data = await self.http.get_weapon_skin_chroma(uuid, language=language or self.language)
         skin_chroma = Response[SkinChroma].model_validate(data)
         return skin_chroma.data
@@ -438,7 +438,7 @@ class Client:
         skin_chromas = Response[list[SkinChroma]].model_validate(data)
         return skin_chromas.data
 
-    async def fetch_skin_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinLevel | None:
+    async def fetch_skin_level(self, uuid: str, /, *, language: LanguageOption | None = None) -> SkinLevel:
         data = await self.http.get_weapon_skin_level(uuid, language=language or self.language)
         skin_level = Response[SkinLevel].model_validate(data)
         return skin_level.data
