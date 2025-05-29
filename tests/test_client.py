@@ -4,12 +4,67 @@ from typing import TYPE_CHECKING, Literal
 
 import pytest
 
+from valorant import Client
 from valorant.enums import Language
 from valorant.errors import NotFound
 
 if TYPE_CHECKING:
-    from valorant import Client
     from valorant.client import LanguageOption
+
+
+@pytest.mark.anyio
+async def test_client_start_close() -> None:
+    client = Client()
+    assert client.is_closed() is False
+
+    await client.start()
+    assert client.http._session is not None
+    assert client.is_closed() is False
+
+    await client.close()
+    assert client.is_closed() is True
+    assert client.http._session.closed
+
+
+@pytest.mark.anyio
+async def test_client_clear() -> None:
+    client = Client()
+    await client.start()
+    await client.close()
+
+    assert client.is_closed() is True
+    assert client.http._session is not None
+    assert client.http._session.closed
+
+    client.clear()
+    assert client.is_closed() is False
+    assert client.http._session is None
+
+
+@pytest.mark.anyio
+async def test_client_double_close() -> None:
+    client = Client()
+    await client.start()
+
+    await client.close()
+    assert client.is_closed() is True
+
+    await client.close()
+    assert client.is_closed() is True
+
+
+@pytest.mark.anyio
+async def test_client_context_manager() -> None:
+    async with Client() as client:
+        assert client.is_closed() is False
+        assert client.http._session is not None
+        assert not client.http._session.closed
+
+    assert client.is_closed() is True
+    assert client.http._session.closed
+
+
+# -
 
 
 @pytest.mark.anyio
@@ -313,7 +368,6 @@ async def test_maps(client: Client, language: LanguageOption | None) -> None:
 )
 async def test_missions(client: Client, language: LanguageOption | None) -> None:
     missions = await client.fetch_missions(language=language)
-    assert len(missions) > 0
 
     mission_id = missions[0].uuid
     mission = await client.fetch_mission(str(mission_id), language=language)
