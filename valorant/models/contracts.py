@@ -68,7 +68,7 @@ class Reward(BaseUUIDModel):
 
     # useful methods
 
-    async def fetch_item(self, *, client: Client) -> RewardItemType:  # noqa: PLR0911
+    async def fetch_item(self, *, client: Client) -> RewardItemType:
         if self.type is RewardType.equippable_skin_level:
             return await client.fetch_skin_level(str(self.uuid))
         if self.type is RewardType.equippable_charm_level:
@@ -83,7 +83,7 @@ class Reward(BaseUUIDModel):
             return await client.fetch_currency(str(self.uuid))
         if self.type is RewardType.totem:
             return await client.fetch_flex(str(self.uuid))
-        raise ValueError(f'Unknown reward type: {self.type} for uuid: {self.uuid}')  # pragma: no cover # noqa: TRY003
+        raise ValueError(f'Unknown reward type: {self.type} for uuid: {self.uuid}')  # pragma: no cover
 
 
 class Level(BaseModel):
@@ -120,7 +120,7 @@ class Content(BaseModel):
             return await client.fetch_event(str(self.relation_uuid))
         if self.relation_type is RelationType.season:
             return await client.fetch_season(str(self.relation_uuid))
-        raise ValueError(  # noqa: TRY003
+        raise ValueError(
             f'Unknown relation type: {self.relation_type} for uuid: {self.relation_uuid}'
         )  # pragma: no cover
 

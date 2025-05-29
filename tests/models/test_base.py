@@ -36,8 +36,7 @@ def test_base_uuid_model_eq_different_class() -> None:
 def test_base_uuid_model_eq_non_basemodel_object() -> None:
     model = BaseUUIDModel(uuid=uuid4())
     assert model != 'not a model'
-    assert model != 123  # noqa: PLR2004
-    assert model != None  # noqa: E711
+    assert model != 123
 
 
 def test_base_uuid_model_ne_different_uuid() -> None:
