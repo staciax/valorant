@@ -24,10 +24,11 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
+import os
 from typing import Generic, TypeVar
 from uuid import UUID
 
-from pydantic import BaseModel as PydanticBaseModel
+from pydantic import BaseModel as PydanticBaseModel, ConfigDict
 
 T = TypeVar('T')
 
@@ -38,11 +39,14 @@ __all__ = (
 )
 
 
+def is_running_in_pytest() -> bool:
+    return 'VALORANT_PYTEST_CURRENT_TEST' in os.environ
+
+
 class BaseModel(PydanticBaseModel):
     """Base class for all models."""
 
-    # TODO: How to enable this only on run tests?
-    # model_config = ConfigDict(extra='forbid')
+    model_config = ConfigDict(extra='forbid' if is_running_in_pytest() else 'allow')
 
     def __repr__(self) -> str:
         return f'<{self.__class__.__name__}>'
