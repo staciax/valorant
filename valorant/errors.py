@@ -63,7 +63,7 @@ class HTTPException(ValorantError):
         if isinstance(message, dict):
             self.text = message.get('error', '')
         else:
-            self.text = message or ''
+            self.text = message or ''  # pragma: no cover
 
         fmt = '{0.status}'
         if len(self.text):

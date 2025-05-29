@@ -24,7 +24,7 @@ DEALINGS IN THE SOFTWARE.
 
 import sys
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # pragma: no cover
     from enum import StrEnum
 
 else:
