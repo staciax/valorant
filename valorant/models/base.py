@@ -24,11 +24,12 @@ DEALINGS IN THE SOFTWARE.
 
 from __future__ import annotations
 
-import os
 from typing import Generic, TypeVar
 from uuid import UUID
 
 from pydantic import BaseModel as PydanticBaseModel, ConfigDict
+
+from ..utils import is_running_in_pytest
 
 T = TypeVar('T')
 
@@ -37,10 +38,6 @@ __all__ = (
     'BaseUUIDModel',
     'Response',
 )
-
-
-def is_running_in_pytest() -> bool:
-    return 'VALORANT_PYTEST_CURRENT_TEST' in os.environ
 
 
 class BaseModel(PydanticBaseModel):
