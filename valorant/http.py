@@ -78,7 +78,7 @@ class HTTPClient:
 
     async def start(self) -> None:
         if self._session is None:
-            self.__session = aiohttp.ClientSession()
+            self._session = aiohttp.ClientSession()
 
     async def request(self, route: Route, **kwargs: Any) -> Any:
         assert self._session is not None, 'Session is not initialized'

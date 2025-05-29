@@ -25,4 +25,4 @@ format: # Format the code
 .PHONY: test
 .SILENT: test
 test: # Run the tests
-	uv run pytest
+	VALORANT_PYTEST_CURRENT_TEST=true uv run pytest

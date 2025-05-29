@@ -144,9 +144,7 @@ class Skin(BaseUUIDModel):
 
     # useful methods
 
-    async def fetch_theme(self, *, client: Client) -> Theme | None:
-        if self.theme_uuid is None:
-            return None
+    async def fetch_theme(self, *, client: Client) -> Theme:
         return await client.fetch_theme(str(self.theme_uuid))
 
     async def fetch_content_tier(self, *, client: Client) -> ContentTier | None:

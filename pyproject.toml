@@ -171,8 +171,16 @@ ignore-variadic-names = true
   "A005",    # builtin-module-shadowing
   "PLR2004", # magic-value-comparison
 ]
+"valorant/models/contracts.py" = [
+  "TRY003", # raise-vanilla-args
+  "PLR0911", # too-many-return-statements
+]
+"tests/models/test_base.py" = [
+  "PLR2004" # magic-value-comparison
+]
 
-[tool.pytest.ini_options]
+
+[tool.pytest.ini_options] 
 addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov=tests"
 
 [tool.coverage.report]
