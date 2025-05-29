@@ -7,10 +7,7 @@ except ImportError:  # pragma: no cover
     msgspec = None
 
 
-if msgspec is None:  # pragma: no cover  # noqa: SIM108
-    _from_json = json.loads
-else:
-    _from_json = msgspec.json.decode  # pragma: no cover
+_from_json = json.loads if msgspec is None else msgspec.json.decode
 
 
 def is_running_in_pytest() -> bool:
