@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import pytest
 
@@ -17,8 +17,14 @@ if TYPE_CHECKING:
     ('language'),
     [(Language.american_english), ('all'), (None)],
 )
-async def test_agents(client: Client, language: LanguageOption | None) -> None:
-    agents = await client.fetch_agents(language=language)
+@pytest.mark.parametrize(
+    ('is_playable_character'),
+    [True, None],
+)
+async def test_agents(
+    client: Client, language: LanguageOption | None, is_playable_character: Literal[True] | None
+) -> None:
+    agents = await client.fetch_agents(language=language, is_playable_character=is_playable_character)
     assert len(agents) > 0
 
     agent_id = agents[0].uuid

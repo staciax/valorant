@@ -125,7 +125,7 @@ class Client:
         self,
         *,
         language: LanguageOption | None = None,
-        is_playable_character: bool | None = None,
+        is_playable_character: Literal[True] | None = None,
     ) -> list[Agent]:
         data = await self.http.get_agents(
             language=language or self.language,
