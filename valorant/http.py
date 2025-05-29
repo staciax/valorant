@@ -72,22 +72,22 @@ class Route:
 
 class HTTPClient:
     def __init__(self, session: aiohttp.ClientSession | None = None) -> None:
-        self.__session: aiohttp.ClientSession | None = session
+        self._session: aiohttp.ClientSession | None = session
         user_agent = 'valorantx (https://github.com/staciax/valorant {0}) Python/{1[0]}.{1[1]} aiohttp/{2}'
         self.user_agent: str = user_agent.format(__version__, sys.version_info, aiohttp.__version__)
 
     async def start(self) -> None:
-        if self.__session is None:
-            self.__session = aiohttp.ClientSession(connector=aiohttp.TCPConnector(limit=0))
+        if self._session is None:
+            self.__session = aiohttp.ClientSession()
 
     async def request(self, route: Route, **kwargs: Any) -> Any:
-        assert self.__session is not None, 'Session is not initialized'
+        assert self._session is not None, 'Session is not initialized'
 
         method = route.method
         url = route.url
         kwargs['headers'] = {'User-Agent': self.user_agent}
 
-        async with self.__session.request(method, url, **kwargs) as response:
+        async with self._session.request(method, url, **kwargs) as response:
             _log.debug('%s %s with returned %s', method, url, response.status)
 
             data = await to_json(response)
@@ -103,15 +103,15 @@ class HTTPClient:
             if response.status == 404:
                 raise NotFound(response, data)
 
-            raise HTTPException(response, data)
+            raise HTTPException(response, data)  # pragma: no cover
 
     async def close(self) -> None:
-        if self.__session is not None:
-            await self.__session.close()
+        if self._session is not None:
+            await self._session.close()
 
     def clear(self) -> None:
-        if self.__session and self.__session.closed:
-            self.__session = None
+        if self._session and self._session.closed:
+            self._session = None
 
     # agents
 
