@@ -30,7 +30,9 @@ if sys.version_info >= (3, 11):
 else:
     from enum import Enum
 
-    class StrEnum(str, Enum): ...
+    class StrEnum(str, Enum):
+        def __str__(self) -> str:
+            return str(self.value)
 
 
 __all__ = (
