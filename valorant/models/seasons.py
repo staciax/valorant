@@ -80,5 +80,5 @@ class Competitive(BaseUUIDModel):
     borders: list[Border] | None
     asset_path: str = Field(alias='assetPath')
 
-    async def fetch_season(self, *, client: Client) -> Season | None:
+    async def fetch_season(self, *, client: Client) -> Season:
         return await client.fetch_season(str(self.season_uuid))
