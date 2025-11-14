@@ -44,7 +44,7 @@ def create_cache_folder(cache_path: str | Path) -> Path:
     Parameters
     ----------
     cache_path : str | Path
-        Path to the cache folder. Defaults to './.valorant_cache'
+        Path to the cache folder.
 
     Returns
     -------
@@ -71,7 +71,7 @@ def remove_cache_folder(cache_path: str | Path) -> None:
     Parameters
     ----------
     cache_path : str | Path
-        Path to the cache folder. Defaults to './.valorant_cache'
+        Path to the cache folder.
     """
     if isinstance(cache_path, str):
         cache_path = Path(cache_path)
