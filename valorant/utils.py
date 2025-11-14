@@ -9,8 +9,8 @@ except ImportError:  # pragma: no cover
 
 _from_json = json.loads if msgspec is None else msgspec.json.decode
 
-IS_PYTEST = os.environ.get('PYTEST_CURRENT_TEST') is not None
+IS_PYTEST = os.environ.get('PYTEST_VERSION') is not None
 
 
 def is_running_in_pytest() -> bool:
-    return True
+    return IS_PYTEST
