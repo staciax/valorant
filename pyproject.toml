@@ -185,7 +185,7 @@ ignore-variadic-names = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-vv --showlocals --tb=short --strict-markers --cov=valorant --cov=tests -n auto"
-filterwarnings = ["error", "ignore"]
+filterwarnings = ["error"]
 
 [tool.coverage.report]
 show_missing = true
