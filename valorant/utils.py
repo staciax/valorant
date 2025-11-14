@@ -1,6 +1,7 @@
 import json
 import os
 from pathlib import Path
+from typing import Final
 
 try:
     import msgspec
@@ -10,6 +11,7 @@ except ImportError:  # pragma: no cover
 
 __all__ = (
     'create_cache_folder',
+    'get_default_cache_path',
     'is_running_in_pytest',
     'remove_cache_folder',
 )
@@ -19,7 +21,7 @@ _from_json = json.loads if msgspec is None else msgspec.json.decode
 
 # pytest detection
 
-IS_PYTEST = os.environ.get('PYTEST_VERSION') is not None
+IS_PYTEST: Final[bool] = os.environ.get('PYTEST_VERSION') is not None
 
 
 def is_running_in_pytest() -> bool:
@@ -28,10 +30,14 @@ def is_running_in_pytest() -> bool:
 
 # cache folder path
 
-DEFAULT_CACHE_PATH = Path('./.valorant_cache')
+DEFAULT_CACHE_PATH: Final[Path] = Path('./.valorant_cache')
 
 
-def create_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> Path:
+def get_default_cache_path() -> Path:
+    return DEFAULT_CACHE_PATH
+
+
+def create_cache_folder(cache_path: str | Path) -> Path:
     """
     Create a cache folder with .gitignore to exclude it from version control.
 
@@ -58,7 +64,7 @@ def create_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> Path:
     return cache_path
 
 
-def remove_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> None:
+def remove_cache_folder(cache_path: str | Path) -> None:
     """
     Remove the cache folder and its contents.
 

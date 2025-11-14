@@ -74,6 +74,28 @@ _log = logging.getLogger(__name__)
 
 
 class Client:
+    # @overload
+    # def __init__(
+    #     self,
+    #     language: LanguageOption | None = None,
+    #     *,
+    #     session: ClientSession | None = None,
+    #     # cache options
+    #     enable_cache: Literal[False] = False,
+    # ) -> None: ...
+
+    # @overload
+    # def __init__(
+    #     self,
+    #     language: LanguageOption | None = None,
+    #     *,
+    #     session: ClientSession | None = None,
+    #     # cache options
+    #     enable_cache: Literal[True] = True,
+    #     cache_path: str | Path | None = None,
+    #     cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
+    # ) -> None: ...
+
     def __init__(
         self,
         language: LanguageOption | None = None,
@@ -97,7 +119,7 @@ class Client:
             Whether to enable HTTP response caching. Defaults to True.
             Requires installing with 'pip install valorant.py[cache]'.
         cache_path : str | Path | None
-            Path to store cache database. Defaults to './.valorant_cache'.
+            Path to the cache folder. Defaults to './.valorant_cache'. If None, uses the default cache path.
         cache_ttl : int
             Cache expiration time in seconds. Defaults to 86400 (24 hours).
         """

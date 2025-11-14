@@ -102,7 +102,7 @@ class HTTPClient:
             Whether to enable HTTP response caching. Defaults to True.
             Requires aiohttp-client-cache to be installed.
         cache_path : str | Path | None
-            Path to store cache database. Defaults to './.valorant_cache' if not specified.
+            Path to the cache folder. Defaults to './.valorant_cache'. If None, uses the default cache path.
         cache_ttl : int
             Time-to-live for cached responses in seconds. Defaults to 24 hours (86400 seconds).
         """
@@ -117,13 +117,9 @@ class HTTPClient:
     async def start(self) -> None:
         if self._session is None:
             if self._enable_cache and IS_CACHE_ENABLED:
-                # Use custom cache path if provided, otherwise use default
-                if self._cache_path:
-                    cache_dir = utils.create_cache_folder(self._cache_path)
-                else:
-                    cache_dir = utils.create_cache_folder()
-
-                cache_name = cache_dir / 'aiohttp-requests.db'
+                cache_path = self._cache_path or utils.get_default_cache_path()
+                cache_dir = utils.create_cache_folder(cache_path)
+                cache_name = cache_dir / 'aiohttp-cache.db'
 
                 self._session = CachedSession(
                     cache=SQLiteBackend(
