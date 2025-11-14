@@ -31,20 +31,11 @@ from typing import TYPE_CHECKING, Any, ClassVar, TypeAlias, TypeVar
 from urllib.parse import quote as _uriquote
 
 import aiohttp
+from aiohttp_client_cache.backends.sqlite import SQLiteBackend
+from aiohttp_client_cache.session import CachedSession
 
 from . import __version__, utils
 from .errors import HTTPException, NotFound
-
-try:
-    from aiohttp_client_cache.backends.sqlite import SQLiteBackend
-    from aiohttp_client_cache.session import CachedSession
-
-    IS_CACHE_ENABLED = True
-except ImportError:
-    # Cache dependencies not available
-    IS_CACHE_ENABLED = False
-    SQLiteBackend = None  # type: ignore[misc,assignment]
-    CachedSession = None  # type: ignore[misc]
 
 if TYPE_CHECKING:
     from collections.abc import Coroutine
@@ -116,7 +107,7 @@ class HTTPClient:
 
     async def start(self) -> None:
         if self._session is None:
-            if self._enable_cache and IS_CACHE_ENABLED:
+            if self._enable_cache:
                 cache_path = self._cache_path or utils.get_default_cache_path()
                 cache_dir = utils.create_cache_folder(cache_path)
                 cache_name = cache_dir / 'aiohttp-cache.db'
@@ -130,14 +121,6 @@ class HTTPClient:
                     ),
                 )
             else:
-                # Create regular session without caching
-                # This handles both cases: cache disabled or cache dependencies not available
-                if self._enable_cache and not IS_CACHE_ENABLED:
-                    _log.warning(
-                        'Cache is enabled but aiohttp-client-cache is not installed. '
-                        'Install it with: pip install aiohttp-client-cache. '
-                        'Falling back to non-cached session.'
-                    )
                 self._session = aiohttp.ClientSession()
 
     async def request(self, route: Route, **kwargs: Any) -> Any:
