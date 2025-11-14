@@ -40,8 +40,8 @@ async def test_custom_cache_path(tmp_path: Path) -> None:
     try:
         await http_client.start()
 
-        assert custom_path.exists()
-        assert any(custom_path.iterdir()), 'Cache directory should not be empty after initialization.'
+        assert (custom_path / '.gitignore').exists(), 'Cache .gitignore file should exist'
+        assert (custom_path / 'aiohttp-requests.db').exists(), 'Cache database should exist after initialization'
 
     finally:
         await http_client.close()
