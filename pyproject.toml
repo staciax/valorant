@@ -143,6 +143,7 @@ ignore = [
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
+known-first-party = ["valorant"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -189,4 +190,5 @@ filterwarnings = ["error", "ignore"]
 [tool.coverage.report]
 show_missing = true
 precision = 2
-exclude_also = ["if TYPE_CHECKING:", "def __repr__"]
+sort = "-Cover"
+exclude_also = ["if TYPE_CHECKING:"]
