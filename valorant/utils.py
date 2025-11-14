@@ -8,6 +8,12 @@ except ImportError:  # pragma: no cover
     msgspec = None
 
 
+__all__ = (
+    'create_cache_folder',
+    'is_running_in_pytest',
+    'remove_cache_folder',
+)
+
 _from_json = json.loads if msgspec is None else msgspec.json.decode
 
 
@@ -50,3 +56,24 @@ def create_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> Path:
         gitignore_path.write_text(gitignore_content + '\n')
 
     return cache_path
+
+
+def remove_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> None:
+    """
+    Remove the cache folder and its contents.
+
+    Parameters
+    ----------
+    cache_path : str | Path
+        Path to the cache folder. Defaults to './.valorant_cache'
+    """
+    if isinstance(cache_path, str):
+        cache_path = Path(cache_path)
+
+    if cache_path.exists() and cache_path.is_dir():
+        for item in cache_path.iterdir():
+            if item.is_file():
+                item.unlink()
+            elif item.is_dir():
+                remove_cache_folder(item)
+        cache_path.rmdir()
