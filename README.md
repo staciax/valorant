@@ -19,7 +19,24 @@ uv add valorant.py
 # pip
 pip install valorant.py
 ```
- 
+
+### Optional Dependencies
+
+**Speed** - Faster JSON parsing with `msgspec`:
+```
+uv add "valorant.py[speed]"
+```
+
+**Cache** - HTTP response caching with SQLite:
+```
+uv add "valorant.py[cache]"
+```
+
+**All** - Install all optional features:
+```
+uv add "valorant.py[all]"
+```
+
 ## Quick Example
 ```py
 import asyncio
