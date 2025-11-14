@@ -38,6 +38,7 @@ dev = [
   "pytest-cov>=7.0.0, <8.0",
   "coverage>=7.11.3, <8.0",
   "anyio>=4.11.0, <5.0",
+  "pytest-xdist>=3.8.0",
 ]
 
 [project.optional-dependencies]
@@ -180,9 +181,10 @@ ignore-variadic-names = true
   "PLR2004" # magic-value-comparison
 ]
 
-
-[tool.pytest.ini_options] 
-addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov=tests"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-vv --showlocals --tb=short --strict-markers --cov=valorant --cov=tests -n auto"
+filterwarnings = ["error", "ignore"]
 
 [tool.coverage.report]
 show_missing = true
