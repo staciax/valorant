@@ -91,6 +91,21 @@ class HTTPClient:
         cache_path: str | Path | None = None,
         cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
     ) -> None:
+        """
+        Initialize the HTTPClient.
+
+        Parameters
+        ----------
+        session : aiohttp.ClientSession | None
+            Optional custom session to use. If provided, cache settings are ignored.
+        enable_cache : bool
+            Whether to enable HTTP response caching. Defaults to True.
+            Requires aiohttp-client-cache to be installed.
+        cache_path : str | Path | None
+            Path to store cache database. Defaults to './.valorant_cache' if not specified.
+        cache_ttl : int
+            Time-to-live for cached responses in seconds. Defaults to 24 hours (86400 seconds).
+        """
         self._session: aiohttp.ClientSession | None = session
         user_agent = 'valorantx (https://github.com/staciax/valorant {0}) Python/{1[0]}.{1[1]} aiohttp/{2}'
         self.user_agent: str = user_agent.format(__version__, sys.version_info, aiohttp.__version__)

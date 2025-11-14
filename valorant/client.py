@@ -84,6 +84,23 @@ class Client:
         cache_path: str | Path | None = None,
         cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
     ) -> None:
+        """
+        Initialize the Client.
+
+        Parameters
+        ----------
+        language : LanguageOption | None
+            Default language for API requests.
+        session : ClientSession | None
+            Optional custom aiohttp session. If provided, cache settings are ignored.
+        enable_cache : bool
+            Whether to enable HTTP response caching. Defaults to True.
+            Requires installing with 'pip install valorant.py[cache]'.
+        cache_path : str | Path | None
+            Path to store cache database. Defaults to './.valorant_cache'.
+        cache_ttl : int
+            Cache expiration time in seconds. Defaults to 86400 (24 hours).
+        """
         self.language = language
         self.http = HTTPClient(
             session,
