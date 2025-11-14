@@ -117,7 +117,6 @@ class Client:
             Optional custom aiohttp session. If provided, cache settings are ignored.
         enable_cache : bool
             Whether to enable HTTP response caching. Defaults to True.
-            Requires installing with 'pip install valorant.py[cache]'.
         cache_path : str | Path | None
             Path to the cache folder. Defaults to './.valorant_cache'. If None, uses the default cache path.
         cache_ttl : int
