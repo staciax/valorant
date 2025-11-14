@@ -123,14 +123,15 @@ class HTTPClient:
                 else:
                     cache_dir = utils.create_cache_folder()
 
-                cache_db_path = cache_dir / 'aiohttp-requests.db'
-                cache_db_path.touch(exist_ok=True)
+                cache_name = cache_dir / 'aiohttp-requests.db'
+                cache_name.touch(exist_ok=True)
 
                 self._session = CachedSession(
                     cache=SQLiteBackend(
-                        str(cache_db_path),
+                        cache_name=str(cache_name),
                         expire_after=self._cache_ttl,
                         allowed_codes=(200, 404),
+                        # ignored_params=['ignored'],
                     ),
                 )
             else:
