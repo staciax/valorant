@@ -192,4 +192,4 @@ filterwarnings = ["error"]
 show_missing = true
 precision = 2
 sort = "-Cover"
-exclude_also = ["if TYPE_CHECKING:"]
+exclude_also = ["if TYPE_CHECKING:", "def __repr__"]
