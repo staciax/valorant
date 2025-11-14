@@ -102,6 +102,9 @@ class GameRule(StrEnum):
     use_all_ability_cooldowns = 'EGameRuleBoolName::UseAllAbilityCooldowns'
     use_in_dev_weapons = 'EGameRuleBoolName::UseInDevWeapons'
 
+    # NOTE: add in patch 11.x (maybe)
+    skip_ultimate_ability_ready_vo = 'EGameRuleBoolName::SkipUltimateAbilityReadyVO'
+
 
 class MissionType(StrEnum):
     daily = 'EAresMissionType::Daily'

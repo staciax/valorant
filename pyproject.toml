@@ -18,6 +18,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Internet",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Internet :: WWW/HTTP",
@@ -25,18 +26,19 @@ classifiers = [
 dependencies = [
   "aiohttp>=3.11,<4.0",
   "pydantic>2.0,<3.0",
-  "pydantic-extra-types>=2.10.4,<3.0",
+  "pydantic-extra-types>=2.10.6,<3.0",
 ]
 dynamic = ["version"]
 
 [dependency-groups]
 dev = [
-  "mypy>=1.15.0,<1.16",
-  "ruff>=0.11.11,<0.12",
-  "pytest>=8.3.5,<9.0",
-  "pytest-cov>=6.1.1,<7.0",
-  "coverage>=7.8.2,<8.0",
-  "anyio>=4.9.0,<5.0",
+  "mypy>=1.18.2, <1.19",
+  "ruff>=0.14.5, <0.15",
+  "pytest>=9.0.1, <10.0",
+  "pytest-cov>=7.0.0, <8.0",
+  "coverage>=7.11.3, <8.0",
+  "anyio>=4.11.0, <5.0",
+  "pytest-xdist>=3.8.0",
 ]
 
 [project.optional-dependencies]
@@ -141,6 +143,7 @@ ignore = [
 
 [tool.ruff.lint.isort]
 combine-as-imports = true
+known-first-party = ["valorant"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -179,11 +182,13 @@ ignore-variadic-names = true
   "PLR2004" # magic-value-comparison
 ]
 
-
-[tool.pytest.ini_options] 
-addopts = "-vv --showlocals --tb=short --strict -p no:warnings --cov=valorant --cov=tests"
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-vv --showlocals --tb=short --strict-markers --cov=valorant --cov=tests -n auto"
+filterwarnings = ["error"]
 
 [tool.coverage.report]
 show_missing = true
 precision = 2
-exclude_also = ["if TYPE_CHECKING:", "def __repr__"]
+sort = "-Cover"
+exclude_also = ["if TYPE_CHECKING:"]

@@ -96,5 +96,9 @@ class Agent(BaseUUIDModel):
     abilities: list[Ability]
     voice_line: Any = Field(alias='voiceLine')
 
+    # NOTE: add in patch 11.x (maybe)
+    minimap_portrait: str | None = Field(alias='minimapPortrait')
+    home_screen_promo_tile_image: str | None = Field(alias='homeScreenPromoTileImage')
+
     def __repr__(self) -> str:
         return f'<Agent display_name={self.display_name!r}>'
