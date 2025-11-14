@@ -47,7 +47,7 @@ class PlayerCard(BaseUUIDModel):
     display_icon: str = Field(alias='displayIcon')
     small_art: str = Field(alias='smallArt')
     wide_art: str = Field(alias='wideArt')
-    large_art: str = Field(alias='largeArt')
+    large_art: str | None = Field(alias='largeArt')
     asset_path: str = Field(alias='assetPath')
 
     # useful methods
