@@ -7,7 +7,7 @@ An API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 - [Pydantic V2](https://docs.pydantic.dev/latest/) models.
 - Supports Python 3.10+.
 - Supports all languages.
-<!-- TODO: supports caching -->
+- Caching support with SQLite backend (enabled by default).
 <!-- - Modern Pythonic API using `async` and  `await`. -->
 
 ## Installing
