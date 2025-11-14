@@ -10,12 +10,17 @@ except ImportError:  # pragma: no cover
 
 _from_json = json.loads if msgspec is None else msgspec.json.decode
 
+
+# pytest detection
+
 IS_PYTEST = os.environ.get('PYTEST_VERSION') is not None
 
 
 def is_running_in_pytest() -> bool:
     return IS_PYTEST
 
+
+# cache folder path
 
 DEFAULT_CACHE_PATH = Path('./.valorant_cache')
 
