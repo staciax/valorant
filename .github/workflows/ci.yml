@@ -54,7 +54,7 @@ jobs:
     # needs: [lint, typecheck] # only run tests if lint and typecheck pass
     strategy:
       matrix:
-        python-version: ["3.10", "3.14"]
+        python-version: ["3.10", "3.14", "3.14t"]
         # 3.13t
 
     name: Tests for Python ${{ matrix.python-version }}
