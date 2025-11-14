@@ -6,14 +6,13 @@ import pytest
 from aiohttp import ClientSession
 from aiohttp_client_cache.session import CachedSession
 
-from valorant.http import IS_CACHE_ENABLED, HTTPClient
+from valorant.http import HTTPClient
 
 if TYPE_CHECKING:
     from pathlib import Path
 
 
 @pytest.mark.anyio
-@pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
 @pytest.mark.parametrize('enable_cache', [True, False])
 async def test_cache(enable_cache: bool, tmp_path: Path) -> None:
     cache_path = tmp_path / 'test_cache'
@@ -33,7 +32,6 @@ async def test_cache(enable_cache: bool, tmp_path: Path) -> None:
 
 
 @pytest.mark.anyio
-@pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
 async def test_custom_cache_path(tmp_path: Path) -> None:
     cache_path = tmp_path / 'test_custom_cache'
     http_client = HTTPClient(enable_cache=True, cache_path=cache_path)
