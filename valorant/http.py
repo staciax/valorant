@@ -129,9 +129,10 @@ class HTTPClient:
         method = route.method
         url = route.url
 
-        if 'headers' not in kwargs:
-            kwargs['headers'] = {}
-        kwargs['headers'].update({'User-Agent': self.user_agent})
+        # create headers
+        headers = kwargs.get('headers', {})
+        headers['User-Agent'] = self.user_agent
+        kwargs['headers'] = headers
 
         async with self._session.request(method, url, **kwargs) as response:
             _log.debug('%s %s with returned %s', method, url, response.status)
