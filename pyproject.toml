@@ -43,6 +43,11 @@ dev = [
 
 [project.optional-dependencies]
 speed = ["msgspec>=0.19.0,<1.0"]
+cache = ["aiohttp-client-cache[sqlite]>=0.14.2,<1.0"]
+all = [
+  "msgspec>=0.19.0,<1.0",
+  "aiohttp-client-cache[sqlite]>=0.14.2,<1.0"
+]
 
 [tool.setuptools.dynamic]
 version = { attr = "valorant.__version__" }

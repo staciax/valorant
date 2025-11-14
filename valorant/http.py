@@ -35,8 +35,20 @@ import aiohttp
 from . import __version__, utils
 from .errors import HTTPException, NotFound
 
+try:
+    from aiohttp_client_cache.backends.sqlite import SQLiteBackend
+    from aiohttp_client_cache.session import CachedSession
+
+    IS_CACHE_ENABLED = True
+except ImportError:
+    # Cache dependencies not available
+    IS_CACHE_ENABLED = False
+    SQLiteBackend = None  # type: ignore[misc,assignment]
+    CachedSession = None  # type: ignore[misc]
+
 if TYPE_CHECKING:
     from collections.abc import Coroutine
+    from pathlib import Path
 
     T = TypeVar('T')
     Response: TypeAlias = Coroutine[Any, Any, T]
@@ -71,14 +83,50 @@ class Route:
 
 
 class HTTPClient:
-    def __init__(self, session: aiohttp.ClientSession | None = None) -> None:
+    def __init__(
+        self,
+        session: aiohttp.ClientSession | None = None,
+        *,
+        enable_cache: bool = True,
+        cache_path: str | Path | None = None,
+        cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
+    ) -> None:
         self._session: aiohttp.ClientSession | None = session
         user_agent = 'valorantx (https://github.com/staciax/valorant {0}) Python/{1[0]}.{1[1]} aiohttp/{2}'
         self.user_agent: str = user_agent.format(__version__, sys.version_info, aiohttp.__version__)
 
+        self._enable_cache = enable_cache
+        self._cache_path = cache_path
+        self._cache_ttl = cache_ttl
+
     async def start(self) -> None:
         if self._session is None:
-            self._session = aiohttp.ClientSession()
+            if self._enable_cache and IS_CACHE_ENABLED:
+                # Use custom cache path if provided, otherwise use default
+                if self._cache_path:
+                    cache_dir = utils.create_cache_folder(self._cache_path)
+                else:
+                    cache_dir = utils.create_cache_folder()
+
+                cache_db_path = cache_dir / 'aiohttp-requests.db'
+
+                self._session = CachedSession(
+                    cache=SQLiteBackend(
+                        str(cache_db_path),
+                        expire_after=self._cache_ttl,
+                        allowed_codes=(200, 404),
+                    ),
+                )
+            else:
+                # Create regular session without caching
+                # This handles both cases: cache disabled or cache dependencies not available
+                if self._enable_cache and not IS_CACHE_ENABLED:
+                    _log.warning(
+                        'Cache is enabled but aiohttp-client-cache is not installed. '
+                        'Install it with: pip install aiohttp-client-cache. '
+                        'Falling back to non-cached session.'
+                    )
+                self._session = aiohttp.ClientSession()
 
     async def request(self, route: Route, **kwargs: Any) -> Any:
         assert self._session is not None, 'Session is not initialized'

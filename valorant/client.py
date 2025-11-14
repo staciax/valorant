@@ -59,6 +59,7 @@ __all__ = (
 # fmt: on
 
 if TYPE_CHECKING:
+    from pathlib import Path
     from types import TracebackType
     from typing import TypeAlias
 
@@ -78,9 +79,18 @@ class Client:
         language: LanguageOption | None = None,
         *,
         session: ClientSession | None = None,
+        # cache options
+        enable_cache: bool = True,
+        cache_path: str | Path | None = None,
+        cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
     ) -> None:
         self.language = language
-        self.http = HTTPClient(session)
+        self.http = HTTPClient(
+            session,
+            enable_cache=enable_cache,
+            cache_path=cache_path,
+            cache_ttl=cache_ttl,
+        )
         self._closed: bool = False
 
     async def __aenter__(self) -> Self:
