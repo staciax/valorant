@@ -130,6 +130,7 @@ class HTTPClient:
                         cache_name=str(cache_name),
                         expire_after=self._cache_ttl,
                         allowed_codes=(200, 404),
+                        cache_control=True,
                     ),
                 )
             else:
@@ -148,7 +149,10 @@ class HTTPClient:
 
         method = route.method
         url = route.url
-        kwargs['headers'] = {'User-Agent': self.user_agent}
+
+        if 'headers' not in kwargs:
+            kwargs['headers'] = {}
+        kwargs['headers'].update({'User-Agent': self.user_agent})
 
         async with self._session.request(method, url, **kwargs) as response:
             _log.debug('%s %s with returned %s', method, url, response.status)
@@ -558,4 +562,4 @@ class HTTPClient:
     # version
 
     def get_version(self) -> Response[Any]:
-        return self.request(Route('GET', '/version'))
+        return self.request(Route('GET', '/version'), headers={'Cache-Control': 'no-store'})
