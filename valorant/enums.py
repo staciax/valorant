@@ -102,6 +102,9 @@ class GameRule(StrEnum):
     use_all_ability_cooldowns = 'EGameRuleBoolName::UseAllAbilityCooldowns'
     use_in_dev_weapons = 'EGameRuleBoolName::UseInDevWeapons'
 
+    # add in valorant patch 11.2
+    skip_ultimate_ability_ready_vo = 'EGameRuleBoolName::SkipUltimateAbilityReadyVO'
+
 
 class MissionType(StrEnum):
     daily = 'EAresMissionType::Daily'

@@ -39,12 +39,24 @@ __all__ = (
 class Location(BaseModel):
     x: float
     y: float
+    z: float
+
+
+class Rotation(BaseModel):
+    pitch: float
+    yaw: float
+    roll: float
 
 
 class Callout(BaseModel):
     region_name: str | LocalizedField = Field(alias='regionName')
     super_region_name: str | LocalizedField = Field(alias='superRegionName')
     location: Location
+
+    # NOTE: add in patch 11.0 (maybe)
+    super_region: str = Field(alias='superRegion')
+    scale_3d: Location | None = Field(alias='scale3D')
+    rotation: Rotation | None
 
 
 class Map(BaseUUIDModel):
