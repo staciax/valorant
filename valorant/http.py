@@ -124,6 +124,7 @@ class HTTPClient:
                     cache_dir = utils.create_cache_folder()
 
                 cache_db_path = cache_dir / 'aiohttp-requests.db'
+                cache_db_path.touch(exist_ok=True)
 
                 self._session = CachedSession(
                     cache=SQLiteBackend(
