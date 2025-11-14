@@ -28,7 +28,7 @@ uv add "valorant.py[speed]"
 ```
 
 > [!WARNING]  
-> `msgspec` does not currently support Python 3.14 and 3.14t. See [issue #171](https://github.com/plugboard-dev/plugboard/issues/171).
+> `msgspec` does not currently support Python 3.14 and 3.14t. See [issue #171](https://github.com/jcrist/msgspec/issues/926).
 
 
 ## Quick Example
