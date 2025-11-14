@@ -1,0 +1,47 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import pytest
+from aiohttp import ClientSession
+from aiohttp_client_cache.session import CachedSession
+
+from valorant.http import IS_CACHE_ENABLED, HTTPClient
+
+if TYPE_CHECKING:
+    from pathlib import Path
+
+
+@pytest.mark.anyio
+@pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
+@pytest.mark.parametrize('enable_cache', [True, False])
+async def test_cache(enable_cache: bool) -> None:
+    http_client = HTTPClient(enable_cache=enable_cache)
+
+    try:
+        await http_client.start()
+        assert http_client._session is not None
+
+        if enable_cache:
+            assert isinstance(http_client._session, CachedSession)
+        else:
+            assert isinstance(http_client._session, ClientSession)
+
+    finally:
+        await http_client.close()
+
+
+@pytest.mark.anyio
+@pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
+async def test_custom_cache_path(tmp_path: Path) -> None:
+    custom_path = tmp_path / 'test_custom_cache'
+    http_client = HTTPClient(enable_cache=True, cache_path=str(custom_path))
+
+    try:
+        await http_client.start()
+
+        assert custom_path.exists()
+        assert any(custom_path.iterdir()), 'Cache directory should not be empty after initialization.'
+
+    finally:
+        await http_client.close()
