@@ -42,6 +42,13 @@ async def test_custom_cache_path(tmp_path: Path) -> None:
         await http_client.start()
 
         assert (cache_path / '.gitignore').exists(), 'Cache .gitignore file should exist'
+
+        # try to request for initialize the cache
+        await http_client.get_agent('add6443a-41bd-e414-f6ad-e58d267f4e95')  # Jett
+
+        session = http_client._session
+        assert isinstance(session, CachedSession)
+
         assert (cache_path / 'aiohttp-requests.db').exists(), 'Cache database should exist after initialization'
 
     finally:
