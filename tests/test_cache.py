@@ -15,8 +15,9 @@ if TYPE_CHECKING:
 @pytest.mark.anyio
 @pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
 @pytest.mark.parametrize('enable_cache', [True, False])
-async def test_cache(enable_cache: bool) -> None:
-    http_client = HTTPClient(enable_cache=enable_cache)
+async def test_cache(enable_cache: bool, tmp_path: Path) -> None:
+    cache_path = tmp_path / 'test_cache'
+    http_client = HTTPClient(enable_cache=enable_cache, cache_path=cache_path)
 
     try:
         await http_client.start()
@@ -34,14 +35,14 @@ async def test_cache(enable_cache: bool) -> None:
 @pytest.mark.anyio
 @pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
 async def test_custom_cache_path(tmp_path: Path) -> None:
-    custom_path = tmp_path / 'test_custom_cache'
-    http_client = HTTPClient(enable_cache=True, cache_path=custom_path)
+    cache_path = tmp_path / 'test_custom_cache'
+    http_client = HTTPClient(enable_cache=True, cache_path=cache_path)
 
     try:
         await http_client.start()
 
-        assert (custom_path / '.gitignore').exists(), 'Cache .gitignore file should exist'
-        assert (custom_path / 'aiohttp-requests.db').exists(), 'Cache database should exist after initialization'
+        assert (cache_path / '.gitignore').exists(), 'Cache .gitignore file should exist'
+        assert (cache_path / 'aiohttp-requests.db').exists(), 'Cache database should exist after initialization'
 
     finally:
         await http_client.close()
