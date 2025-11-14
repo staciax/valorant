@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from pathlib import Path
 from typing import Final
 
@@ -77,9 +78,4 @@ def remove_cache_folder(cache_path: str | Path) -> None:
         cache_path = Path(cache_path)
 
     if cache_path.exists() and cache_path.is_dir():
-        for item in cache_path.iterdir():
-            if item.is_file():
-                item.unlink()
-            elif item.is_dir():
-                remove_cache_folder(item)
-        cache_path.rmdir()
+        shutil.rmtree(cache_path)
