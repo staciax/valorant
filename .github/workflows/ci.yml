@@ -47,7 +47,7 @@ jobs:
         run: uv run make sync
 
       - name: Run typecheck
-        run: make mypy
+        run: uv run make mypy
 
   tests:
     runs-on: ubuntu-latest
