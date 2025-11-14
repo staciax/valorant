@@ -35,7 +35,7 @@ async def test_cache(enable_cache: bool) -> None:
 @pytest.mark.skipif(not IS_CACHE_ENABLED, reason='aiohttp-client-cache not available')
 async def test_custom_cache_path(tmp_path: Path) -> None:
     custom_path = tmp_path / 'test_custom_cache'
-    http_client = HTTPClient(enable_cache=True, cache_path=str(custom_path))
+    http_client = HTTPClient(enable_cache=True, cache_path=custom_path)
 
     try:
         await http_client.start()
