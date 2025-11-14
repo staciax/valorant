@@ -33,6 +33,7 @@ __all__ = (
     'Callout',
     'Location',
     'Map',
+    'Rotation',
 )
 
 
