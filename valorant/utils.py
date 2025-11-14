@@ -34,14 +34,14 @@ def create_cache_folder(cache_path: str | Path = DEFAULT_CACHE_PATH) -> Path:
     Path
         The created cache folder path
     """
-    cache_dir = Path(cache_path)
+    if isinstance(cache_path, str):
+        cache_path = Path(cache_path)
 
-    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_path.mkdir(parents=True, exist_ok=True)
 
-    gitignore_path = cache_dir / '.gitignore'
+    gitignore_path = cache_path / '.gitignore'
     if not gitignore_path.exists():
         gitignore_content = '# Ignore all files in this cache directory\n*'
-
         gitignore_path.write_text(gitignore_content + '\n')
 
-    return cache_dir
+    return cache_path
