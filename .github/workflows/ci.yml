@@ -26,7 +26,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Lint with python
         run: uv run make lint
@@ -44,7 +44,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Run typecheck
         run: make mypy
@@ -70,7 +70,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Test with python ${{ matrix.python-version }}
         run: uv run make tests
