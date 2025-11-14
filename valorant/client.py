@@ -59,6 +59,7 @@ __all__ = (
 # fmt: on
 
 if TYPE_CHECKING:
+    from pathlib import Path
     from types import TracebackType
     from typing import TypeAlias
 
@@ -73,14 +74,61 @@ _log = logging.getLogger(__name__)
 
 
 class Client:
+    # @overload
+    # def __init__(
+    #     self,
+    #     language: LanguageOption | None = None,
+    #     *,
+    #     session: ClientSession | None = None,
+    #     # cache options
+    #     enable_cache: Literal[False] = False,
+    # ) -> None: ...
+
+    # @overload
+    # def __init__(
+    #     self,
+    #     language: LanguageOption | None = None,
+    #     *,
+    #     session: ClientSession | None = None,
+    #     # cache options
+    #     enable_cache: Literal[True] = True,
+    #     cache_path: str | Path | None = None,
+    #     cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
+    # ) -> None: ...
+
     def __init__(
         self,
         language: LanguageOption | None = None,
         *,
         session: ClientSession | None = None,
+        # cache options
+        enable_cache: bool = True,
+        cache_path: str | Path | None = None,
+        cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
     ) -> None:
+        """
+        Initialize the Client.
+
+        Parameters
+        ----------
+        language : LanguageOption | None
+            Default language for API requests.
+        session : ClientSession | None
+            Optional custom aiohttp session. If provided, cache settings are ignored.
+        enable_cache : bool
+            Whether to enable HTTP response caching. Defaults to True.
+        cache_path : str | Path | None
+            Path to the cache folder. Defaults to './.valorant_cache'. If None, uses the default cache path.
+        cache_ttl : int
+            Cache expiration time in seconds. Defaults to 86400 (24 hours).
+        """
         self.language = language
-        self.http = HTTPClient(session)
+        self.http = HTTPClient(
+            session,
+            enable_cache=enable_cache,
+            cache_path=cache_path,
+            cache_ttl=cache_ttl,
+        )
         self._closed: bool = False
 
     async def __aenter__(self) -> Self:

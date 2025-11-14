@@ -26,7 +26,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Lint with python
         run: uv run make lint
@@ -44,18 +44,18 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Run typecheck
-        run: make mypy
+        run: uv run make mypy
 
   tests:
     runs-on: ubuntu-latest
     # needs: [lint, typecheck] # only run tests if lint and typecheck pass
     strategy:
       matrix:
-        python-version: ["3.10", "3.14", "3.14t"]
-        # 3.13t
+        python-version: ["3.10", "3.14"] 
+        # 3.14t
 
     name: Tests for Python ${{ matrix.python-version }}
     steps:
@@ -70,7 +70,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv sync
+        run: uv run make sync
 
       - name: Test with python ${{ matrix.python-version }}
         run: uv run make tests

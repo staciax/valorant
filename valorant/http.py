@@ -31,12 +31,15 @@ from typing import TYPE_CHECKING, Any, ClassVar, TypeAlias, TypeVar
 from urllib.parse import quote as _uriquote
 
 import aiohttp
+from aiohttp_client_cache.backends.sqlite import SQLiteBackend
+from aiohttp_client_cache.session import CachedSession
 
 from . import __version__, utils
 from .errors import HTTPException, NotFound
 
 if TYPE_CHECKING:
     from collections.abc import Coroutine
+    from pathlib import Path
 
     T = TypeVar('T')
     Response: TypeAlias = Coroutine[Any, Any, T]
@@ -71,21 +74,65 @@ class Route:
 
 
 class HTTPClient:
-    def __init__(self, session: aiohttp.ClientSession | None = None) -> None:
+    def __init__(
+        self,
+        session: aiohttp.ClientSession | None = None,
+        *,
+        enable_cache: bool = True,
+        cache_path: str | Path | None = None,
+        cache_ttl: int = 60 * 60 * 24,  # 24 hours in seconds
+    ) -> None:
+        """
+        Initialize the HTTPClient.
+
+        Parameters
+        ----------
+        session : aiohttp.ClientSession | None
+            Optional custom session to use. If provided, cache settings are ignored.
+        enable_cache : bool
+            Whether to enable HTTP response caching. Defaults to True.
+            Requires aiohttp-client-cache to be installed.
+        cache_path : str | Path | None
+            Path to the cache folder. Defaults to './.valorant_cache'. If None, uses the default cache path.
+        cache_ttl : int
+            Time-to-live for cached responses in seconds. Defaults to 24 hours (86400 seconds).
+        """
         self._session: aiohttp.ClientSession | None = session
         user_agent = 'valorantx (https://github.com/staciax/valorant {0}) Python/{1[0]}.{1[1]} aiohttp/{2}'
         self.user_agent: str = user_agent.format(__version__, sys.version_info, aiohttp.__version__)
 
+        self._enable_cache = enable_cache
+        self._cache_path = cache_path
+        self._cache_ttl = cache_ttl
+
     async def start(self) -> None:
         if self._session is None:
-            self._session = aiohttp.ClientSession()
+            if self._enable_cache:
+                cache_path = self._cache_path or utils.get_default_cache_path()
+                cache_dir = utils.create_cache_folder(cache_path)
+                cache_name = cache_dir / 'aiohttp-cache.db'
+
+                self._session = CachedSession(
+                    cache=SQLiteBackend(
+                        cache_name=str(cache_name),
+                        expire_after=self._cache_ttl,
+                        allowed_codes=(200, 404),
+                        cache_control=True,
+                    ),
+                )
+            else:
+                self._session = aiohttp.ClientSession()
 
     async def request(self, route: Route, **kwargs: Any) -> Any:
         assert self._session is not None, 'Session is not initialized'
 
         method = route.method
         url = route.url
-        kwargs['headers'] = {'User-Agent': self.user_agent}
+
+        # create headers
+        headers = kwargs.get('headers', {})
+        headers['User-Agent'] = self.user_agent
+        kwargs['headers'] = headers
 
         async with self._session.request(method, url, **kwargs) as response:
             _log.debug('%s %s with returned %s', method, url, response.status)
@@ -495,4 +542,4 @@ class HTTPClient:
     # version
 
     def get_version(self) -> Response[Any]:
-        return self.request(Route('GET', '/version'))
+        return self.request(Route('GET', '/version'), headers={'Cache-Control': 'no-store'})

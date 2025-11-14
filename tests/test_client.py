@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 @pytest.mark.anyio
 async def test_client_start_close() -> None:
-    client = Client()
+    client = Client(enable_cache=False)
     assert client.is_closed() is False
 
     await client.start()
@@ -28,7 +28,7 @@ async def test_client_start_close() -> None:
 
 @pytest.mark.anyio
 async def test_client_clear() -> None:
-    client = Client()
+    client = Client(enable_cache=False)
     await client.start()
     await client.close()
 
@@ -43,7 +43,7 @@ async def test_client_clear() -> None:
 
 @pytest.mark.anyio
 async def test_client_double_close() -> None:
-    client = Client()
+    client = Client(enable_cache=False)
     await client.start()
 
     await client.close()
@@ -55,7 +55,7 @@ async def test_client_double_close() -> None:
 
 @pytest.mark.anyio
 async def test_client_context_manager() -> None:
-    async with Client() as client:
+    async with Client(enable_cache=False) as client:
         assert client.is_closed() is False
         assert client.http._session is not None
         assert not client.http._session.closed

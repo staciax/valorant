@@ -8,7 +8,7 @@ from valorant.http import HTTPClient
 
 @pytest.mark.anyio
 async def test_http_client_start_close() -> None:
-    http_client = HTTPClient()
+    http_client = HTTPClient(enable_cache=False)
     assert http_client._session is None
 
     await http_client.start()
@@ -22,7 +22,7 @@ async def test_http_client_start_close() -> None:
 
 @pytest.mark.anyio
 async def test_http_client_clear() -> None:
-    http_client = HTTPClient()
+    http_client = HTTPClient(enable_cache=False)
     await http_client.start()
     await http_client.close()
 
@@ -35,7 +35,7 @@ async def test_http_client_clear() -> None:
 
 @pytest.mark.anyio
 async def test_http_client_clear_with_open_session() -> None:
-    http_client = HTTPClient()
+    http_client = HTTPClient(enable_cache=False)
     await http_client.start()
 
     assert http_client._session is not None
@@ -50,7 +50,7 @@ async def test_http_client_clear_with_open_session() -> None:
 @pytest.mark.anyio
 async def test_http_client_with_custom_session() -> None:
     custom_session = aiohttp.ClientSession()
-    http_client = HTTPClient(session=custom_session)
+    http_client = HTTPClient(session=custom_session, enable_cache=False)
 
     assert http_client._session is custom_session
 

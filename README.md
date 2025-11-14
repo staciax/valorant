@@ -7,7 +7,7 @@ An API wrapper for [Valorant API](https://valorant-api.com) written in Python.
 - [Pydantic V2](https://docs.pydantic.dev/latest/) models.
 - Supports Python 3.10+.
 - Supports all languages.
-<!-- TODO: supports caching -->
+- Caching support with SQLite backend (enabled by default).
 <!-- - Modern Pythonic API using `async` and  `await`. -->
 
 ## Installing
@@ -19,7 +19,18 @@ uv add valorant.py
 # pip
 pip install valorant.py
 ```
- 
+
+### Optional Dependencies
+
+**Speed** - Faster JSON parsing with `msgspec`:
+```
+uv add "valorant.py[speed]"
+```
+
+> [!WARNING]  
+> `msgspec` does not currently support Python 3.14 and 3.14t. See [issue #171](https://github.com/jcrist/msgspec/issues/926).
+
+
 ## Quick Example
 ```py
 import asyncio
