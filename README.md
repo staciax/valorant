@@ -27,15 +27,9 @@ pip install valorant.py
 uv add "valorant.py[speed]"
 ```
 
-**Cache** - HTTP response caching with SQLite:
-```
-uv add "valorant.py[cache]"
-```
+> [!WARNING]  
+> `msgspec` does not currently support Python 3.14 and 3.14t. See [issue #171](https://github.com/plugboard-dev/plugboard/issues/171).
 
-**All** - Install all optional features:
-```
-uv add "valorant.py[all]"
-```
 
 ## Quick Example
 ```py
