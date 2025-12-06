@@ -96,7 +96,7 @@ class Agent(BaseUUIDModel):
     abilities: list[Ability]
     voice_line: Any = Field(alias='voiceLine')
 
-    # NOTE: add in patch 11.x (maybe)
+    # NOTE: added in patch 11.x (maybe)
     minimap_portrait: str | None = Field(alias='minimapPortrait')
     home_screen_promo_tile_image: str | None = Field(alias='homeScreenPromoTileImage')
 

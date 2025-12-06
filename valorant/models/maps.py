@@ -54,7 +54,7 @@ class Callout(BaseModel):
     super_region_name: str | LocalizedField = Field(alias='superRegionName')
     location: Location
 
-    # NOTE: add in patch 11.x (maybe)
+    # NOTE: added in patch 11.x (maybe)
     super_region: str = Field(alias='superRegion')
     scale_3d: Location | None = Field(alias='scale3D')
     rotation: Rotation | None
