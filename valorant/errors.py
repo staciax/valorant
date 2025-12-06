@@ -44,7 +44,7 @@ class ValorantError(Exception):
 class HTTPException(ValorantError):
     """Exception that's raised when an HTTP request operation fails.
 
-    Attributes
+    Attributes:
     ----------
     response: :class:`aiohttp.ClientResponse`
         The response of the failed HTTP request. This is an
