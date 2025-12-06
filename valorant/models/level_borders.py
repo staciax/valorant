@@ -37,3 +37,5 @@ class LevelBorder(BaseUUIDModel):
     level_number_appearance: str = Field(alias='levelNumberAppearance')
     small_player_card_appearance: str = Field(alias='smallPlayerCardAppearance')
     asset_path: str = Field(alias='assetPath')
+    # NOTE: added in patch 11.11
+    level_number: int = Field(alias='levelNumber')
