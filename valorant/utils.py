@@ -47,7 +47,7 @@ def create_cache_folder(cache_path: str | Path) -> Path:
     cache_path : str | Path
         Path to the cache folder.
 
-    Returns
+    Returns:
     -------
     Path
         The created cache folder path
