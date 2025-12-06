@@ -132,6 +132,7 @@ ignore = [
   "S101",   # assert, handled by pytest
   "SIM117", # multiple-with-statements
 
+  "D212", # multi-line-summary-first-line
   "D100", # undocumented-public-module
   "D101", # undocumented-public-class
   "D102", # undocumented-public-method
