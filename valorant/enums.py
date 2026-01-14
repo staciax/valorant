@@ -101,6 +101,7 @@ class GameRule(StrEnum):
     skip_pregame = 'EGameRuleBoolName::SkipPregame'
     use_all_ability_cooldowns = 'EGameRuleBoolName::UseAllAbilityCooldowns'
     use_in_dev_weapons = 'EGameRuleBoolName::UseInDevWeapons'
+    allow_unowned_agents = 'EGameRuleBoolName::AllowUnownedAgents'
 
     # NOTE: added in patch 11.x (maybe)
     skip_ultimate_ability_ready_vo = 'EGameRuleBoolName::SkipUltimateAbilityReadyVO'
