@@ -3,7 +3,7 @@ name = "valorant.py"
 description = "An API wrapper for Valorant API written in Python."
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{ name = "STACiA", email = "stacia.dev@gmail.com" }]
+authors = [{ name = "STACiA", email = "hi@stacia.me" }]
 classifiers = [
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
