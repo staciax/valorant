@@ -40,6 +40,7 @@ class Bundle(BaseUUIDModel):
     use_additional_context: bool = Field(alias='useAdditionalContext')
     display_icon: str = Field(alias='displayIcon')
     display_icon2: str = Field(alias='displayIcon2')
+    display_icon3: str | None = Field(alias='displayIcon3')
     logo_icon: str | None = Field(alias='logoIcon')
     vertical_promo_image: str | None = Field(alias='verticalPromoImage')
     asset_path: str = Field(alias='assetPath')
