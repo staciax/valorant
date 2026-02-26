@@ -25,9 +25,9 @@ classifiers = [
 ]
 dependencies = [
   "aiohttp>=3.11, <4.0",
-  "pydantic>2.0, <3.0",
+  "pydantic>2.7.0, <3.0",
   "aiohttp-client-cache[sqlite]>=0.14.2, <1.0",
-  "pydantic-extra-types>=2.10.6, <3.0",
+  "pydantic-extra-types>=2.7.0, <3.0",
 ]
 dynamic = ["version"]
 
