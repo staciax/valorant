@@ -55,6 +55,7 @@ class GameMode(BaseUUIDModel):
     duration: str | LocalizedField | None
     economy_type: str | None = Field(alias='economyType')
     allows_match_timeouts: bool = Field(alias='allowsMatchTimeouts')
+    allows_custom_game_replays: bool = Field(alias='allowsCustomGameReplays')
     is_team_voice_allowed: bool = Field(alias='isTeamVoiceAllowed')
     is_minimap_hidden: bool = Field(alias='isMinimapHidden')
     orb_count: int = Field(alias='orbCount')
